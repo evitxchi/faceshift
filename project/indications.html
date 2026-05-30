@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceShift · Indications</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+
+    html { background: var(--navy-900); }
+    body {
+      background: var(--navy-900);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .boxes-section { flex: 1; }
+
+    /* ---- Nav --------------------------------------------------------------- */
+    .nav {
+      background: rgba(11,23,53,0.75);
+      border-bottom-color: rgba(255,255,255,0.06);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+    .brand { color: #fff; }
+    .nav-links a { color: rgba(255,255,255,0.48); }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a.active { font-weight: 500; }
+    .nav-cta { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16); box-shadow: none; }
+    .nav-cta:hover { background: rgba(255,255,255,0.15); box-shadow: none; }
+
+    /* ---- Module head overrides -------------------------------------------- */
+    .module-head .kicker { color: var(--teal-400); }
+    .module-head .title  { color: #fff; }
+    .module-head .lede   { color: rgba(255,255,255,0.55); }
+    .module-head { border-bottom-color: rgba(255,255,255,0.07); }
+
+    /* ---- Footer ------------------------------------------------------------ */
+    footer {
+      border-top-color: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.28);
+      margin-top: 0;
+    }
+
+    /* ---- Animated boxes hero ----------------------------------------------- */
+
+    .boxes-section {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy-900);
+    }
+
+    .boxes-grid-wrap {
+      position: absolute;
+      left: 25%;
+      top: -25%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      z-index: 0;
+      padding: 16px;
+      transform: translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) translateZ(0);
+    }
+
+    .boxes-col {
+      width: 64px;
+      flex-shrink: 0;
+      border-left: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .boxes-cell {
+      width: 64px;
+      height: 32px;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      transition: background-color 0s;
+    }
+
+    .boxes-cell:hover { background-color: var(--cell-color); }
+
+    .boxes-plus {
+      position: absolute;
+      width: 40px;
+      height: 24px;
+      top: -14px;
+      left: -22px;
+      color: rgba(255,255,255,0.05);
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .boxes-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(ellipse at center, transparent 30%, var(--navy-900) 68%);
+      pointer-events: none;
+    }
+
+    .boxes-content {
+      position: relative;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .boxes-content * { pointer-events: auto; }
+
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark" aria-hidden="true"></div>
+      FaceShift
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Platform</a>
+      <a href="indications.html" class="active">Indications</a>
+      <a href="science.html">Science</a>
+      <a href="about.html">About</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Work With Us</a>
+  </div>
+</nav>
+
+<div class="boxes-section">
+  <div class="boxes-grid-wrap" id="ind-boxes"></div>
+  <div class="boxes-overlay"></div>
+  <section class="module boxes-content">
+    <div class="module-head">
+      <div>
+        <p class="kicker">§ Indications</p>
+        <h2 class="title">Where early molding works.</h2>
+      </div>
+      <p class="lede">Initially developed for ear deformities like lop and prominent ear, FaceShift extends to nasoalveolar molding for cleft lip and palate, jaw alignment, and other craniofacial differences. All indications fall within the soft-tissue window of the first weeks of life.</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span>© 2026 FaceShift Bio, Inc.</span>
+  <span class="mono">v0.4.2 · indications</span>
+</footer>
+
+<script>
+(function () {
+  var COLORS = [
+    'rgba(43,182,194,0.55)',
+    'rgba(14,154,167,0.5)',
+    'rgba(55,86,168,0.5)',
+    'rgba(28,50,112,0.55)',
+    'rgba(43,182,194,0.35)',
+    'rgba(55,86,168,0.35)',
+    'rgba(125,211,252,0.35)',
+    'rgba(147,197,253,0.35)',
+  ];
+
+  var COLS = 100, ROWS = 40;
+  var wrap = document.getElementById('ind-boxes');
+  if (!wrap) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+
+  for (var c = 0; c < COLS; c++) {
+    var col = document.createElement('div');
+    col.className = 'boxes-col';
+    for (var r = 0; r < ROWS; r++) {
+      var cell = document.createElement('div');
+      cell.className = 'boxes-cell';
+      cell.style.setProperty('--cell-color', COLORS[Math.floor(Math.random() * COLORS.length)]);
+
+      if (c % 2 === 0 && r % 2 === 0) {
+        var svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '1.5');
+        svg.classList.add('boxes-plus');
+        var path = document.createElementNS(NS, 'path');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        path.setAttribute('d', 'M12 6v12m6-6H6');
+        svg.appendChild(path);
+        cell.appendChild(svg);
+      }
+      col.appendChild(cell);
+    }
+    wrap.appendChild(col);
+  }
+}());
+</script>
+
+</body>
+</html>

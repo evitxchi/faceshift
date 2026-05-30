@@ -1,0 +1,184 @@
+/* FaceShift, shared design tokens & components */
+
+:root {
+  --navy-900: #0b1735;
+  --navy-800: #11214a;
+  --navy-700: #1c3270;
+  --navy-500: #3756a8;
+  --teal-500: #0e9aa7;
+  --teal-400: #2bb6c2;
+  --bg: #f4f6fb;
+  --bg-soft: #ecf0f9;
+  --bg-card: #ffffff;
+  --ink: #0b1735;
+  --ink-muted: #5a6685;
+  --rule: rgba(11, 23, 53, 0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body { overflow-x: hidden; }
+
+.mono { font-family: 'Inter Tight', sans-serif; }
+
+/* ---- Nav ---------------------------------------------------------------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(244, 246, 251, 0.78);
+  border-bottom: 1px solid rgba(11, 23, 53, 0.06);
+}
+
+.nav-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 15px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--navy-900);
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #fff 0 8%, transparent 9%),
+    conic-gradient(from 220deg, var(--teal-400), var(--navy-700), var(--teal-500));
+  box-shadow:
+    0 0 0 2.5px rgba(43,182,194,0.18),
+    0 2px 8px rgba(11, 23, 53, 0.28);
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+}
+
+.nav-links a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s;
+  letter-spacing: -0.005em;
+}
+
+.nav-links a:hover { color: var(--navy-900); }
+.nav-links a.active { color: var(--navy-900); font-weight: 500; }
+
+.nav-cta {
+  background: var(--navy-900);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(11, 23, 53, 0.3);
+}
+
+.nav-cta:hover {
+  background: var(--navy-700);
+  box-shadow: 0 4px 12px rgba(11, 23, 53, 0.32);
+}
+
+/* ---- Generic section module --------------------------------------------- */
+
+section.module {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 112px 32px 48px;
+  scroll-margin-top: 80px;
+}
+
+.module-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 72px;
+  align-items: end;
+  padding-bottom: 56px;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.module-head .kicker {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  color: var(--teal-500);
+  text-transform: uppercase;
+  margin: 0 0 16px;
+}
+
+.module-head .title {
+  font-size: clamp(38px, 4.4vw, 60px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  margin: 0;
+  color: var(--navy-900);
+  text-wrap: balance;
+}
+
+.module-head .lede {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  margin: 0;
+  max-width: 540px;
+  text-wrap: pretty;
+}
+
+/* ---- Footer ------------------------------------------------------------- */
+
+footer {
+  max-width: 1240px;
+  margin: 80px auto 0;
+  padding: 24px 32px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--ink-muted);
+  font-size: 12.5px;
+  border-top: 1px solid var(--rule);
+}
+
+/* ---- Responsive --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-inner { padding: 14px 20px; }
+  .module-head { grid-template-columns: 1fr; gap: 20px; border-bottom: none; padding-bottom: 32px; }
+  section.module { padding: 80px 20px 32px; }
+  footer { padding: 20px 20px 28px; margin-top: 40px; }
+}

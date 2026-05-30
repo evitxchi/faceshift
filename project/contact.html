@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceShift · Work With Us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+
+    /* ---- Page wrapper --------------------------------------------------- */
+
+    .contact-page {
+      position: relative;
+      min-height: 100vh;
+      background: var(--bg-soft);
+      overflow: hidden;
+    }
+
+    /* Radial glow, ported from component's inline style */
+    .contact-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      width: 80%;
+      height: 100%;
+      background: radial-gradient(circle at center, #1c3270 0%, transparent 65%);
+      opacity: 0.12;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 96px 32px 80px;
+    }
+
+    /* ---- Heading block -------------------------------------------------- */
+
+    .contact-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+
+    .contact-head h2 {
+      font-size: clamp(40px, 5.5vw, 72px);
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+      font-weight: 600;
+      color: var(--navy-900);
+      margin: 0 0 20px;
+      text-wrap: balance;
+    }
+
+    .contact-head h2 .highlight {
+      display: inline-block;
+      border: 1px dashed var(--teal-500);
+      padding: 2px 12px;
+      border-radius: 10px;
+      background: rgba(14, 154, 167, 0.07);
+      color: var(--navy-900);
+    }
+
+    .contact-head p {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--ink-muted);
+      margin: 0;
+      text-wrap: pretty;
+    }
+
+    /* ---- Scroll reveal -------------------------------------------------- */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(6px);
+      transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    /* ---- Toggle switch -------------------------------------------------- */
+
+    .toggle-wrap-outer {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .toggle-wrap {
+      position: relative;
+      display: inline-flex;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 4px;
+      box-shadow: 0 2px 8px rgba(11,23,53,0.06);
+    }
+
+    .toggle-indicator {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      border-radius: 999px;
+      background: linear-gradient(160deg, var(--navy-700), var(--navy-900));
+      box-shadow: 0 2px 8px rgba(11,23,53,0.35);
+      transition: transform 0.38s cubic-bezier(0.34, 1.4, 0.64, 1),
+                  width 0.38s cubic-bezier(0.34, 1.4, 0.64, 1);
+      z-index: 0;
+      left: 4px;
+    }
+
+    .toggle-btn {
+      position: relative;
+      z-index: 1;
+      padding: 10px 28px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--ink-muted);
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .toggle-btn.active { color: #fff; }
+
+    /* ---- Cards grid ----------------------------------------------------- */
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .plan-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.35s;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(11,23,53,0.1);
+    }
+
+    .plan-card.popular {
+      border-color: var(--navy-700);
+      box-shadow: 0 0 0 2px var(--navy-700);
+    }
+
+    .card-header {
+      padding: 32px 28px 24px;
+    }
+
+    .card-name-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .card-name {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--navy-900);
+      margin: 0;
+    }
+
+    .popular-badge {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--navy-900);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--ink-muted);
+      margin: 0 0 24px;
+    }
+
+    .card-cta {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .card-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .cta-outline {
+      background: linear-gradient(160deg, #1c3270, #0b1735);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(11,23,53,0.3);
+    }
+
+    .cta-popular {
+      background: linear-gradient(160deg, var(--teal-500), var(--navy-700));
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(14,154,167,0.35);
+    }
+
+    /* ---- Card body ------------------------------------------------------ */
+
+    .card-body {
+      padding: 0 28px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .features-list {
+      list-style: none;
+      padding: 20px 0;
+      margin: 0;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      color: var(--ink-muted);
+    }
+
+    .feat-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--bg-soft);
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--navy-700);
+    }
+
+    .plan-card.popular .feat-icon {
+      background: rgba(14,154,167,0.08);
+      border-color: rgba(14,154,167,0.2);
+      color: var(--teal-500);
+    }
+
+    .includes-block {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .includes-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy-900);
+      margin: 0 0 12px;
+    }
+
+    .includes-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .includes-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(14,154,167,0.1);
+      border: 1px solid rgba(14,154,167,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--teal-500);
+    }
+
+    /* ---- Bottom CTA ----------------------------------------------------- */
+
+    .contact-footer-cta {
+      margin-top: 64px;
+      text-align: center;
+    }
+
+    .contact-footer-cta p {
+      font-size: 16px;
+      color: var(--ink-muted);
+      margin: 0 0 16px;
+    }
+
+    .contact-footer-cta a {
+      color: var(--teal-500);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .contact-footer-cta a:hover { text-decoration: underline; }
+
+    /* ---- Responsive ----------------------------------------------------- */
+
+    @media (max-width: 960px) {
+      .cards-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .contact-inner { padding: 72px 20px 60px; }
+    }
+
+    @media (max-width: 600px) {
+      .toggle-btn { padding: 10px 18px; font-size: 13px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark" aria-hidden="true"></div>
+      FaceShift
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Platform</a>
+      <a href="indications.html">Indications</a>
+      <a href="science.html">Science</a>
+      <a href="about.html">About</a>
+    </div>
+    <a href="contact.html" class="nav-cta active-cta">Work With Us</a>
+  </div>
+</nav>
+
+<div class="contact-page">
+  <div class="contact-inner">
+
+    <!-- Heading -->
+    <div class="contact-head">
+      <h2 class="reveal">
+        Engagement that works best for your
+        <span class="highlight">practice</span>
+      </h2>
+      <p class="reveal" style="transition-delay: 0.15s;">
+        FaceShift is building its clinical and research network. Whether you treat patients, conduct research, or invest in medical innovation, there is a path to work with us.
+      </p>
+    </div>
+
+    <!-- Toggle -->
+    <div class="toggle-wrap-outer reveal" style="transition-delay: 0.28s;">
+      <div class="toggle-wrap" id="toggle-wrap">
+        <div class="toggle-indicator" id="toggle-indicator"></div>
+        <button class="toggle-btn active" id="btn-clinical" data-mode="clinical">
+          Clinicians &amp; Researchers
+        </button>
+        <button class="toggle-btn" id="btn-partner" data-mode="partner">
+          Investors &amp; Partners
+        </button>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards-grid" id="cards-grid"></div>
+
+    <!-- Footer CTA -->
+    <div class="contact-footer-cta reveal" style="transition-delay: 0.9s;">
+      <p>Not sure which path fits? Reach out directly.</p>
+      <a href="mailto:faceshift@ucsfbenioffoakland.org">faceshift@ucsfbenioffoakland.org</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 FaceShift Bio, Inc.</span>
+  <span class="mono">v0.4.2 · work-with-us</span>
+</footer>
+
+<script>
+(function () {
+
+  // ---- Data -----------------------------------------------------------
+
+  var ICONS = {
+    hospital: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v4m0 0v4m0-4h4m-4 0H8"/><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 2H8v4h8V2z"/></svg>',
+    users:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    monitor:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+    network:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4m0 0-5.5 6M12 11l5.5 6"/></svg>',
+    chart:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>',
+    building: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M9 21V7l6-4v18"/><path d="M3 21V10l6-3"/><path d="M9 3v4"/><path d="M13 9h2M13 13h2M13 17h2"/></svg>',
+    plug:     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8H6l1 8a5 5 0 0 0 10 0Z"/></svg>',
+    database: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>',
+    file:     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>',
+    book:     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    micro:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h12M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M19 10a7 7 0 0 1-14 0"/></svg>',
+    shield:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    award:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>',
+    trending: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+    percent:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>',
+    eye:      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+    check:    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  };
+
+  var PLANS = {
+    clinical: [
+      {
+        name: 'Pilot Site',
+        description: 'Join our founding clinical cohort at no cost. Limited to three sites nationwide.',
+        popular: false,
+        cta: 'Apply for pilot',
+        ctaClass: 'cta-outline',
+        features: [
+          { icon: 'hospital', text: 'Single clinical site' },
+          { icon: 'users',   text: 'Initial cohort up to 10 patients' },
+          { icon: 'monitor', text: 'Full platform access' },
+        ],
+        includesLabel: 'Pilot includes:',
+        includes: ['Onboarding and training', 'Real-time clinical support', 'Outcome data dashboard'],
+      },
+      {
+        name: 'Clinical Network',
+        description: 'Multi-site coordination with expanded enrollment and co-authorship opportunities.',
+        popular: true,
+        badge: 'Most common',
+        cta: 'Become a partner',
+        ctaClass: 'cta-popular',
+        features: [
+          { icon: 'network', text: 'Multi-site coordination' },
+          { icon: 'users',   text: 'Expanded patient enrollment' },
+          { icon: 'chart',   text: 'Personalized correction reports' },
+        ],
+        includesLabel: 'Everything in Pilot, plus:',
+        includes: ['Co-authorship rights', 'Custom aligner protocols', 'Dedicated clinical liaison'],
+      },
+      {
+        name: 'Health System',
+        description: 'System-wide deployment with full EHR integration and executive advisory access.',
+        popular: false,
+        cta: 'Contact us',
+        ctaClass: 'cta-outline',
+        features: [
+          { icon: 'building', text: 'Unlimited clinical sites' },
+          { icon: 'users',    text: 'Unlimited patient enrollment' },
+          { icon: 'plug',     text: 'Custom EHR integration' },
+        ],
+        includesLabel: 'Everything in Network, plus:',
+        includes: ['White-label option', 'Executive advisory seat', 'Dedicated implementation team'],
+      },
+    ],
+    partner: [
+      {
+        name: 'Research Collaborator',
+        description: 'Access de-identified datasets and IRB support for approved academic research.',
+        popular: false,
+        cta: 'Apply for access',
+        ctaClass: 'cta-outline',
+        features: [
+          { icon: 'database', text: 'De-identified dataset access' },
+          { icon: 'file',     text: 'IRB application support' },
+          { icon: 'book',     text: 'Publication pathway' },
+        ],
+        includesLabel: 'Collaboration includes:',
+        includes: ['Anonymized scan library', 'Outcome benchmarks', 'Co-authorship consideration'],
+      },
+      {
+        name: 'Co-Investigator',
+        description: 'Joint study design, shared IP framework, and grant co-application support.',
+        popular: true,
+        badge: 'Most common',
+        cta: 'Start a conversation',
+        ctaClass: 'cta-popular',
+        features: [
+          { icon: 'micro',  text: 'Joint study design' },
+          { icon: 'shield', text: 'Shared IP framework' },
+          { icon: 'award',  text: 'Grant co-application' },
+        ],
+        includesLabel: 'Everything in Collaborator, plus:',
+        includes: ['Named investigator credit', 'Protocol co-development', 'Preferred licensing terms'],
+      },
+      {
+        name: 'Strategic Partner',
+        description: 'Commercial licensing, equity pathway, and board observer access.',
+        popular: false,
+        cta: 'Contact us',
+        ctaClass: 'cta-outline',
+        features: [
+          { icon: 'trending', text: 'Commercial licensing rights' },
+          { icon: 'percent',  text: 'Equity pathway' },
+          { icon: 'eye',      text: 'Board observer seat' },
+        ],
+        includesLabel: 'Everything in Co-Investigator, plus:',
+        includes: ['Pro-rata follow-on rights', 'Executive briefings', 'First-look on new indications'],
+      },
+    ],
+  };
+
+  // ---- Render cards ---------------------------------------------------
+
+  var grid   = document.getElementById('cards-grid');
+  var mode   = 'clinical';
+
+  function buildCard(plan, delay) {
+    var popularClass = plan.popular ? ' popular' : '';
+    var badge = plan.badge
+      ? '<span class="popular-badge">' + plan.badge + '</span>'
+      : '';
+
+    var feats = plan.features.map(function (f) {
+      return '<li><span class="feat-icon">' + ICONS[f.icon] + '</span>' + f.text + '</li>';
+    }).join('');
+
+    var incl = plan.includes.map(function (t) {
+      return '<li><span class="check-icon">' + ICONS.check + '</span>' + t + '</li>';
+    }).join('');
+
+    var emailHref = 'mailto:faceshift@ucsfbenioffoakland.org?subject=' +
+      encodeURIComponent('FaceShift: ' + plan.name + ' inquiry');
+
+    return '<div class="plan-card reveal' + popularClass + '" style="transition-delay:' + delay + 's">' +
+      '<div class="card-header">' +
+        '<div class="card-name-row"><h3 class="card-name">' + plan.name + '</h3>' + badge + '</div>' +
+        '<p class="card-desc">' + plan.description + '</p>' +
+        '<a href="' + emailHref + '" class="card-cta ' + plan.ctaClass + '">' + plan.cta + '</a>' +
+      '</div>' +
+      '<div class="card-body">' +
+        '<ul class="features-list">' + feats + '</ul>' +
+        '<div class="includes-block">' +
+          '<p class="includes-label">' + plan.includesLabel + '</p>' +
+          '<ul class="includes-list">' + incl + '</ul>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderCards(newMode) {
+    mode = newMode;
+    var delays = [0.42, 0.56, 0.70];
+    grid.innerHTML = PLANS[mode].map(function (plan, i) {
+      return buildCard(plan, delays[i]);
+    }).join('');
+    // Trigger reveal after paint
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        grid.querySelectorAll('.reveal').forEach(function (el) {
+          el.classList.add('visible');
+        });
+      });
+    });
+  }
+
+  // ---- Toggle ---------------------------------------------------------
+
+  var btnClinical  = document.getElementById('btn-clinical');
+  var btnPartner   = document.getElementById('btn-partner');
+  var indicator    = document.getElementById('toggle-indicator');
+
+  function positionIndicator(btn) {
+    indicator.style.left   = btn.offsetLeft + 'px';
+    indicator.style.width  = btn.offsetWidth + 'px';
+  }
+
+  function switchMode(newMode, activeBtn, inactiveBtn) {
+    activeBtn.classList.add('active');
+    inactiveBtn.classList.remove('active');
+    positionIndicator(activeBtn);
+    renderCards(newMode);
+  }
+
+  btnClinical.addEventListener('click', function () {
+    switchMode('clinical', btnClinical, btnPartner);
+  });
+
+  btnPartner.addEventListener('click', function () {
+    switchMode('partner', btnPartner, btnClinical);
+  });
+
+  // Init indicator after fonts load
+  document.fonts.ready.then(function () {
+    positionIndicator(btnClinical);
+    window.addEventListener('resize', function () {
+      positionIndicator(mode === 'clinical' ? btnClinical : btnPartner);
+    });
+  });
+
+  // ---- Scroll reveal --------------------------------------------------
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  function observeAll() {
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      observer.observe(el);
+    });
+  }
+
+  // Initial render
+  renderCards('clinical');
+  observeAll();
+
+}());
+</script>
+
+</body>
+</html>

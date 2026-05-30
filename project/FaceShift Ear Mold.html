@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FaceShift, 3D Ear-Mold Display</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+<style>
+  :root {
+    --navy-900: #0b1735;
+    --navy-800: #11214a;
+    --navy-700: #1c3270;
+    --navy-500: #3756a8;
+    --teal-500: #0e9aa7;
+    --teal-400: #2bb6c2;
+    --bg: #f5f7fb;
+    --bg-soft: #eef2fa;
+    --bg-card: #ffffff;
+    --ink: #0b1735;
+    --ink-muted: #5a6685;
+    --rule: rgba(11, 23, 53, 0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { overflow-x: hidden; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  /* ---------- nav ----------------------------------------------------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(245, 247, 251, 0.78);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    max-width: 1240px; margin: 0 auto;
+    padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 18px; letter-spacing: -0.01em;
+    color: var(--navy-900);
+  }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, #fff 0 8%, transparent 9%),
+      conic-gradient(from 220deg, var(--teal-400), var(--navy-700), var(--teal-500));
+    box-shadow: 0 1px 2px rgba(11,23,53,.2);
+  }
+  .nav-links {
+    display: flex; gap: 28px;
+    font-size: 14px; color: var(--ink-muted);
+  }
+  .nav-links a { color: inherit; text-decoration: none; }
+  .nav-links a:hover { color: var(--navy-900); }
+  .nav-cta {
+    background: var(--navy-900); color: #fff;
+    padding: 9px 18px; border-radius: 999px;
+    font-size: 13px; font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* ---------- hero ---------------------------------------------------- */
+  .hero {
+    max-width: 1240px; margin: 0 auto;
+    padding: 120px 32px 80px;
+    text-align: center;
+  }
+  .hero-lockup {
+    display: inline-flex; align-items: center; justify-content: center; gap: 18px;
+    margin-bottom: 28px;
+  }
+  .hero-lockup .brand-mark-xl {
+    width: 64px; height: 64px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, #fff 0 8%, transparent 9%),
+      conic-gradient(from 220deg, var(--teal-400), var(--navy-700), var(--teal-500));
+    box-shadow: 0 4px 18px rgba(11,23,53,.18);
+    flex-shrink: 0;
+  }
+  .hero h1 {
+    font-size: clamp(56px, 8vw, 108px);
+    line-height: 0.92; letter-spacing: -0.04em;
+    font-weight: 600; margin: 0;
+    color: var(--navy-900);
+  }
+  .backed-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 28px;
+    padding: 9px 16px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--navy-900);
+    box-shadow: 0 2px 8px rgba(11,23,53,0.04);
+    text-decoration: none;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .backed-tag:hover {
+    border-color: var(--teal-400);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(11,23,53,0.08);
+  }
+  .backed-tag svg { color: var(--ink-muted); margin-left: 2px; }
+  .backed-tag strong { color: var(--navy-900); font-weight: 600; }
+  .backed-tag .muted { color: var(--ink-muted); }
+  .hero .tagline {
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.3; letter-spacing: -0.015em;
+    color: var(--navy-900);
+    max-width: 760px; margin: 0 auto 18px;
+    font-weight: 500;
+    text-wrap: balance;
+  }
+  .hero .tagline em {
+    font-style: normal; color: var(--teal-500);
+  }
+  .hero .sub {
+    font-size: 17px; line-height: 1.55;
+    color: var(--ink-muted);
+    max-width: 580px; margin: 0 auto;
+    text-wrap: pretty;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px; font-weight: 500;
+    color: var(--teal-500);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  /* ---------- scroll-rotate section ---------------------------------- */
+  .rotate-section {
+    position: relative;
+    background: linear-gradient(180deg, #f5f7fb 0%, #e9eef8 30%, #dbe4f4 70%, #f5f7fb 100%);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    /* tall, 360° unfolds across this */
+    height: 360vh;
+  }
+  .rotate-sticky {
+    position: sticky; top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .rotate-grid {
+    position: absolute; inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    align-items: center;
+    padding: 0 56px;
+  }
+  .rotate-canvas-wrap {
+    position: relative;
+    width: 100%; height: 86vh;
+    place-self: center;
+  }
+  #ear-canvas {
+    width: 100%; height: 100%;
+    display: block;
+  }
+  /* a soft vignette to make the silicone read better against the bg */
+  .rotate-canvas-wrap::before {
+    content: ''; position: absolute; inset: 0;
+    background: none;
+    pointer-events: none;
+  }
+
+  /* side panels with metadata that morph as you scroll */
+  .panel {
+    position: relative;
+  }
+  .panel .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em;
+    color: var(--teal-500); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .panel h2 {
+    font-size: 30px; line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--navy-900);
+    margin: 0 0 14px; font-weight: 600;
+    text-wrap: balance;
+  }
+  .panel p {
+    font-size: 14px; line-height: 1.6;
+    color: var(--ink-muted);
+    margin: 0;
+    max-width: 320px;
+  }
+  .panel.right { text-align: left; justify-self: end; }
+  .panel.left  { justify-self: start; }
+
+  /* readouts */
+  .readouts {
+    position: absolute; left: 56px; bottom: 36px;
+    display: flex; gap: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-muted);
+    letter-spacing: 0.08em;
+  }
+  .readouts .k { color: var(--navy-900); display: block; font-size: 18px; letter-spacing: -0.01em; font-weight: 500; margin-top: 2px; }
+
+  .scroll-hint {
+    position: absolute;
+    right: 56px; bottom: 36px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--ink-muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .scroll-hint .bar {
+    width: 80px; height: 2px; background: var(--rule); position: relative; overflow: hidden;
+  }
+  .scroll-hint .bar::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: var(--p, 0%);
+    background: var(--teal-500);
+    transition: width 60ms linear;
+  }
+
+  /* angle markers along the rim of the canvas */
+  .angle-ring {
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  .angle-ring svg { width: 100%; height: 100%; }
+
+  /* ---------- generic section --------------------------------------- */
+  section.module {
+    max-width: 1240px; margin: 0 auto;
+    padding: 140px 32px 40px;
+    scroll-margin-top: 80px;
+  }
+  .module-head {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 64px;
+    align-items: end;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 56px;
+  }
+  .module-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--teal-500); text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+  .module-head .title {
+    font-size: clamp(40px, 4.6vw, 64px);
+    line-height: 0.98; letter-spacing: -0.035em;
+    font-weight: 600; margin: 0;
+    color: var(--navy-900);
+    text-wrap: balance;
+  }
+  .module-head .lede {
+    font-size: 18px; line-height: 1.55;
+    color: var(--ink-muted);
+    margin: 0; max-width: 560px;
+    text-wrap: pretty;
+  }
+
+  /* ---------- platform ---------------------------------------------- */
+  .platform-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .platform-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 36px 32px 32px;
+    position: relative; overflow: hidden;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
+  }
+  .platform-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(11,23,53,0.08);
+  }
+  .platform-card .step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.14em;
+    color: var(--teal-500);
+  }
+  .platform-card .icon {
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 18px 0 28px;
+    color: var(--navy-700);
+  }
+  .platform-card h3 {
+    font-size: 22px; line-height: 1.15; letter-spacing: -0.015em;
+    margin: 0 0 12px; color: var(--navy-900); font-weight: 600;
+  }
+  .platform-card p {
+    font-size: 14px; line-height: 1.6;
+    color: var(--ink-muted); margin: 0;
+  }
+  .platform-card .conn {
+    position: absolute; right: -12px; top: 60px;
+    color: var(--teal-400); opacity: 0.5;
+  }
+  .platform-card:last-child .conn { display: none; }
+  .platform-quote {
+    margin-top: 48px;
+    background: var(--navy-900); color: #fff;
+    padding: 56px 56px;
+    border-radius: 24px;
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px;
+    align-items: center;
+  }
+  .platform-quote .stat-num {
+    font-size: 88px; line-height: 1; font-weight: 600;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #fff, var(--teal-400));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .platform-quote .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--teal-400); margin-top: 14px;
+  }
+  .platform-quote p {
+    font-size: 18px; line-height: 1.55; margin: 0;
+    color: rgba(255,255,255,0.85); text-wrap: pretty;
+  }
+  .platform-quote p strong { color: #fff; font-weight: 500; }
+
+  /* ---------- indications ------------------------------------------- */
+  .ind-wrap {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px;
+    align-items: start;
+  }
+  .ind-stats { display: flex; flex-direction: column; gap: 28px; }
+  .ind-stat {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 32px;
+    display: grid; grid-template-columns: auto 1fr; gap: 28px;
+    align-items: center;
+  }
+  .ind-stat .num {
+    font-size: 64px; line-height: 0.9; font-weight: 600;
+    letter-spacing: -0.04em; color: var(--navy-900);
+  }
+  .ind-stat .num em { font-style: normal; color: var(--teal-500); font-size: 38px; }
+  .ind-stat .copy h4 {
+    margin: 0 0 6px; font-size: 16px; font-weight: 600;
+    color: var(--navy-900); letter-spacing: -0.01em;
+  }
+  .ind-stat .copy p {
+    margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-muted);
+  }
+  .ind-conditions {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 36px;
+  }
+  .ind-conditions h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--teal-500); margin: 0 0 24px;
+  }
+  .ind-list { list-style: none; padding: 0; margin: 0; }
+  .ind-list li {
+    display: grid; grid-template-columns: 28px 1fr auto;
+    align-items: center; gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ind-list li:last-child { border-bottom: 0; }
+  .ind-list .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--teal-500);
+    box-shadow: 0 0 0 4px rgba(14,154,167,0.12);
+  }
+  .ind-list .name {
+    font-size: 15px; color: var(--navy-900); font-weight: 500;
+  }
+  .ind-list .name span {
+    display: block; font-size: 12px; color: var(--ink-muted); font-weight: 400; margin-top: 2px;
+  }
+  .ind-list .stage {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+
+  /* ---------- clinicians -------------------------------------------- */
+  .clin-wrap {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px;
+    align-items: start;
+  }
+  .clin-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 0;
+    overflow: hidden;
+  }
+  .clin-portrait {
+    aspect-ratio: 4/5;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255,255,255,0.55), transparent 55%),
+      linear-gradient(160deg, var(--navy-700), var(--navy-900) 60%, #050a1c);
+    position: relative;
+  }
+  .clin-portrait::after {
+    content: 'AL';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.18);
+    font-size: 120px; font-weight: 600; letter-spacing: -0.04em;
+  }
+  .clin-card .meta { padding: 28px 28px 30px; }
+  .clin-card .meta .name { font-size: 20px; font-weight: 600; color: var(--navy-900); margin: 0; }
+  .clin-card .meta .role { font-size: 13.5px; color: var(--ink-muted); margin: 4px 0 0; }
+  .clin-roles { display: flex; flex-direction: column; gap: 14px; }
+  .clin-role {
+    background: var(--bg-card); border: 1px solid var(--rule);
+    border-radius: 14px; padding: 22px 24px;
+    display: grid; grid-template-columns: 32px 1fr;
+    align-items: start; gap: 18px;
+    transition: border-color .25s;
+  }
+  .clin-role:hover { border-color: var(--teal-400); }
+  .clin-role .icon { color: var(--teal-500); padding-top: 2px; }
+  .clin-role h4 {
+    margin: 0 0 4px; font-size: 15px; font-weight: 600;
+    color: var(--navy-900); letter-spacing: -0.005em;
+  }
+  .clin-role p { margin: 0; font-size: 13px; color: var(--ink-muted); line-height: 1.5; }
+  .clin-cta {
+    margin-top: 8px;
+    background: linear-gradient(135deg, var(--teal-500), var(--navy-700));
+    color: #fff; border-radius: 14px; padding: 24px 28px;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  }
+  .clin-cta p { margin: 0; font-size: 14px; line-height: 1.5; max-width: 380px; }
+  .clin-cta a {
+    background: rgba(255,255,255,0.16); color: #fff;
+    padding: 10px 18px; border-radius: 999px;
+    font-size: 13px; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    white-space: nowrap;
+  }
+  .clin-cta a:hover { background: rgba(255,255,255,0.26); }
+
+  /* ---------- science ----------------------------------------------- */
+  .sci-grid {
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;
+  }
+  .sci-quote {
+    grid-column: span 7;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 44px;
+    position: relative;
+  }
+  .sci-quote .qmark {
+    font-family: 'Inter Tight', serif;
+    font-size: 96px; line-height: 0.7; color: var(--teal-400);
+    margin-bottom: 8px;
+  }
+  .sci-quote p {
+    font-size: 21px; line-height: 1.45; letter-spacing: -0.012em;
+    color: var(--navy-900); margin: 0;
+    font-weight: 500;
+    text-wrap: pretty;
+  }
+  .sci-side {
+    grid-column: span 5;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .sci-pill {
+    background: var(--bg-card); border: 1px solid var(--rule);
+    border-radius: 14px; padding: 24px;
+  }
+  .sci-pill .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em;
+    color: var(--teal-500); text-transform: uppercase;
+  }
+  .sci-pill h4 {
+    margin: 8px 0 8px; font-size: 17px; font-weight: 600;
+    color: var(--navy-900); letter-spacing: -0.01em;
+  }
+  .sci-pill p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--ink-muted); }
+  .sci-progress {
+    grid-column: span 12;
+    margin-top: 24px;
+    background: var(--bg-card); border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 32px 36px;
+  }
+  .sci-progress h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--teal-500); margin: 0 0 20px;
+  }
+  .sci-track {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; position: relative;
+  }
+  .sci-track::before {
+    content: ''; position: absolute; left: 4%; right: 4%; top: 12px;
+    height: 2px; background: var(--rule);
+  }
+  .sci-track::after {
+    content: ''; position: absolute; left: 4%; top: 12px;
+    width: 64%; height: 2px;
+    background: linear-gradient(90deg, var(--teal-500), var(--navy-700));
+  }
+  .sci-step { position: relative; padding-top: 36px; }
+  .sci-step::before {
+    content: ''; position: absolute; left: 50%; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg-card);
+    border: 2px solid var(--rule);
+    transform: translateX(-50%);
+  }
+  .sci-step.done::before { background: var(--teal-500); border-color: var(--teal-500); }
+  .sci-step.now::before {
+    background: var(--navy-900); border-color: var(--navy-900);
+    box-shadow: 0 0 0 6px rgba(14,154,167,0.18);
+  }
+  .sci-step .when {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-muted); letter-spacing: 0.1em;
+  }
+  .sci-step h5 {
+    margin: 6px 0 4px; font-size: 14px; font-weight: 600;
+    color: var(--navy-900);
+  }
+  .sci-step p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-muted); }
+
+  /* ---------- about ------------------------------------------------- */
+  .about-section {
+    background: var(--navy-900); color: #fff;
+    padding: 140px 0;
+    margin-top: 100px;
+  }
+  .about-inner {
+    max-width: 1240px; margin: 0 auto;
+    padding: 0 32px;
+  }
+  .about-head { display: grid; grid-template-columns: 1fr 2fr; gap: 64px; margin-bottom: 64px; }
+  .about-head .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--teal-400); text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+  .about-head .title {
+    font-size: clamp(40px, 4.6vw, 64px);
+    line-height: 1; letter-spacing: -0.035em;
+    font-weight: 600; margin: 0;
+    color: #fff; text-wrap: balance;
+  }
+  .about-head .lede {
+    font-size: 18px; line-height: 1.55;
+    color: rgba(255,255,255,0.7); margin: 0;
+    text-wrap: pretty;
+  }
+  .about-pull {
+    border-left: 2px solid var(--teal-400);
+    padding: 8px 0 8px 32px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .about-pull p {
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.15; letter-spacing: -0.025em;
+    color: #fff; margin: 0;
+    font-weight: 500; text-wrap: balance;
+  }
+  .about-pull cite {
+    display: block; margin-top: 24px;
+    font-style: normal; font-size: 13.5px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.04em;
+  }
+  .about-pull cite span { color: var(--teal-400); }
+
+  footer {
+    max-width: 1240px; margin: 0 auto;
+    padding: 32px;
+    display: flex; justify-content: space-between;
+    color: var(--ink-muted); font-size: 13px;
+  }
+
+  @media (max-width: 900px) {
+    .hero { padding: 80px 24px 40px; }
+    .rotate-grid { grid-template-columns: 1fr; padding: 0 20px; }
+    .panel { display: none; }
+    .readouts, .scroll-hint { display: none; }
+    .module-head, .ind-wrap, .clin-wrap, .about-head { grid-template-columns: 1fr; gap: 24px; }
+    .platform-grid { grid-template-columns: 1fr; }
+    .platform-quote { grid-template-columns: 1fr; padding: 32px; gap: 20px; }
+    .sci-quote, .sci-side, .sci-progress { grid-column: span 12; }
+    .sci-track { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .sci-track::before, .sci-track::after { display: none; }
+    section.module { padding: 96px 24px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ------------------- NAV ------------------------------------------- -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      FaceShift
+    </div>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#indications">Indications</a>
+      <a href="#science">Science</a>
+      <a href="#about">About</a>
+    </div>
+    <a href="#" class="nav-cta">Request a fitting</a>
+  </div>
+</nav>
+
+<!-- ------------------- HERO ------------------------------------------ -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="hero-lockup">
+    <div class="brand-mark-xl" aria-hidden="true"></div>
+    <h1>FaceShift</h1>
+  </div>
+  <p class="tagline">Reshape, not <em>reconstruct</em>.</p>
+  <p class="sub">A 30-second scan becomes a series of biocompatible silicone aligners, printed, magnetically retained, and gently corrective. Scroll to inspect the mold.</p>
+  <div class="backed-tag-wrap">
+    <a class="backed-tag" href="https://innovation.ucsf.edu/" target="_blank" rel="noopener">
+      <span class="muted">Backed by</span> <strong>UCSF Innovation Ventures</strong>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ------------------- 3D ROTATING SECTION --------------------------- -->
+<section class="rotate-section" id="rotate-section" data-screen-label="02 3D Mold">
+  <div class="rotate-sticky">
+    <div class="rotate-grid">
+      <div class="panel left">
+        <div class="tag">Material · Specimen 04-A</div>
+        <h2>Medical-grade silicone, printed in a single pass.</h2>
+        <p>Each shell is a soft, biocompatible elastomer. Optical clarity lets clinicians track tissue progress through the device without removal.</p>
+      </div>
+
+      <div class="rotate-canvas-wrap">
+        <canvas id="ear-canvas" aria-label="Rotating 3D model of FaceShift silicone ear mold"></canvas>
+      </div>
+
+      <div class="panel right">
+        <div class="tag">Geometry · Patient-specific</div>
+        <h2>Tailored to each patient, by clinicians who know them.</h2>
+        <p>A neural model plans a personalized sequence of aligners, each one gently repositioning cartilage before the next is delivered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------- PLATFORM -------------------------------------- -->
+<section class="module" id="platform" data-screen-label="03 Platform">
+  <div class="module-head">
+    <div>
+      <p class="kicker">§ Platform</p>
+      <h2 class="title">Three steps. One pipeline.</h2>
+    </div>
+    <p class="lede">FaceShift is the first 3D-printed predicate for customizable craniofacial molding, combining a bedside scan, a clinician-guided design process, and a same-day silicone print into a single corrective workflow.</p>
+  </div>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="step">01 · SCAN</div>
+      <div class="icon" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 18V12a4 4 0 0 1 4-4h6"/><path d="M38 8h6a4 4 0 0 1 4 4v6"/>
+          <path d="M48 38v6a4 4 0 0 1-4 4h-6"/><path d="M18 48h-6a4 4 0 0 1-4-4v-6"/>
+          <ellipse cx="28" cy="28" rx="8" ry="11"/>
+          <path d="M28 22c2 2 2 6 0 8M28 25c1 1 1 3 0 4"/>
+          <path d="M14 28h4M38 28h4" stroke-dasharray="2 2"/>
+        </svg>
+      </div>
+      <h3>30-second 3D scan</h3>
+      <p>Captured at the bedside with a structured-light depth sensor. No anesthesia, no contact, no calibration phantom, the infant stays in the parent's arms.</p>
+      <svg class="conn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+
+    <div class="platform-card">
+      <div class="step">02 · DESIGN</div>
+      <div class="icon" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="28" cy="28" r="3"/>
+          <circle cx="12" cy="14" r="2.5"/><circle cx="44" cy="14" r="2.5"/>
+          <circle cx="10" cy="34" r="2.5"/><circle cx="46" cy="34" r="2.5"/>
+          <circle cx="22" cy="46" r="2.5"/><circle cx="34" cy="46" r="2.5"/>
+          <path d="M28 28L12 14M28 28L44 14M28 28L10 34M28 28L46 34M28 28L22 46M28 28L34 46"/>
+        </svg>
+      </div>
+      <h3>Clinician-guided correction plan</h3>
+      <p>A personalized correction path is built around each infant's anatomy, each aligner gently repositioning cartilage before the next is delivered.</p>
+      <svg class="conn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+
+    <div class="platform-card">
+      <div class="step">03 · PRINT</div>
+      <div class="icon" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="10" y="10" width="36" height="24" rx="3"/>
+          <path d="M22 34v6M34 34v6"/>
+          <rect x="16" y="40" width="24" height="6" rx="1"/>
+          <path d="M22 16h12"/>
+          <circle cx="28" cy="24" r="4"/>
+        </svg>
+      </div>
+      <h3>Same-day silicone</h3>
+      <p>Printed in medical-grade silicone and sterilized for clinical use. The first aligner ships the same day as the scan.</p>
+    </div>
+  </div>
+
+  <div class="platform-quote">
+    <div>
+      <div class="stat-num">1 / 600</div>
+      <div class="stat-label">U.S. births · cleft lip &amp; palate</div>
+    </div>
+    <p>Customizable molding is an emerging market, EarWell, EarBuddies, InfantEar. <strong>FaceShift is the first 3D-printed predicate</strong>, replacing manually shaped devices with patient-specific aligners designed for each infant. Higher precision, lower cost, broader access.</p>
+  </div>
+</section>
+
+<!-- ------------------- INDICATIONS ----------------------------------- -->
+<section class="module" id="indications" data-screen-label="04 Indications">
+  <div class="module-head">
+    <div>
+      <p class="kicker">§ Indications</p>
+      <h2 class="title">Where early molding works.</h2>
+    </div>
+    <p class="lede">Initially developed for ear deformities like lop and prominent ear, FaceShift extends to nasoalveolar molding for cleft lip and palate, jaw alignment, and other craniofacial differences, all in the soft-tissue window of the first weeks of life.</p>
+  </div>
+
+  <div class="ind-wrap">
+    <div class="ind-stats">
+      <div class="ind-stat">
+        <div class="num">1<em>/600</em></div>
+        <div class="copy">
+          <h4>Cleft lip &amp; palate births</h4>
+          <p>The most common surgical difference in the United States. Children with cleft often face feeding, speech, and chronic ear-infection challenges, plus an average of 8–11 surgeries over childhood.</p>
+        </div>
+      </div>
+      <div class="ind-stat">
+        <div class="num">600<em>K</em></div>
+        <div class="copy">
+          <h4>U.S. infants with craniofacial differences</h4>
+          <p>These conditions impact self-esteem, social development, and mental health, primarily driven by stigmatization. Early correction during the cartilage-pliable window changes the trajectory.</p>
+        </div>
+      </div>
+      <div class="ind-stat">
+        <div class="num">≤6<em>wks</em></div>
+        <div class="copy">
+          <h4>The intervention window</h4>
+          <p>Soft tissue and cartilage remain pliable during the first weeks of life. Initiating molding inside this window often eliminates the need for later corrective surgery.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ind-conditions">
+      <h3>Indication coverage</h3>
+      <ul class="ind-list">
+        <li><span class="dot"></span><span class="name">Lop ear<span>Helix folds forward over the concha</span></span><span class="stage">CLEARED</span></li>
+        <li><span class="dot"></span><span class="name">Prominent ear<span>Auricle sits more than 20° off the skull</span></span><span class="stage">CLEARED</span></li>
+        <li><span class="dot"></span><span class="name">Stahl's ear<span>Third crus deformation across the helix</span></span><span class="stage">PILOT</span></li>
+        <li><span class="dot" style="background:#3756a8; box-shadow: 0 0 0 4px rgba(55,86,168,0.12)"></span><span class="name">Cleft lip &amp; palate (NAM)<span>Nasoalveolar molding before primary repair</span></span><span class="stage">PILOT</span></li>
+        <li><span class="dot" style="background:#7c8db4; box-shadow: 0 0 0 4px rgba(124,141,180,0.12)"></span><span class="name">Mandibular alignment<span>Early-onset jaw asymmetry</span></span><span class="stage">RESEARCH</span></li>
+        <li><span class="dot" style="background:#7c8db4; box-shadow: 0 0 0 4px rgba(124,141,180,0.12)"></span><span class="name">Craniosynostosis adjunct<span>Post-operative shape retention</span></span><span class="stage">RESEARCH</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------- CLINICIANS ------------------------------------ -->
+<section class="module" id="clinicians" data-screen-label="05 Clinicians">
+  <div class="module-head">
+    <div>
+      <p class="kicker">§ Clinicians</p>
+      <h2 class="title">Built with surgeons, in the clinic.</h2>
+    </div>
+    <p class="lede">FaceShift is co-developed with the team at UCSF Benioff Children's Hospital, led by Dr.&nbsp;Alexander&nbsp;Lin, a craniofacial surgeon and 3D-printing researcher whose practice has shaped every part of the platform.</p>
+  </div>
+
+  <div class="clin-wrap">
+    <div class="clin-card">
+      <div class="clin-portrait" aria-label="Portrait placeholder"></div>
+      <div class="meta">
+        <p class="name">Dr. Alexander Lin, MD</p>
+        <p class="role">Capstone sponsor · Plastic, craniofacial &amp; maxillofacial surgery, UCSF</p>
+      </div>
+    </div>
+
+    <div class="clin-roles">
+      <div class="clin-role">
+        <div class="icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-7h6v7"/></svg>
+        </div>
+        <div>
+          <h4>Professor &amp; Director of Surgical Innovations</h4>
+          <p>UCSF Plastic Surgery, leading translational work where new tools cross from prototype into the operating room.</p>
+        </div>
+      </div>
+      <div class="clin-role">
+        <div class="icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div>
+          <h4>Co-Director, Craniofacial Center</h4>
+          <p>UCSF Benioff Children's Hospitals, a multidisciplinary clinic for cleft, ear, jaw, and skull conditions.</p>
+        </div>
+      </div>
+      <div class="clin-role">
+        <div class="icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5M3 17l9 5 9-5"/></svg>
+        </div>
+        <div>
+          <h4>Co-Director, Center for Advanced 3D+ Technologies</h4>
+          <p>UCSF Health, the source of the print-and-test infrastructure FaceShift runs on.</p>
+        </div>
+      </div>
+
+      <div class="clin-cta">
+        <p>For families and referring clinicians: the FaceShift team can be reached through UCSF Benioff Children's Hospital, Oakland.</p>
+        <a href="mailto:faceshift@ucsfbenioffoakland.org">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------- SCIENCE --------------------------------------- -->
+<section class="module" id="science" data-screen-label="06 Science">
+  <div class="module-head">
+    <div>
+      <p class="kicker">§ Science</p>
+      <h2 class="title">Why now is the right moment.</h2>
+    </div>
+    <p class="lede">Recent advances in non-surgical molding, plus accessible 3D printing of biocompatible elastomers, have unlocked a corrective approach that was infeasible a decade ago.</p>
+  </div>
+
+  <div class="sci-grid">
+    <div class="sci-quote">
+      <div class="qmark">“</div>
+      <p>While infant tissues are still malleable, custom 3D-printed molds can maintain nasal structure, lower the pain of septoplasty healing, and correct cleft lip–palate, limiting the invasiveness of later surgery, or removing the need for it altogether.</p>
+    </div>
+
+    <div class="sci-side">
+      <div class="sci-pill">
+        <div class="label">Engagement</div>
+        <h4>Market analysis &amp; business model</h4>
+        <p>The MTM team's work covers commercial viability alongside the science, mapping reimbursement, payer logic, and access pathways.</p>
+      </div>
+      <div class="sci-pill">
+        <div class="label">Engagement</div>
+        <h4>Research &amp; MVP development</h4>
+        <p>Iterating on print parameters, magnet retention, and aligner sequencing alongside Dr.&nbsp;Lin's clinic.</p>
+      </div>
+    </div>
+
+    <div class="sci-progress">
+      <h4>Program timeline</h4>
+      <div class="sci-track">
+        <div class="sci-step done">
+          <div class="when">2024</div>
+          <h5>Bench prototypes</h5>
+          <p>First printed silicone aligner sequences for lop and prominent ear.</p>
+        </div>
+        <div class="sci-step done">
+          <div class="when">2025</div>
+          <h5>Pilot fittings</h5>
+          <p>Initial patient cohorts at UCSF Benioff Children's Hospitals.</p>
+        </div>
+        <div class="sci-step now">
+          <div class="when">2026 · NOW</div>
+          <h5>Clinical pilot · NAM</h5>
+          <p>Extending the platform to nasoalveolar molding for cleft lip &amp; palate.</p>
+        </div>
+        <div class="sci-step">
+          <div class="when">2027</div>
+          <h5>Multi-site rollout</h5>
+          <p>Expanding to four hospital partners with full FDA pre-submission feedback.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------- ABOUT (full-bleed dark) ----------------------- -->
+<section class="about-section" id="about" data-screen-label="07 About">
+  <div class="about-inner">
+    <div class="about-head">
+      <div>
+        <p class="kicker">§ About</p>
+        <h2 class="title">Beyond surgery.</h2>
+      </div>
+      <p class="lede">Traditional surgeries for craniofacial deformities have been costly, invasive, and often delayed, placing unnecessary burden on children and their families. FaceShift reduces that burden by making correction available earlier in life, with the potential to impact thousands of families and let children grow up without the stigma of craniofacial differences.</p>
+    </div>
+
+    <div class="about-pull">
+      <p>I'm passionate about this project because it brings together technology and medicine to create real change. I truly believe FaceShift can redefine early intervention and make a lasting impact.</p>
+      <cite><span>- Dr. Alexander Lin</span> · UCSF Plastic Surgery, capstone sponsor</cite>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 FaceShift Bio, Inc.</span>
+  <span class="mono">v0.4.2 · ear-mold-display</span>
+</footer>
+
+<!-- ------------------- 3D SCRIPT ------------------------------------- -->
+<script type="module">
+  import { mountEarMold } from './ear-mold-scene.js';
+
+  const canvas = document.getElementById('ear-canvas');
+  const section = document.getElementById('rotate-section');
+  const handle = mountEarMold({ canvas, scrollContainer: section });
+</script>
+
+</body>
+</html>

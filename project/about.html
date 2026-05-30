@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceShift · About</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    body { background: var(--navy-900); }
+
+    /* ---- Nav overrides ----------------------------------------------------- */
+    .nav {
+      background: rgba(11, 23, 53, 0.75);
+      border-bottom-color: rgba(255,255,255,0.06);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+    .brand { color: #fff; }
+    .nav-links a { color: rgba(255,255,255,0.48); }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a.active { font-weight: 500; }
+    .nav-cta { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16); box-shadow: none; }
+    .nav-cta:hover { background: rgba(255,255,255,0.15); box-shadow: none; }
+    .module-head .kicker { color: var(--teal-400); }
+    .module-head .title  { color: #fff; }
+    .module-head .lede   { color: rgba(255,255,255,0.55); }
+    .module-head { border-bottom-color: rgba(255,255,255,0.07); }
+    footer { border-top-color: rgba(255,255,255,0.07); color: rgba(255,255,255,0.28); }
+
+    /* ---- Clinician hero ---------------------------------------------------- */
+
+    .clinician-hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Atmospheric background glow */
+    .clinician-hero::before {
+      content: '';
+      position: absolute;
+      right: -80px;
+      top: -120px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(43,182,194,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .clinician-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 80px;
+      align-items: start;
+      padding-bottom: 80px;
+      margin-bottom: 80px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+    }
+
+    /* ---- Left: text -------------------------------------------------------- */
+
+    .clinician-left {}
+
+    .clinician-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--teal-400);
+      margin: 0 0 28px;
+    }
+
+    .clinician-kicker::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--teal-400);
+      opacity: 0.6;
+    }
+
+    .clinician-name {
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.94;
+      color: #fff;
+      margin: 0 0 12px;
+    }
+
+    .clinician-creds {
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.42);
+      margin: 0 0 32px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Role pills */
+    .clinician-roles {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 440px;
+    }
+
+    .clinician-roles li {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      transition: background 0.18s;
+    }
+
+    .clinician-roles li:last-child { border-bottom: none; }
+    .clinician-roles li:hover { background: rgba(255,255,255,0.04); }
+
+    .clinician-roles li .role-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal-400);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* Buttons */
+    .clinician-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .clinician-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      font-family: 'Inter Tight', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      letter-spacing: -0.005em;
+    }
+
+    .btn-teal {
+      background: var(--teal-500);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(14,154,167,0.35);
+    }
+
+    .btn-teal:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(14,154,167,0.45);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.82);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-1px);
+    }
+
+    /* Bio paragraphs */
+    .clinician-bio-text {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 580px;
+    }
+
+    .clinician-bio-text p {
+      font-size: 15px;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.55);
+      margin: 0;
+      text-wrap: pretty;
+    }
+
+    .clinician-bio-text p:first-child {
+      font-size: 16px;
+      color: rgba(255,255,255,0.72);
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    /* ---- Right: photo + credentials --------------------------------------- */
+
+    .clinician-right {
+      position: relative;
+    }
+
+    /* Subtle glow behind photo */
+    .clinician-right::before {
+      content: '';
+      position: absolute;
+      inset: -30px;
+      background: radial-gradient(ellipse at 50% 30%, rgba(43,182,194,0.07) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .clinician-photo-frame {
+      position: relative;
+      z-index: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--navy-800);
+    }
+
+    /* Gradient fade at bottom of photo */
+    .clinician-photo-frame::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(11,23,53,0.65) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .clinician-photo {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    /* Credentials card below photo */
+    .cred-card {
+      position: relative;
+      z-index: 1;
+      margin-top: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .cred-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      align-items: baseline;
+    }
+
+    .cred-row:last-child { border-bottom: none; }
+
+    .cred-row-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      padding-top: 1px;
+    }
+
+    .cred-row-value {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.5;
+    }
+
+    /* ---- About / video ----------------------------------------------------- */
+
+    .about-block {
+      padding-top: 8px;
+    }
+
+    .video-embed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #000;
+      box-shadow:
+        0 40px 100px rgba(0,0,0,0.75),
+        0 0 0 1px rgba(255,255,255,0.06);
+    }
+
+    .video-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-caption {
+      margin-top: 22px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.42);
+      max-width: 680px;
+    }
+
+    .video-article-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 14px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--teal-400);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.18s;
+    }
+
+    .video-article-link:hover { opacity: 1; }
+
+    /* ---- Responsive -------------------------------------------------------- */
+
+    @media (max-width: 960px) {
+      .clinician-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .clinician-right::before { display: none; }
+      .clinician-photo { height: 360px; }
+      .clinician-roles { max-width: 100%; }
+    }
+
+    @media (max-width: 600px) {
+      .clinician-actions { flex-direction: column; }
+      .clinician-btn { justify-content: center; }
+      .cred-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark" aria-hidden="true"></div>
+      FaceShift
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Platform</a>
+      <a href="indications.html">Indications</a>
+      <a href="science.html">Science</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Work With Us</a>
+  </div>
+</nav>
+
+<section class="module">
+
+  <!-- Module header -->
+  <div class="module-head">
+    <div>
+      <p class="kicker">§ About</p>
+      <h2 class="title">Beyond surgery.</h2>
+    </div>
+    <p class="lede">Traditional surgeries for craniofacial deformities have been costly, invasive, and often delayed, placing unnecessary burden on children and their families. FaceShift reduces that burden by making correction available earlier in life.</p>
+  </div>
+
+  <!-- Dr. Lin clinician block -->
+  <div class="clinician-hero">
+    <div class="clinician-hero-grid">
+
+      <!-- Left: text content -->
+      <div class="clinician-left">
+
+        <p class="clinician-kicker">Clinical Leadership</p>
+        <h2 class="clinician-name">Alexander Y. Lin</h2>
+        <p class="clinician-creds">MD, MBA</p>
+
+        <ul class="clinician-roles">
+          <li><span class="role-dot"></span>Plastic surgeon, UCSF</li>
+          <li><span class="role-dot"></span>Co-director, Craniofacial Center</li>
+          <li><span class="role-dot"></span>Co-director, Center for Advanced 3D+ Technologies</li>
+          <li><span class="role-dot"></span>Capstone sponsor, FaceShift Bio</li>
+        </ul>
+
+        <div class="clinician-actions">
+          <a href="https://www.ucsfhealth.org/providers/dr-alexander-lin" target="_blank" rel="noopener" class="clinician-btn btn-teal">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+            Request appointment
+          </a>
+          <a href="mailto:faceshift@ucsfbenioffoakland.org" class="clinician-btn btn-ghost">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5z"/><path d="m3 7 9 6 9-6"/></svg>
+            Refer a patient
+          </a>
+        </div>
+
+        <div class="clinician-bio-text">
+          <p>Dr. Alexander Y. Lin is a plastic surgeon specializing in craniofacial and maxillofacial surgery, and plastic surgery for pediatric conditions. He is director of surgical innovations for UCSF's plastic surgery division, co-director of the UCSF Craniofacial Center, and co-director of the UCSF Center for Advanced 3D+ Technologies.</p>
+          <p>His mission is to improve the lives of children and their families. He provides care for patients with cleft lip, cleft palate, craniosynostosis, jaw misalignment, and other craniofacial differences, with a focus on what makes us human: our faces, speech, and hands.</p>
+          <p>In his research, Lin focuses on 3D printing and advanced visualization to make surgeries faster, more precise, and less invasive. He has funded grants to develop tools for detecting speech problems earlier in children's development, enabling corrective intervention sooner.</p>
+          <p>After earning his bachelor's and master's at Stanford and his MD at Johns Hopkins, he completed residency at UCSF and a craniofacial fellowship at Children's Hospital of Pittsburgh. He holds an MBA with a focus on innovation from Washington University in St. Louis.</p>
+        </div>
+
+      </div>
+
+      <!-- Right: photo + credential card -->
+      <div class="clinician-right">
+
+        <div class="clinician-photo-frame">
+          <img
+            src="uploads/dr-lin.jpg"
+            alt="Dr. Alexander Y. Lin, MD MBA, Plastic and craniofacial surgeon at UCSF"
+            class="clinician-photo"
+          />
+        </div>
+
+        <div class="cred-card">
+          <div class="cred-row">
+            <span class="cred-row-label">Certification</span>
+            <span class="cred-row-value">American Board of Plastic Surgery</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-row-label">Fellowship</span>
+            <span class="cred-row-value">Children's Hospital of Pittsburgh (UPMC), Cleft &amp; Craniofacial Surgery</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-row-label">Residency</span>
+            <span class="cred-row-value">UCSF, Plastic &amp; Reconstructive Surgery</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-row-label">Degree</span>
+            <span class="cred-row-value">MD, Johns Hopkins University School of Medicine</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Video -->
+  <div class="about-block">
+    <div class="video-embed">
+      <iframe
+        src="https://www.youtube.com/embed/znJ2HI2ecHI"
+        title="Dr. Alexander Lin, 3D printing for craniofacial repair, UCSF"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <p class="video-caption">
+      Dr. Alexander Lin, Co-director of UCSF's Center for Advanced 3D+ Technologies, describes using a 3D model of a young child's skull to prepare for a complex craniofacial repair.
+    </p>
+    <a class="video-article-link" href="https://magazine.ucsf.edu/wonderful-world-3d" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+      Read more: The Wonderful World of 3D, UCSF Magazine
+    </a>
+  </div>
+
+</section>
+
+<footer>
+  <span>© 2026 FaceShift Bio, Inc.</span>
+  <span class="mono">v0.4.2 · about</span>
+</footer>
+
+</body>
+</html>

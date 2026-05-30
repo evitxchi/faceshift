@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceShift · Biocompatible Silicone Ear Molding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+
+    /* ---- Hero ----------------------------------------------------------- */
+
+    .hero-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      padding: 180px 0 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto 96px;
+      padding: 0 32px;
+    }
+
+    .hero-image-wrap {
+      width: 100%;
+      line-height: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Particles background layer */
+    #particles-js {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg,
+        #eef4ff 0%,
+        #dce9f8 45%,
+        #edf3fb 100%
+      );
+      z-index: 0;
+    }
+
+    #particles-js canvas {
+      position: absolute !important;
+      top: 0; left: 0;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* ---- Hero entry animation ------------------------------------------- */
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-lockup {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: heroFadeUp 0.8s cubic-bezier(0.2, 0, 0, 1) 0.1s forwards;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(56px, 8vw, 108px);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      font-weight: 600;
+      margin: 0;
+      color: var(--navy-900);
+    }
+
+    .tagline {
+      font-size: clamp(20px, 2.2vw, 28px);
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      color: var(--navy-900);
+      max-width: 680px;
+      margin: 28px auto 14px;
+      font-weight: 500;
+      text-wrap: balance;
+      opacity: 0;
+      animation: heroFadeUp 0.8s cubic-bezier(0.2, 0, 0, 1) 0.22s forwards;
+    }
+
+    .tagline em {
+      font-style: normal;
+      color: var(--teal-500);
+    }
+
+    .sub {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--ink-muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+      text-wrap: pretty;
+      opacity: 0;
+      animation: heroFadeUp 0.8s cubic-bezier(0.2, 0, 0, 1) 0.36s forwards;
+    }
+
+    /* ---- Logo wink ------------------------------------------------------ */
+
+    .brand-mark-xl {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: conic-gradient(from 220deg, var(--teal-400), var(--navy-700), var(--teal-500));
+      box-shadow: 0 4px 20px rgba(11, 23, 53, 0.18);
+      flex-shrink: 0;
+    }
+
+    /* The white "eye", winks periodically */
+    .brand-mark-xl::after {
+      content: '';
+      position: absolute;
+      width: 18%;
+      height: 18%;
+      border-radius: 50%;
+      background: #fff;
+      top: 22%;
+      left: 27%;
+      transform-origin: center center;
+      animation: wink 2s ease-in-out infinite;
+    }
+
+    @keyframes wink {
+      0%, 72%, 100% { transform: scaleY(1);    opacity: 1; }
+      80%            { transform: scaleY(0.06); opacity: 0.7; }
+      85%            { transform: scaleY(1);    opacity: 1; }
+    }
+
+    /* ---- Silver trace glow around UCSF pill ----------------------------- */
+
+    @property --glow-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes traceGlow {
+      to { --glow-angle: 360deg; }
+    }
+
+    @keyframes pillFadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .backed-tag-wrap {
+      display: inline-block;
+      position: relative;
+      border-radius: 999px;
+      padding: 2px;
+      opacity: 0;
+      animation: pillFadeUp 0.8s cubic-bezier(0.2, 0, 0, 1) 0.5s forwards;
+    }
+
+    .backed-tag-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: conic-gradient(
+        from var(--glow-angle),
+        transparent 0deg,
+        rgba(180, 210, 255, 0.55) 38deg,
+        rgba(230, 242, 255, 0.95) 58deg,
+        rgba(200, 225, 255, 0.65) 78deg,
+        transparent 116deg
+      );
+      animation: traceGlow 3s linear infinite;
+      z-index: 0;
+    }
+
+    .backed-tag {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--navy-900);
+      box-shadow: 0 2px 8px rgba(11, 23, 53, 0.05);
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .backed-tag:hover {
+      border-color: var(--teal-400);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(11, 23, 53, 0.09);
+    }
+
+    .backed-tag strong { color: var(--navy-900); font-weight: 600; }
+    .backed-tag .muted { color: var(--ink-muted); }
+
+    /* ---- Banner text -------------------------------------------------------- */
+
+    .banner-section {
+      padding: 140px 32px 24px;
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.9s cubic-bezier(0.2, 0, 0, 1),
+                  transform 0.9s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    .banner-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .banner-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .banner-line {
+      display: block;
+      font-size: clamp(52px, 7.5vw, 100px);
+      line-height: 1.0;
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      color: var(--navy-900);
+      text-wrap: balance;
+      margin: 0;
+    }
+
+    .banner-word-row {
+      overflow: hidden;
+      display: block;
+    }
+
+    .banner-word {
+      display: block;
+      font-size: clamp(52px, 7.5vw, 100px);
+      line-height: 1.0;
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      color: var(--teal-500);
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.42s ease;
+    }
+
+    .banner-word.exiting {
+      transform: translateY(-108%);
+      opacity: 0;
+    }
+
+    .banner-word.entering {
+      transform: translateY(108%);
+      opacity: 0;
+      transition: none;
+    }
+
+    @media (max-width: 900px) {
+      .banner-section { padding: 80px 20px 16px; }
+      .banner-line, .banner-word { font-size: clamp(40px, 10vw, 64px); }
+    }
+
+    /* ---- Scroll-rotate section ------------------------------------------ */
+
+    .rotate-section {
+      position: relative;
+      background: linear-gradient(180deg,
+        #f5f7fb 0%,
+        #eaeff9 25%,
+        #dce5f5 60%,
+        #eaeff9 85%,
+        #f5f7fb 100%
+      );
+      height: 320vh;
+    }
+
+    .rotate-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .rotate-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr 1fr;
+      align-items: center;
+      padding: 0 56px;
+    }
+
+    .rotate-canvas-wrap {
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ear-frame {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+      will-change: contents;
+    }
+
+    /* Side panels */
+
+    .panel { position: relative; }
+
+    .panel .tag {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--teal-500);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: inline-block;
+      background: rgba(14,154,167,0.07);
+      border: 1px solid rgba(14,154,167,0.15);
+      border-radius: 6px;
+      padding: 3px 9px;
+    }
+
+    .panel h2 {
+      font-size: 26px;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--navy-900);
+      margin: 0 0 12px;
+      font-weight: 600;
+      text-wrap: balance;
+    }
+
+    .panel p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-muted);
+      margin: 0;
+      max-width: 290px;
+    }
+
+    .panel.left  { justify-self: start; }
+    .panel.right { justify-self: end; text-align: left; }
+
+    /* Readouts */
+
+    .readouts {
+      position: absolute;
+      left: 56px;
+      bottom: 36px;
+      display: flex;
+      gap: 0;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 10px;
+      color: var(--ink-muted);
+      letter-spacing: 0.1em;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+
+    .readouts > div {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px 18px;
+      border-right: 1px solid var(--rule);
+    }
+
+    .readouts > div:last-child { border-right: none; }
+
+    .readouts .k {
+      color: var(--navy-900);
+      font-size: 15px;
+      letter-spacing: -0.015em;
+      font-weight: 600;
+    }
+
+    /* Scroll hint */
+
+    .scroll-hint {
+      position: absolute;
+      right: 56px;
+      bottom: 36px;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 11px;
+      color: var(--ink-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scroll-hint .bar {
+      width: 80px;
+      height: 2px;
+      background: var(--rule);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .scroll-hint .bar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      width: var(--p, 0%);
+      background: var(--teal-500);
+      transition: width 80ms linear;
+    }
+
+    /* ---- Orbital timeline ----------------------------------------------- */
+
+    .orbital-wrap {
+      position: relative;
+      background: #050d1a;
+      border-radius: 24px;
+      overflow: hidden;
+      height: 780px;
+      cursor: default;
+      user-select: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .orbital-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Fixed center panel that shows card content, never clips, fully opaque */
+    .orbital-detail {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 260px;
+      z-index: 300;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    .orbital-detail.has-card {
+      pointer-events: all;
+    }
+
+    .orbital-detail-inner {
+      background: rgba(8, 18, 36, 0.98);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.06);
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .orbital-detail.has-card .orbital-detail-inner {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .orb-center {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3756a8, #1c3270 50%, #0e9aa7);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10;
+      animation: orbGlow 2.5s ease-in-out infinite;
+    }
+
+    .orb-ping {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      animation: orbPing 1.4s ease-out infinite;
+      pointer-events: none;
+    }
+
+    .orb-ping-1 { width: 76px; height: 76px; top: -10px; left: -10px; }
+    .orb-ping-2 { width: 94px; height: 94px; top: -19px; left: -19px; animation-delay: 0.6s; opacity: 0.5; }
+
+    .orb-inner {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+    }
+
+    .orbit-ring {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.07);
+      pointer-events: none;
+    }
+
+    /* The floating per-node card is replaced by orbital-detail; hide it */
+    .node-card { display: none !important; }
+
+    .orbital-node {
+      position: absolute;
+      left: 50%; top: 50%;
+      margin-left: -20px; margin-top: -20px;
+      cursor: pointer;
+      transition: opacity 0.55s ease;
+    }
+
+    .node-glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .node-icon {
+      position: relative; z-index: 1;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: #050d1a;
+      border: 2px solid rgba(255,255,255,0.32);
+      color: #fff;
+      transition: transform 0.3s ease, background 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .node-icon.active {
+      background: #fff; color: #000;
+      border-color: #fff;
+      transform: scale(1.5);
+      box-shadow: 0 0 22px rgba(255,255,255,0.38);
+    }
+
+    .node-icon.related {
+      background: rgba(255,255,255,0.4); color: #000;
+      border-color: #fff;
+      animation: relatedPulse 1.1s ease-in-out infinite;
+    }
+
+    .node-label {
+      position: absolute;
+      top: 48px; left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      pointer-events: none;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .node-label.active {
+      color: #fff;
+      transform: translateX(-50%) scale(1.12);
+    }
+
+    .node-card {
+      position: absolute;
+      top: 60px; left: 50%;
+      transform: translateX(-50%);
+      width: 268px;
+      background: rgba(8, 18, 36, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 16px 56px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.06);
+      pointer-events: all;
+    }
+
+    .node-card::before {
+      content: '';
+      position: absolute;
+      top: -8px; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 8px;
+      background: rgba(255,255,255,0.55);
+    }
+
+    .node-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .status-badge {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.12em;
+      padding: 3px 9px; border-radius: 999px; border: 1px solid;
+    }
+
+    .badge-complete { color: #2bb6c2; border-color: rgba(43,182,194,0.7); background: rgba(43,182,194,0.15); }
+    .badge-progress { color: #fff;    border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.12); }
+    .badge-pending  { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); }
+
+    .node-card-date {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 10px; color: rgba(255,255,255,0.55);
+    }
+
+    .node-card-title {
+      font-size: 15px; font-weight: 600;
+      color: #fff; letter-spacing: -0.01em;
+      margin-bottom: 9px;
+    }
+
+    .node-card-content {
+      font-size: 13px; line-height: 1.65;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 16px;
+    }
+
+    .energy-label {
+      display: flex; justify-content: space-between;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 10px; color: rgba(255,255,255,0.65);
+      margin-bottom: 6px;
+    }
+
+    .energy-track {
+      width: 100%; height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px; overflow: hidden;
+    }
+
+    .energy-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3756a8, #0e9aa7);
+      border-radius: 2px;
+    }
+
+    .node-card-related {
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .node-card-related-label {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+    }
+
+    .node-card-links { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .node-card-link {
+      font-size: 11px; font-family: 'Inter Tight', sans-serif;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px; padding: 4px 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .node-card-link:hover { background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.5); }
+
+    @keyframes orbGlow {
+      0%, 100% { box-shadow: 0 0 18px rgba(55,86,168,0.45); }
+      50%       { box-shadow: 0 0 32px rgba(14,154,167,0.55); }
+    }
+
+    @keyframes orbPing {
+      0%   { transform: scale(1); opacity: 0.7; }
+      100% { transform: scale(1.7); opacity: 0; }
+    }
+
+    @keyframes relatedPulse {
+      0%, 100% { box-shadow: 0 0 0 0   rgba(255,255,255,0.5); }
+      50%       { box-shadow: 0 0 0 6px rgba(255,255,255,0);   }
+    }
+
+    /* ---- Responsive ----------------------------------------------------- */
+
+    @media (max-width: 900px) {
+      .hero-wrapper { padding: 56px 0 0; }
+      .rotate-grid { grid-template-columns: 1fr; padding: 0 20px; }
+      .panel { display: none; }
+      .readouts, .scroll-hint { display: none; }
+      .rotate-canvas-wrap { height: 60vh; }
+      .orbital-wrap { height: 560px; border-radius: 16px; }
+      .orbit-ring { width: 340px; height: 340px; }
+
+    }
+
+
+    /* ---- Pulse Beams section -------------------------------------------- */
+
+    .pb-section {
+      position: relative;
+      background: var(--navy-900);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 556px;
+      overflow: hidden;
+    }
+
+    .pb-content-wrap {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pb-card {
+      background: rgba(11,23,53,0.94);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px;
+      padding: 40px 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      box-shadow:
+        0 0 0 1px rgba(43,182,194,0.07),
+        0 24px 64px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .pb-card-title {
+      font-size: 34px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    .pb-card-sub {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.38);
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .pb-svg-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .pb-svg {
+      width: 858px;
+      height: 490px;
+      flex-shrink: 0;
+    }
+
+    .pb-base {
+      stroke: rgba(255,255,255,0.06);
+      stroke-width: 1;
+      fill: none;
+    }
+
+    .pb-pulse {
+      fill: none;
+      stroke: var(--teal-400);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .pb-dot {
+      stroke-width: 1.5;
+    }
+
+    .pb-dot-outer {
+      fill: rgba(11,23,53,0.85);
+      stroke: rgba(255,255,255,0.18);
+    }
+
+    .pb-dot-inner {
+      fill: rgba(43,182,194,0.12);
+      stroke: var(--teal-400);
+    }
+
+    .pb-label {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 9.5px;
+      fill: rgba(255,255,255,0.32);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 860px) {
+      .pb-svg { width: 100%; height: auto; }
+      .pb-card-title { font-size: 24px; }
+      .pb-card { padding: 24px 32px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark" aria-hidden="true"></div>
+      FaceShift
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Platform</a>
+      <a href="indications.html">Indications</a>
+      <a href="science.html">Science</a>
+      <a href="about.html">About</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Work With Us</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-wrapper">
+  <div id="particles-js" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-lockup">
+      <div class="brand-mark-xl" aria-hidden="true"></div>
+      <h1>FaceShift</h1>
+    </div>
+    <p class="tagline">Reshape, not <em>reconstruct</em>.</p>
+    <p class="sub">A 30-second scan becomes a series of biocompatible silicone aligners: printed, magnetically retained, and gently corrective.</p>
+    <div class="backed-tag-wrap">
+      <a class="backed-tag" href="https://innovation.ucsf.edu/" target="_blank" rel="noopener">
+        <span class="muted">Backed by</span>
+        <strong>UCSF Innovation Ventures</strong>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-image-wrap">
+    <img
+      src="uploads/plastic-and-reconstructive-surgery-2x.jpg"
+      alt="Child playing with colorful building blocks"
+      class="hero-image"
+    />
+  </div>
+</section>
+
+<!-- Banner text -->
+<div class="banner-section" id="banner-section">
+  <div class="banner-inner">
+    <span class="banner-line">Your Child's Care,</span>
+    <div class="banner-word-row" aria-live="polite">
+      <span class="banner-word" id="banner-word">Personalized.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Scroll-driven 3D section -->
+<div class="rotate-section" id="rotate-section">
+  <div class="rotate-sticky">
+    <div class="rotate-grid">
+
+      <div class="panel left">
+        <div class="tag">Material · Specimen 04-A</div>
+        <h2>Medical-grade silicone, printed in a single pass.</h2>
+        <p>Each shell is a soft, biocompatible elastomer. Optical clarity lets clinicians track tissue progress through the device without removal.</p>
+      </div>
+
+      <div class="rotate-canvas-wrap">
+        <img
+          id="ear-frame"
+          class="ear-frame"
+          src="uploads/ear-mold- 03_14_56 PM (1).png"
+          alt="Rotating 3D model of a FaceShift silicone ear mold"
+          draggable="false"
+        />
+      </div>
+
+      <div class="panel right">
+        <div class="tag">Geometry · Patient-specific</div>
+        <h2>Tailored to each patient, by clinicians who know them.</h2>
+        <p>A personalized sequence of aligners is planned around each infant's anatomy, gently repositioning cartilage at each stage before the next is delivered.</p>
+      </div>
+
+    </div>
+
+    <div class="readouts">
+      <div>
+        <span>Rotation</span>
+        <span class="k" id="angle-readout">0°</span>
+      </div>
+      <div>
+        <span>Material</span>
+        <span class="k">Soft elastomer</span>
+      </div>
+      <div>
+        <span>Thickness</span>
+        <span class="k">Ultra-thin</span>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      Scroll
+      <div class="bar" id="scroll-bar"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Pulse Beams, Patient Connection -->
+<section class="pb-section" id="pb-section">
+  <div class="pb-content-wrap">
+    <div class="pb-card">
+      <p class="pb-card-title">Every mold<br>begins with you.</p>
+      <p class="pb-card-sub">Personalized care, from scan to fit.</p>
+    </div>
+  </div>
+  <div class="pb-svg-wrap">
+    <svg class="pb-svg" viewBox="0 -28 858 490" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Peripheral node labels -->
+      <text class="pb-label" x="6.5" y="418" text-anchor="middle">3D Scan</text>
+      <text class="pb-label" x="851" y="20" text-anchor="middle">Patient Fit</text>
+      <text class="pb-label" x="142" y="452" text-anchor="middle">Clinical Review</text>
+      <text class="pb-label" x="770" y="452" text-anchor="middle">Monitoring</text>
+      <text class="pb-label" x="420.5" y="-12" text-anchor="middle">Same-day Print</text>
+
+      <!-- Static base paths -->
+      <path class="pb-base" d="M269 220.5H16.5C10.9772 220.5 6.5 224.977 6.5 230.5V398.5"/>
+      <path class="pb-base" d="M568 200H841C846.523 200 851 195.523 851 190V40"/>
+      <path class="pb-base" d="M425.5 274V333C425.5 338.523 421.023 343 415.5 343H152C146.477 343 142 347.477 142 353V426.5"/>
+      <path class="pb-base" d="M493 274V333.226C493 338.749 497.477 343.226 503 343.226H760C765.523 343.226 770 347.703 770 353.226V427"/>
+      <path class="pb-base" d="M380 168V17C380 11.4772 384.477 7 390 7H414"/>
+
+      <!-- Animated pulse paths (same geometry) -->
+      <path class="pb-pulse" data-pb-delay="0"   d="M269 220.5H16.5C10.9772 220.5 6.5 224.977 6.5 230.5V398.5"/>
+      <path class="pb-pulse" data-pb-delay="1.5" d="M568 200H841C846.523 200 851 195.523 851 190V40"/>
+      <path class="pb-pulse" data-pb-delay="0.7" d="M425.5 274V333C425.5 338.523 421.023 343 415.5 343H152C146.477 343 142 347.477 142 353V426.5"/>
+      <path class="pb-pulse" data-pb-delay="2.3" d="M493 274V333.226C493 338.749 497.477 343.226 503 343.226H760C765.523 343.226 770 347.703 770 353.226V427"/>
+      <path class="pb-pulse" data-pb-delay="1.1" d="M380 168V17C380 11.4772 384.477 7 390 7H414"/>
+
+      <!-- Peripheral connection dots -->
+      <circle cx="6.5"   cy="398.5" r="5"   class="pb-dot pb-dot-outer"/>
+      <circle cx="851"   cy="34"    r="5.5" class="pb-dot pb-dot-outer"/>
+      <circle cx="142"   cy="427"   r="5.5" class="pb-dot pb-dot-outer"/>
+      <circle cx="770"   cy="427"   r="5.5" class="pb-dot pb-dot-outer"/>
+      <circle cx="420.5" cy="6.5"   r="5"   class="pb-dot pb-dot-outer"/>
+
+      <!-- Center card edge dots -->
+      <circle cx="269"   cy="220.5" r="5"   class="pb-dot pb-dot-inner"/>
+      <circle cx="568"   cy="200"   r="5"   class="pb-dot pb-dot-inner"/>
+      <circle cx="425.5" cy="274"   r="5"   class="pb-dot pb-dot-inner"/>
+      <circle cx="493"   cy="274"   r="5"   class="pb-dot pb-dot-inner"/>
+      <circle cx="380"   cy="168"   r="5"   class="pb-dot pb-dot-inner"/>
+
+    </svg>
+  </div>
+</section>
+
+<!-- Platform -->
+<section class="module" id="platform">
+  <div class="module-head">
+    <div>
+      <p class="kicker">§ Platform</p>
+      <h2 class="title">How it works.</h2>
+    </div>
+    <p class="lede">Five interconnected stages, from a 30-second bedside scan to ongoing monitored correction. Click any node to explore the pipeline.</p>
+  </div>
+
+  <div class="orbital-wrap" id="orbital-container">
+    <div class="orbital-stage" id="orbital-stage">
+      <div class="orb-center">
+        <div class="orb-ping orb-ping-1"></div>
+        <div class="orb-ping orb-ping-2"></div>
+        <div class="orb-inner"></div>
+      </div>
+      <div class="orbit-ring"></div>
+      <!-- Center detail panel, always fully visible, never clips -->
+      <div class="orbital-detail" id="orbital-detail">
+        <div class="orbital-detail-inner" id="orbital-detail-inner"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 FaceShift Bio, Inc.</span>
+  <span class="mono">v0.4.2 · platform</span>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  const FRAMES = [
+    'uploads/ear-mold- 03_14_56 PM (1).png',
+    'uploads/ear-mold- 03_14_56 PM (2).png',
+    'uploads/ear-mold- 03_14_56 PM (3).png',
+    'uploads/ear-mold- 03_14_57 PM (4).png',
+    'uploads/ear-mold- 03_14_57 PM (5).png',
+    'uploads/ear-mold- 03_14_58 PM (6).png',
+    'uploads/ear-mold- 03_14_58 PM (7).png',
+    'uploads/ear-mold- 03_14_58 PM (8).png',
+    'uploads/ear-mold- 03_14_59 PM (9).png',
+    'uploads/ear-mold- 03_15_00 PM (10).png',
+    'uploads/ear-mold- 03_17_19 PM (1).png',
+    'uploads/ear-mold- 03_17_19 PM (2).png',
+    'uploads/ear-mold- 03_17_19 PM (3).png',
+    'uploads/ear-mold- 03_17_20 PM (4).png',
+    'uploads/ear-mold- 03_17_20 PM (5).png',
+    'uploads/ear-mold- 03_17_20 PM (6).png',
+    'uploads/ear-mold- 03_17_21 PM (7).png',
+    'uploads/ear-mold- 03_17_21 PM (8).png',
+    'uploads/ear-mold- 03_17_22 PM (9).png',
+    'uploads/ear-mold- 03_17_22 PM (10).png',
+  ];
+
+  // Preload all frames into memory
+  const imgs = FRAMES.map(function (src) {
+    var img = new Image();
+    img.src = src;
+    return img;
+  });
+
+  var frameEl   = document.getElementById('ear-frame');
+  var section   = document.getElementById('rotate-section');
+  var angleEl   = document.getElementById('angle-readout');
+  var scrollBar = document.getElementById('scroll-bar');
+  var lastIdx   = 0;
+  var ticking   = false;
+
+  function update() {
+    ticking = false;
+    var rect     = section.getBoundingClientRect();
+    var travel   = section.offsetHeight - window.innerHeight;
+    if (travel <= 0) return;
+
+    var scrolled  = -rect.top;
+    var progress  = Math.max(0, Math.min(1, scrolled / travel));
+    var idx       = Math.min(FRAMES.length - 1, Math.floor(progress * FRAMES.length));
+
+    if (idx !== lastIdx && imgs[idx].complete) {
+      frameEl.src = imgs[idx].src;
+      lastIdx = idx;
+    }
+
+    if (angleEl)   angleEl.textContent = Math.round(progress * 172) + '°';
+    if (scrollBar) scrollBar.style.setProperty('--p', (progress * 100).toFixed(1) + '%');
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Run once on load in case page starts mid-scroll
+  update();
+}());
+
+// ---- Radial Orbital Timeline ------------------------------------------
+(function () {
+  var DATA = [
+    {
+      id: 1, title: '3D Scan', date: 'Step 01',
+      content: 'A 30-second structured-light scan captured at the bedside. No anesthesia, no contact. The infant stays in the parent\'s arms.',
+      relatedIds: [2], status: 'completed', energy: 100,
+      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>',
+    },
+    {
+      id: 2, title: 'Custom Design', date: 'Step 02',
+      content: 'A personalized correction plan is built around each infant\'s anatomy, mapping the sequence of aligners needed to reshape tissue gently over time.',
+      relatedIds: [1, 3], status: 'completed', energy: 88,
+      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M9 2v2M2 15h2M2 9h2M15 22v-2M9 22v-2M22 15h-2M22 9h-2"/></svg>',
+    },
+    {
+      id: 3, title: 'Silicone Print', date: 'Step 03',
+      content: 'Printed in medical-grade silicone and sterilized for clinical use. The first aligner ships the same day as the scan.',
+      relatedIds: [2, 4], status: 'in-progress', energy: 72,
+      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>',
+    },
+    {
+      id: 4, title: 'Fitting', date: 'Step 04',
+      content: 'Magnetically retained aligner fitted by the clinical team. Optical clarity lets clinicians monitor tissue progress without removal.',
+      relatedIds: [3, 5], status: 'in-progress', energy: 55,
+      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
+    },
+    {
+      id: 5, title: 'Monitoring', date: 'Step 05',
+      content: 'Sequential aligners delivered as correction progresses. Each device is printed fresh and adapted to the infant\'s evolving anatomy.',
+      relatedIds: [4, 1], status: 'pending', energy: 38,
+      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>',
+    },
+  ];
+
+  var container  = document.getElementById('orbital-container');
+  var stage      = document.getElementById('orbital-stage');
+  var detailWrap = document.getElementById('orbital-detail');
+  var detailEl   = document.getElementById('orbital-detail-inner');
+  if (!container || !stage) return;
+
+  var angle = 0, autoRotate = true, activeId = null, timer = null;
+  var nodes = {};
+
+  DATA.forEach(function (item) {
+    var wrap = document.createElement('div');
+    wrap.className = 'orbital-node';
+
+    var glowSize = item.energy * 0.38 + 28;
+    var glow = document.createElement('div');
+    glow.className = 'node-glow';
+    glow.style.cssText = 'width:' + glowSize + 'px;height:' + glowSize + 'px;' +
+      'top:' + (20 - glowSize / 2) + 'px;left:' + (20 - glowSize / 2) + 'px;' +
+      'background:radial-gradient(circle,rgba(255,255,255,0.13) 0%,transparent 70%);';
+
+    var icon = document.createElement('div');
+    icon.className = 'node-icon';
+    icon.innerHTML = item.icon;
+
+    var lbl = document.createElement('div');
+    lbl.className = 'node-label';
+    lbl.textContent = item.title;
+
+    var card = document.createElement('div');
+    card.className = 'node-card';
+    card.style.display = 'none';
+    card.innerHTML = buildCard(item);
+
+    wrap.appendChild(glow);
+    wrap.appendChild(icon);
+    wrap.appendChild(lbl);
+    wrap.appendChild(card);
+    stage.appendChild(wrap);
+
+    nodes[item.id] = { el: wrap, icon: icon, lbl: lbl, card: card };
+
+    wrap.addEventListener('click', function (e) { e.stopPropagation(); toggle(item.id); });
+  });
+
+  stage.addEventListener('click', function (e) {
+    var btn = e.target.closest('.node-card-link');
+    if (btn) { e.stopPropagation(); toggle(parseInt(btn.dataset.target, 10)); }
+  });
+  container.addEventListener('click', collapseAll);
+
+  function buildCard(item) {
+    var labels  = { completed: 'COMPLETE', 'in-progress': 'IN PROGRESS', pending: 'PENDING' };
+    var classes = { completed: 'badge-complete', 'in-progress': 'badge-progress', pending: 'badge-pending' };
+    var related = item.relatedIds.map(function (rid) {
+      return '<button class="node-card-link" data-target="' + rid + '">' +
+        DATA.find(function (d) { return d.id === rid; }).title + ' →</button>';
+    }).join('');
+    return '<div class="node-card-header">' +
+        '<span class="status-badge ' + classes[item.status] + '">' + labels[item.status] + '</span>' +
+        '<span class="node-card-date">' + item.date + '</span>' +
+      '</div>' +
+      '<div class="node-card-title">' + item.title + '</div>' +
+      '<div class="node-card-content">' + item.content + '</div>' +
+      '<div class="energy-label"><span>Progress</span><span>' + item.energy + '%</span></div>' +
+      '<div class="energy-track"><div class="energy-fill" style="width:' + item.energy + '%"></div></div>' +
+      (related ? '<div class="node-card-related"><div class="node-card-related-label">Connected stages</div>' +
+        '<div class="node-card-links">' + related + '</div></div>' : '');
+  }
+
+  function toggle(id) {
+    if (activeId === id) { collapseAll(); return; }
+    collapseAll();
+    activeId = id; autoRotate = false; clearInterval(timer);
+    var active = DATA.find(function (d) { return d.id === id; });
+    DATA.forEach(function (d) {
+      var n = nodes[d.id];
+      if (d.id === id) {
+        n.icon.classList.add('active'); n.lbl.classList.add('active');
+      } else if (active.relatedIds.indexOf(d.id) !== -1) {
+        n.icon.classList.add('related');
+      }
+    });
+    // Show card in center panel
+    detailEl.innerHTML = buildCard(active);
+    detailWrap.classList.add('has-card');
+    // Wire related-stage clicks inside center panel
+    detailEl.querySelectorAll('.node-card-link').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggle(parseInt(btn.dataset.target, 10));
+      });
+    });
+  }
+
+  function collapseAll() {
+    activeId = null; autoRotate = true;
+    DATA.forEach(function (d) {
+      var n = nodes[d.id];
+      n.icon.classList.remove('active', 'related');
+      n.lbl.classList.remove('active');
+    });
+    detailWrap.classList.remove('has-card');
+    detailEl.innerHTML = '';
+    startTimer();
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(function () { angle = (angle + 0.3) % 360; render(); }, 50);
+  }
+
+  function render() {
+    var R = 260, total = DATA.length;
+    if (container.offsetWidth < 500) R = 150;
+    DATA.forEach(function (item, i) {
+      var a   = ((i / total) * 360 + angle) % 360;
+      var rad = a * Math.PI / 180;
+      var x   = R * Math.cos(rad);
+      var y   = R * Math.sin(rad);
+      var zi  = Math.round(100 + 50 * Math.cos(rad));
+      var op  = activeId === item.id ? 1 : Math.max(0.35, 0.35 + 0.65 * ((1 + Math.sin(rad)) / 2));
+      var n   = nodes[item.id];
+      n.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      n.el.style.zIndex    = activeId === item.id ? 200 : zi;
+      n.el.style.opacity   = op.toFixed(3);
+    });
+  }
+
+  render();
+  startTimer();
+}());
+
+// ---- Hero particles background ----------------------------------------
+(function () {
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+  script.async = true;
+  document.body.appendChild(script);
+
+  script.onload = function () {
+    window.particlesJS('particles-js', {
+      particles: {
+        number: { value: 120, density: { enable: true, value_area: 900 } },
+        color: { value: '#3756a8' },
+        shape: {
+          type: 'circle',
+          stroke: { width: 0.5, color: '#0e9aa7' },
+        },
+        opacity: {
+          value: 0.45,
+          random: true,
+          anim: { enable: true, speed: 1, opacity_min: 0.15 },
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: { enable: true, speed: 2, size_min: 0.8 },
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#2bb6c2',
+          opacity: 0.28,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 1.6,
+          random: true,
+          out_mode: 'bounce',
+        },
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: true, mode: 'grab' },
+          onclick:  { enable: true, mode: 'push' },
+          resize: true,
+        },
+        modes: {
+          grab:    { distance: 200, line_linked: { opacity: 0.7 } },
+          push:    { particles_nb: 3 },
+          repulse: { distance: 160, duration: 0.4 },
+        },
+      },
+      retina_detect: true,
+    });
+  };
+}());
+
+// ---- Banner word cycling ------------------------------------------
+(function () {
+  var WORDS = [
+    'Personalized.',
+    'Precise.',
+    'Tailored.',
+    'Engineered.',
+    'Custom-Fitted.',
+    'Calibrated.',
+    'Patient-Specific.',
+    'Purposeful.',
+  ];
+
+  var el      = document.getElementById('banner-word');
+  var section = document.getElementById('banner-section');
+  if (!el || !section) return;
+
+  var idx      = 0;
+  var cycling  = false;
+
+  function next() {
+    el.classList.add('exiting');
+    setTimeout(function () {
+      idx = (idx + 1) % WORDS.length;
+      el.textContent = WORDS[idx];
+      el.classList.remove('exiting');
+      el.classList.add('entering');
+      void el.offsetWidth; // force reflow before re-enabling transition
+      el.classList.remove('entering');
+    }, 430);
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) {
+      section.classList.add('visible');
+      if (!cycling) {
+        cycling = true;
+        setTimeout(function () {
+          setInterval(next, 1300);
+        }, 1000);
+      }
+      observer.disconnect();
+    }
+  }, { threshold: 0.25 });
+
+  observer.observe(section);
+}());
+
+/* ---- Pulse Beams animation -------------------------------------------- */
+(function () {
+  var pulses = document.querySelectorAll('.pb-pulse');
+  if (!pulses.length) return;
+
+  pulses.forEach(function (path) {
+    var delay = parseFloat(path.getAttribute('data-pb-delay') || '0') * 1000;
+    var L = path.getTotalLength();
+    var dashLen = Math.min(L * 0.28, 70);
+    var travelDuration = 2000;
+    var pauseDuration  = 2000;
+    var totalCycle     = travelDuration + pauseDuration;
+    var startTime      = performance.now() + delay;
+
+    path.style.strokeDasharray  = dashLen + ' ' + L;
+    path.style.strokeDashoffset = L + dashLen;
+
+    function tick(now) {
+      var elapsed = now - startTime;
+      if (elapsed < 0) { requestAnimationFrame(tick); return; }
+
+      var inCycle  = elapsed % totalCycle;
+      var progress = Math.min(inCycle / travelDuration, 1);
+      /* ease in-out */
+      var t = progress < 0.5
+        ? 2 * progress * progress
+        : -1 + (4 - 2 * progress) * progress;
+
+      path.style.strokeDashoffset = (L + dashLen) - t * (L + 2 * dashLen);
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  });
+}());
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceShift · Clinicians</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+
+    /* ---- Profile hero --------------------------------------------------- */
+
+    .profile-hero {
+      background: linear-gradient(160deg, var(--navy-900) 0%, #0d1e4a 55%, var(--navy-800) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-hero-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 72px 32px 0;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      align-items: end;
+      gap: 64px;
+      min-height: 460px;
+    }
+
+    /* Subtle background texture */
+    .profile-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(43,182,194,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .profile-info {
+      position: relative;
+      z-index: 1;
+      padding-bottom: 56px;
+    }
+
+    .profile-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal-400);
+      margin: 0 0 20px;
+    }
+
+    .profile-name {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: #fff;
+      margin: 0 0 10px;
+    }
+
+    .profile-credentials {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.65);
+      margin: 0 0 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .profile-roles {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .profile-roles li {
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .profile-roles li::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--teal-400);
+      flex-shrink: 0;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .profile-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: 'Inter Tight', sans-serif;
+    }
+
+    .profile-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--teal-500);
+      color: #fff;
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .profile-photo-wrap {
+      position: relative;
+      z-index: 1;
+      align-self: end;
+    }
+
+    .profile-photo {
+      width: 100%;
+      max-width: 420px;
+      height: 480px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      border-radius: 16px 16px 0 0;
+    }
+
+    /* ---- Profile body --------------------------------------------------- */
+
+    .profile-body {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 72px 32px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ---- Bio ------------------------------------------------------------ */
+
+    .bio-section h2 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--navy-900);
+      margin: 0 0 28px;
+    }
+
+    .bio-section p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink-muted);
+      margin: 0 0 20px;
+      text-wrap: pretty;
+    }
+
+    .bio-section p:last-child { margin-bottom: 0; }
+
+    /* ---- Sidebar credentials -------------------------------------------- */
+
+    .cred-sidebar {
+      position: sticky;
+      top: 96px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .cred-block {}
+
+    .cred-block-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cred-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--bg-soft);
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy-700);
+      flex-shrink: 0;
+    }
+
+    .cred-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--navy-900);
+    }
+
+    .cred-values {
+      padding-left: 42px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cred-value {
+      font-size: 13.5px;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+
+    .cred-divider {
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ---- Responsive ----------------------------------------------------- */
+
+    @media (max-width: 960px) {
+      .profile-hero-inner {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-bottom: 0;
+        gap: 32px;
+      }
+      .profile-photo { height: 340px; border-radius: 12px 12px 0 0; max-width: 100%; }
+      .profile-info  { padding-bottom: 0; }
+      .profile-body  { grid-template-columns: 1fr; gap: 48px; }
+      .cred-sidebar  { position: static; }
+    }
+
+    @media (max-width: 600px) {
+      .profile-hero-inner { padding: 48px 20px 0; }
+      .profile-body { padding: 48px 20px 60px; }
+      .profile-actions { flex-direction: column; }
+      .profile-btn { justify-content: center; }
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark" aria-hidden="true"></div>
+      FaceShift
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Platform</a>
+      <a href="indications.html">Indications</a>
+      <a href="clinicians.html" class="active">Clinicians</a>
+      <a href="science.html">Science</a>
+      <a href="about.html">About</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Work With Us</a>
+  </div>
+</nav>
+
+<!-- Profile hero -->
+<div class="profile-hero">
+  <div class="profile-hero-inner">
+
+    <div class="profile-info">
+      <p class="profile-kicker">§ Clinicians</p>
+      <h1 class="profile-name">Alexander Y. Lin</h1>
+      <p class="profile-credentials">MD, MBA</p>
+      <ul class="profile-roles">
+        <li>Plastic surgeon, UCSF</li>
+        <li>Co-director, Craniofacial Center</li>
+        <li>Co-director, Center for Advanced 3D+ Technologies</li>
+        <li>Capstone sponsor, FaceShift Bio</li>
+      </ul>
+      <div class="profile-actions">
+        <a href="https://www.ucsfhealth.org/providers/dr-alexander-lin" target="_blank" rel="noopener" class="profile-btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+          Request appointment
+        </a>
+        <a href="mailto:faceshift@ucsfbenioffoakland.org" class="profile-btn btn-outline">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5z"/><path d="m3 7 9 6 9-6"/></svg>
+          Refer a patient
+        </a>
+      </div>
+    </div>
+
+    <div class="profile-photo-wrap">
+      <img
+        src="uploads/dr-lin.jpg"
+        alt="Dr. Alexander Y. Lin, MD MBA, Plastic and craniofacial surgeon at UCSF"
+        class="profile-photo"
+      />
+    </div>
+
+  </div>
+</div>
+
+<!-- Profile body -->
+<div class="profile-body">
+
+  <!-- Biography -->
+  <div class="bio-section">
+    <h2>About Dr. Lin</h2>
+
+    <p>Dr. Alexander Y. Lin is a plastic surgeon who specializes in craniofacial and maxillofacial surgery (operations on the skull, face and jaw), as well as plastic surgery for pediatric conditions. He is director of surgical innovations for UCSF's plastic surgery division. He is also co-director of the UCSF Craniofacial Center and co-director of the UCSF Center for Advanced 3D+ Technologies, serving as the Oakland site director for both.</p>
+
+    <p>Lin's mission in medicine, guiding his practice, research and innovations, is to improve the lives of children and their families. In patient care, he focuses on what, he believes, makes us human: our faces, speech (palate) and hands. Specifically, he provides care for patients with cleft lip, cleft nose and cleft palate or other conditions of facial structures. He also performs surgery to correct problems with the bones of the skull and face (due to disorders such as craniosynostosis), the jaw (which can cause poor teeth alignment and breathing problems), and the orbit (eye socket).</p>
+
+    <p>In his translational research, Lin focuses on 3D printing and advanced visualization technologies to allow the use of sterile models and improve surgery by facilitating smaller incisions, serving to make procedures faster and more accurate. He has funded grants to develop artificial intelligence applications for detecting speech problems earlier in children's development, which can enable kids to receive speech therapy or corrective surgery sooner. He also studies how to merge scaffolding (implantable materials that support tissue growth) with biologic tissues for complex reconstruction surgeries.</p>
+
+    <p>After earning his bachelor's and master's degrees at Stanford University, Lin earned his medical degree at the Johns Hopkins University School of Medicine. He completed a residency in general surgery and plastic and reconstructive surgery at UCSF, which included a two-year research fellowship in vascular immunobiology at Massachusetts General Hospital. He completed a fellowship in craniofacial, maxillofacial and pediatric plastic surgery at Children's Hospital of Pittsburgh. He also earned a master of business administration degree, with a focus on innovation, from Washington University in St. Louis.</p>
+
+    <p>Prior to joining UCSF, Lin served as chief of plastic surgery at St. Louis University School of Medicine. There, he held the Alan A. and Edith L. Wolff Endowed Chair in Craniofacial, Maxillofacial and Pediatric Plastic Surgery and co-founded and co-directed the 3D Printing Center of Excellence at SSM Health Cardinal Glennon Children's Hospital, where he also directed the St. Louis Cleft-Craniofacial Center.</p>
+
+    <p>Nationally, Lin provides leadership in three key roles, serving on the American Society of Maxillofacial Surgeons' executive board as vice president of administrative duties, as chair of the craniomaxillofacial section of the American Society of Plastic Surgeons' exam committee, and as past chair of the clinical study section of the Plastic Surgery Foundation (which supports impactful research through its grants program).</p>
+  </div>
+
+  <!-- Credentials sidebar -->
+  <aside class="cred-sidebar">
+
+    <div class="cred-block">
+      <div class="cred-block-header">
+        <div class="cred-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="cred-label">Board Certifications</span>
+      </div>
+      <div class="cred-values">
+        <span class="cred-value">American Board of Plastic Surgery, Plastic Surgery</span>
+      </div>
+    </div>
+
+    <div class="cred-divider"></div>
+
+    <div class="cred-block">
+      <div class="cred-block-header">
+        <div class="cred-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <span class="cred-label">Fellowships</span>
+      </div>
+      <div class="cred-values">
+        <span class="cred-value">Childrens Hospital of Pittsburgh (UPMC), Cleft &amp; Craniofacial Surgery</span>
+      </div>
+    </div>
+
+    <div class="cred-divider"></div>
+
+    <div class="cred-block">
+      <div class="cred-block-header">
+        <div class="cred-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M9 21V7l6-4v18"/><path d="M3 21V10l6-3"/></svg>
+        </div>
+        <span class="cred-label">Residencies</span>
+      </div>
+      <div class="cred-values">
+        <span class="cred-value">UCSF Graduate Medical Education, Plastic Surgery</span>
+      </div>
+    </div>
+
+    <div class="cred-divider"></div>
+
+    <div class="cred-block">
+      <div class="cred-block-header">
+        <div class="cred-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <span class="cred-label">Internship</span>
+      </div>
+      <div class="cred-values">
+        <span class="cred-value">UCSF Graduate Medical Education, General Surgery</span>
+      </div>
+    </div>
+
+    <div class="cred-divider"></div>
+
+    <div class="cred-block">
+      <div class="cred-block-header">
+        <div class="cred-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <span class="cred-label">Degree</span>
+      </div>
+      <div class="cred-values">
+        <span class="cred-value">MD, Johns Hopkins University School of Medicine</span>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<footer>
+  <span>© 2026 FaceShift Bio, Inc.</span>
+  <span class="mono">v0.4.2 · clinicians</span>
+</footer>
+
+</body>
+</html>

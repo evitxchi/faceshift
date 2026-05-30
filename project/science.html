@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FaceShift · Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+
+    /* ============================================================
+       PRODUCT SHOWCASE, ported from spatial-product-showcase.tsx
+       ============================================================ */
+
+    body { background: #000; }
+
+    .nav {
+      background: rgba(0,0,0,0.85);
+      border-bottom-color: rgba(255,255,255,0.08);
+    }
+    .brand { color: #fff; }
+    .nav-links a { color: rgba(255,255,255,0.5); }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a.active { font-weight: 500; }
+    .nav-cta { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+
+    /* ---- Background Boxes section -------------------------------------- */
+
+    .boxes-section {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .boxes-grid-wrap {
+      position: absolute;
+      left: 25%;
+      top: -25%;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      z-index: 0;
+      padding: 16px;
+      transform: translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) translateZ(0);
+    }
+
+    .boxes-col {
+      width: 64px;
+      flex-shrink: 0;
+      border-left: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+    }
+
+    .boxes-cell {
+      width: 64px;
+      height: 32px;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      transition: background-color 0s;
+    }
+
+    .boxes-cell:hover { background-color: var(--cell-color); }
+
+    .boxes-plus {
+      position: absolute;
+      width: 40px;
+      height: 24px;
+      top: -14px;
+      left: -22px;
+      color: rgba(255,255,255,0.05);
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .boxes-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(ellipse at center, transparent 30%, #000 68%);
+      pointer-events: none;
+    }
+
+    .boxes-content {
+      position: relative;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .boxes-content * {
+      pointer-events: auto;
+    }
+
+    .boxes-section .kicker { color: var(--teal-400); }
+    .boxes-section .title  { color: #fff; }
+    .boxes-section .lede   { color: rgba(255,255,255,0.6); }
+
+    .showcase-wrap {
+      position: relative;
+      background: #000;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Animated background gradient layer */
+    .showcase-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transition: background 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+
+    .showcase-bg.side-left {
+      background: radial-gradient(circle at 0% 50%, rgba(28, 50, 112, 0.35), transparent 55%);
+    }
+
+    .showcase-bg.side-right {
+      background: radial-gradient(circle at 100% 50%, rgba(14, 154, 167, 0.25), transparent 55%);
+    }
+
+    /* ---- Main layout ---------------------------------------------------- */
+
+    .showcase-inner {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 48px 140px;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .showcase-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      width: 100%;
+      transition: flex-direction 0.5s;
+    }
+
+    .showcase-row.flip { flex-direction: row-reverse; }
+
+    /* ---- Visual column -------------------------------------------------- */
+
+    .showcase-visual {
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Outer dashed rotating ring */
+    .ring-outer {
+      position: absolute;
+      inset: -18%;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,0.1);
+      animation: ringRotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes ringRotate {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Glow blob behind image */
+    .ring-glow {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      opacity: 0.35;
+      filter: blur(40px);
+      transition: background 0.8s ease;
+    }
+
+    .ring-glow.side-left  { background: radial-gradient(circle, #1c3270, #0b1735); }
+    .ring-glow.side-right { background: radial-gradient(circle, #0e9aa7, #1c3270); }
+
+    /* Circle container */
+    .visual-circle {
+      position: relative;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Floating image wrapper */
+    .visual-float {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: imgFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes imgFloat {
+      0%, 100% { transform: translateY(-10px); }
+      50%       { transform: translateY(10px); }
+    }
+
+    .product-img {
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      /* entry/exit transitions handled by JS class */
+      transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+    }
+
+    .product-img.hidden {
+      opacity: 0;
+      transform: scale(0.7) rotate(15deg);
+      filter: blur(16px);
+    }
+
+    /* Status label */
+    .visual-status {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 8px 18px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal-400);
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* ---- Details column ------------------------------------------------- */
+
+    .showcase-details {
+      max-width: 440px;
+      width: 100%;
+    }
+
+    /* Each detail element fades up when JS adds .visible */
+    .detail-item {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(8px);
+      transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .detail-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .detail-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+
+    .detail-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.45) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 14px;
+    }
+
+    .detail-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+    }
+
+    /* Feature block */
+    .feature-block {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 24px;
+    }
+
+    .feature-row { margin-bottom: 22px; }
+    .feature-row:last-of-type { margin-bottom: 0; }
+
+    .feat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .feat-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .feat-left svg { color: rgba(255,255,255,0.5); }
+
+    .feat-pct {
+      font-size: 11px;
+      font-family: 'Inter Tight', sans-serif;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+    }
+
+    .feat-track {
+      height: 7px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .feat-fill {
+      height: 100%;
+      border-radius: 999px;
+      width: 0;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .feat-fill.side-left  { background: linear-gradient(90deg, #3756a8, #2bb6c2); }
+    .feat-fill.side-right { background: linear-gradient(90deg, #0e9aa7, #3756a8); }
+
+    .view-specs-row {
+      display: flex;
+      justify-content: flex-start;
+      padding-top: 18px;
+      margin-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .view-specs-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter Tight', sans-serif;
+      transition: color 0.2s;
+      padding: 0;
+    }
+
+    .view-specs-btn:hover { color: rgba(255,255,255,0.9); }
+
+    .view-specs-btn svg {
+      transition: transform 0.2s;
+    }
+
+    .view-specs-btn:hover svg { transform: translateX(3px); }
+
+    /* Compliance row */
+    .detail-compliance {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ---- Switcher ------------------------------------------------------- */
+
+    .switcher-wrap {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .switcher {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(10,10,10,0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    .switcher-indicator {
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: transform 0.38s cubic-bezier(0.34, 1.4, 0.64, 1),
+                  width   0.38s cubic-bezier(0.34, 1.4, 0.64, 1);
+      pointer-events: none;
+    }
+
+    .switcher-btn {
+      position: relative;
+      z-index: 1;
+      width: 96px;
+      height: 44px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: color 0.25s;
+    }
+
+    .switcher-btn.active { color: #fff; }
+
+    /* Active underline dot */
+    .switcher-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    }
+
+    /* ---- Responsive ----------------------------------------------------- */
+
+    @media (max-width: 960px) {
+      .showcase-row,
+      .showcase-row.flip {
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .showcase-inner { padding: 60px 24px 120px; }
+      .visual-circle  { width: 300px; height: 300px; }
+      .showcase-details { max-width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .visual-circle { width: 240px; height: 240px; }
+      .switcher-btn  { width: 80px; height: 40px; font-size: 13px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-mark" aria-hidden="true"></div>
+      FaceShift
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Platform</a>
+      <a href="indications.html">Indications</a>
+      <a href="science.html" class="active">Science</a>
+      <a href="about.html">About</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Work With Us</a>
+  </div>
+</nav>
+
+<div class="boxes-section">
+  <div class="boxes-grid-wrap" id="sci-boxes"></div>
+  <div class="boxes-overlay"></div>
+  <section class="module boxes-content">
+    <div class="module-head">
+      <div>
+        <p class="kicker">§ Science</p>
+        <h2 class="title">Why now is the right moment.</h2>
+      </div>
+      <p class="lede">Recent advances in non-surgical molding, combined with accessible 3D printing of biocompatible elastomers, have unlocked a corrective approach that was infeasible a decade ago.</p>
+    </div>
+  </section>
+</div>
+
+<!-- Ear Mold Showcase -->
+<div class="showcase-wrap">
+  <div class="showcase-bg side-left" id="showcase-bg"></div>
+
+  <div class="showcase-inner">
+    <div class="showcase-row" id="showcase-row">
+
+      <!-- Visual -->
+      <div class="showcase-visual">
+        <div class="ring-outer"></div>
+        <div class="ring-glow side-left" id="ring-glow"></div>
+        <div class="visual-circle">
+          <div class="visual-float">
+            <img
+              id="product-img"
+              src="uploads/ear-mold-LEFT.png"
+              alt="FaceShift silicone ear mold"
+              class="product-img"
+            />
+          </div>
+        </div>
+        <div class="visual-status">
+          <span class="status-dot"></span>
+          <span id="status-text">FDA Cleared</span>
+        </div>
+      </div>
+
+      <!-- Details -->
+      <div class="showcase-details" id="showcase-details">
+        <div class="detail-label detail-item" id="detail-label">Left Ear · Lop Ear</div>
+        <div class="detail-title detail-item" id="detail-title" style="transition-delay:0.08s">Corrective Shell</div>
+        <div class="detail-desc detail-item" id="detail-desc" style="transition-delay:0.16s">
+          Designed for lop ear correction where the helix folds forward over the concha. Each aligner applies directional pressure to reshape cartilage within the pliability window.
+        </div>
+
+        <div class="feature-block detail-item" style="transition-delay:0.24s">
+          <div class="feature-row" id="feat-row-0">
+            <div class="feat-header">
+              <div class="feat-left">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+                <span id="feat-0-label">Correction Rate</span>
+              </div>
+              <span class="feat-pct" id="feat-0-pct">73%</span>
+            </div>
+            <div class="feat-track">
+              <div class="feat-fill side-left" id="feat-0-fill"></div>
+            </div>
+          </div>
+
+          <div class="feature-row" id="feat-row-1">
+            <div class="feat-header">
+              <div class="feat-left">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+                <span id="feat-1-label">Tissue Response</span>
+              </div>
+              <span class="feat-pct" id="feat-1-pct">91%</span>
+            </div>
+            <div class="feat-track">
+              <div class="feat-fill side-left" id="feat-1-fill"></div>
+            </div>
+          </div>
+
+          <div class="view-specs-row">
+            <button class="view-specs-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="11" y2="18"/></svg>
+              View Specs
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="detail-compliance detail-item" id="detail-compliance" style="transition-delay:0.32s">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
+          <span id="compliance-text">High Wear Compliance</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toggle switcher -->
+  <div class="switcher-wrap">
+    <div class="switcher" id="switcher">
+      <div class="switcher-indicator" id="switcher-indicator"></div>
+      <button class="switcher-btn active" data-side="left">Left</button>
+      <button class="switcher-btn"        data-side="right">Right</button>
+    </div>
+  </div>
+
+</div>
+
+<footer style="background:#000;color:rgba(255,255,255,0.3);border-top-color:rgba(255,255,255,0.08);margin-top:0;">
+  <span>© 2026 FaceShift Bio, Inc.</span>
+  <span class="mono">v0.4.2 · science</span>
+</footer>
+
+<script>
+(function () {
+
+  var PRODUCTS = {
+    left: {
+      image:       'uploads/ear-mold-LEFT.png',
+      label:       'Left Ear · Lop Ear',
+      title:       'Corrective Shell',
+      desc:        'Designed for lop ear correction where the helix folds forward over the concha. Each aligner applies directional pressure to reshape cartilage within the pliability window.',
+      status:      'FDA Cleared',
+      compliance:  'High Wear Compliance',
+      features: [
+        { label: 'Correction Rate',  pct: 73 },
+        { label: 'Tissue Response',  pct: 91 },
+      ],
+    },
+    right: {
+      image:       'uploads/ear-mold-RIGHT.png',
+      label:       'Right Ear · Prominent Ear',
+      title:       'Alignment Shell',
+      desc:        'Engineered for prominent ear correction where the auricle sits more than 20° off the skull. Magnetic retention ensures consistent positioning through overnight wear.',
+      status:      'FDA Cleared',
+      compliance:  'High Wear Compliance',
+      features: [
+        { label: 'Cartilage Response', pct: 87 },
+        { label: 'Fit Accuracy',       pct: 96 },
+      ],
+    },
+  };
+
+  var side        = 'left';
+  var animating   = false;
+
+  var bgEl        = document.getElementById('showcase-bg');
+  var rowEl       = document.getElementById('showcase-row');
+  var glowEl      = document.getElementById('ring-glow');
+  var imgEl       = document.getElementById('product-img');
+  var statusEl    = document.getElementById('status-text');
+  var labelEl     = document.getElementById('detail-label');
+  var titleEl     = document.getElementById('detail-title');
+  var descEl      = document.getElementById('detail-desc');
+  var compEl      = document.getElementById('compliance-text');
+  var f0label     = document.getElementById('feat-0-label');
+  var f0pct       = document.getElementById('feat-0-pct');
+  var f0fill      = document.getElementById('feat-0-fill');
+  var f1label     = document.getElementById('feat-1-label');
+  var f1pct       = document.getElementById('feat-1-pct');
+  var f1fill      = document.getElementById('feat-1-fill');
+  var detailItems = document.querySelectorAll('.detail-item');
+
+  // Switcher indicator
+  var switcher    = document.getElementById('switcher');
+  var indicator   = document.getElementById('switcher-indicator');
+  var btns        = switcher.querySelectorAll('.switcher-btn');
+
+  function positionIndicator(btn) {
+    indicator.style.left  = btn.offsetLeft + 'px';
+    indicator.style.width = btn.offsetWidth + 'px';
+    indicator.style.top   = '6px';
+  }
+
+  document.fonts.ready.then(function () {
+    positionIndicator(btns[0]);
+  });
+
+  function hideDetails() {
+    detailItems.forEach(function (el) { el.classList.remove('visible'); });
+  }
+
+  function showDetails() {
+    detailItems.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  function animateBars(data) {
+    // reset first
+    f0fill.style.width = '0';
+    f1fill.style.width = '0';
+    setTimeout(function () {
+      f0fill.style.width = data.features[0].pct + '%';
+      f1fill.style.width = data.features[1].pct + '%';
+    }, 60);
+  }
+
+  function switchSide(newSide) {
+    if (newSide === side || animating) return;
+    animating = true;
+    side = newSide;
+
+    var data = PRODUCTS[side];
+    var isLeft = side === 'left';
+
+    // Update switcher buttons
+    btns.forEach(function (btn) {
+      var active = btn.dataset.side === side;
+      btn.classList.toggle('active', active);
+      if (active) positionIndicator(btn);
+    });
+
+    // Flip row direction
+    rowEl.classList.toggle('flip', !isLeft);
+
+    // Background & glow
+    bgEl.className   = 'showcase-bg side-' + side;
+    glowEl.className = 'ring-glow side-' + side;
+
+    // Hide details
+    hideDetails();
+
+    // Swap image
+    imgEl.classList.add('hidden');
+
+    setTimeout(function () {
+      imgEl.src = data.image;
+      imgEl.onload = function () {
+        imgEl.classList.remove('hidden');
+      };
+      // fallback if already cached
+      if (imgEl.complete) imgEl.classList.remove('hidden');
+    }, 350);
+
+    // Update fill colors
+    var sideClass = 'side-' + side;
+    f0fill.className = 'feat-fill ' + sideClass;
+    f1fill.className = 'feat-fill ' + sideClass;
+
+    // Update text content
+    setTimeout(function () {
+      statusEl.textContent   = data.status;
+      labelEl.textContent    = data.label;
+      titleEl.textContent    = data.title;
+      descEl.textContent     = data.desc;
+      compEl.textContent     = data.compliance;
+      f0label.textContent    = data.features[0].label;
+      f0pct.textContent      = data.features[0].pct + '%';
+      f1label.textContent    = data.features[1].label;
+      f1pct.textContent      = data.features[1].pct + '%';
+      showDetails();
+      animateBars(data);
+      animating = false;
+    }, 200);
+  }
+
+  // Bind switcher buttons
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () { switchSide(btn.dataset.side); });
+  });
+
+  // Init, trigger initial bar animation + show details
+  document.fonts.ready.then(function () {
+    showDetails();
+    animateBars(PRODUCTS.left);
+  });
+
+  window.addEventListener('resize', function () {
+    var activeBtn = switcher.querySelector('.switcher-btn.active');
+    if (activeBtn) positionIndicator(activeBtn);
+  });
+
+}());
+</script>
+
+<script>
+(function () {
+  var COLORS = [
+    'rgba(43,182,194,0.6)',
+    'rgba(14,154,167,0.65)',
+    'rgba(55,86,168,0.6)',
+    'rgba(28,50,112,0.65)',
+    'rgba(125,211,252,0.4)',
+    'rgba(147,197,253,0.4)',
+    'rgba(43,182,194,0.35)',
+    'rgba(55,86,168,0.4)',
+  ];
+
+  var COLS = 100, ROWS = 40;
+  var wrap = document.getElementById('sci-boxes');
+  if (!wrap) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+
+  for (var c = 0; c < COLS; c++) {
+    var col = document.createElement('div');
+    col.className = 'boxes-col';
+    for (var r = 0; r < ROWS; r++) {
+      var cell = document.createElement('div');
+      cell.className = 'boxes-cell';
+      cell.style.setProperty('--cell-color', COLORS[Math.floor(Math.random() * COLORS.length)]);
+
+      if (c % 2 === 0 && r % 2 === 0) {
+        var svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '1.5');
+        svg.classList.add('boxes-plus');
+        var path = document.createElementNS(NS, 'path');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        path.setAttribute('d', 'M12 6v12m6-6H6');
+        svg.appendChild(path);
+        cell.appendChild(svg);
+      }
+      col.appendChild(cell);
+    }
+    wrap.appendChild(col);
+  }
+}());
+</script>
+
+</body>
+</html>
