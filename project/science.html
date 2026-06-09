@@ -498,17 +498,17 @@
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="/">
       <div class="brand-mark" aria-hidden="true"></div>
       FaceShift
     </a>
     <div class="nav-links">
-      <a href="index.html">Platform</a>
-      <a href="indications.html">Indications</a>
-      <a href="science.html" class="active">Science</a>
-      <a href="about.html">About</a>
+      <a href="/">Platform</a>
+      <a href="/indications">Indications</a>
+      <a href="/science" class="active">Science</a>
+      <a href="/about">About</a>
     </div>
-    <a href="contact.html" class="nav-cta">Work With Us</a>
+    <a href="/contact" class="nav-cta">Work With Us</a>
   </div>
 </nav>
 
@@ -546,10 +546,6 @@
               class="product-img"
             />
           </div>
-        </div>
-        <div class="visual-status">
-          <span class="status-dot"></span>
-          <span id="status-text">FDA Cleared</span>
         </div>
       </div>
 
@@ -631,7 +627,7 @@
       label:       'Left Ear · Lop Ear',
       title:       'Corrective Shell',
       desc:        'Designed for lop ear correction where the helix folds forward over the concha. Each aligner applies directional pressure to reshape cartilage within the pliability window.',
-      status:      'FDA Cleared',
+
       compliance:  'High Wear Compliance',
       features: [
         { label: 'Correction Rate',  pct: 73 },
@@ -639,11 +635,11 @@
       ],
     },
     right: {
-      image:       'uploads/ear-mold-RIGHT.png',
+      image:       'uploads/Right-Ear-Counterpart.png',
       label:       'Right Ear · Prominent Ear',
       title:       'Alignment Shell',
       desc:        'Engineered for prominent ear correction where the auricle sits more than 20° off the skull. Magnetic retention ensures consistent positioning through overnight wear.',
-      status:      'FDA Cleared',
+
       compliance:  'High Wear Compliance',
       features: [
         { label: 'Cartilage Response', pct: 87 },
@@ -659,7 +655,6 @@
   var rowEl       = document.getElementById('showcase-row');
   var glowEl      = document.getElementById('ring-glow');
   var imgEl       = document.getElementById('product-img');
-  var statusEl    = document.getElementById('status-text');
   var labelEl     = document.getElementById('detail-label');
   var titleEl     = document.getElementById('detail-title');
   var descEl      = document.getElementById('detail-desc');
@@ -749,7 +744,6 @@
 
     // Update text content
     setTimeout(function () {
-      statusEl.textContent   = data.status;
       labelEl.textContent    = data.label;
       titleEl.textContent    = data.title;
       descEl.textContent     = data.desc;
