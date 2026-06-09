@@ -111,6 +111,24 @@
 
     .boxes-content * { pointer-events: auto; }
 
+    .ind-content {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .ind-content p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.55);
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .ind-content { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -140,7 +158,11 @@
         <p class="kicker">§ Indications</p>
         <h2 class="title">Where early molding works.</h2>
       </div>
-      <p class="lede">Initially developed for ear deformities like lop and prominent ear, FaceShift extends to nasoalveolar molding for cleft lip and palate, jaw alignment, and other craniofacial differences. All indications fall within the soft-tissue window of the first weeks of life.</p>
+      <p class="lede">Initially developed for ear differences like lop and prominent ear, FaceShift extends to the nose, septum, jaws, and other craniofacial differences.</p>
+    </div>
+    <div class="ind-content">
+      <p>FaceShift acts primarily on cartilage and may also influence bone remodeling over time. By intervening early—during the window of maximum tissue pliability—the technology applies gentle, progressive correction without surgery.</p>
+      <p>Each device is custom-fit from a 3D scan and printed in one or two pieces depending on the anatomy, allowing treatment across a wide range of ages and anatomy sizes.</p>
     </div>
   </section>
 </div>

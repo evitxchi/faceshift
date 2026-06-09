@@ -521,7 +521,7 @@
         <p class="kicker">§ Science</p>
         <h2 class="title">Why now is the right moment.</h2>
       </div>
-      <p class="lede">Recent advances in non-surgical molding, combined with accessible 3D printing of biocompatible elastomers, have unlocked a corrective approach that was infeasible a decade ago.</p>
+      <p class="lede">Recent advances in non-surgical molding, combined with accessible 3D printing of biocompatible materials, have unlocked a corrective approach that was unfeasible a decade ago.</p>
     </div>
   </section>
 </div>
@@ -541,7 +541,7 @@
           <div class="visual-float">
             <img
               id="product-img"
-              src="uploads/ear-mold-LEFT.png"
+              src="uploads/Right-Ear-Counterpart.png"
               alt="FaceShift silicone ear mold"
               class="product-img"
             />
@@ -551,63 +551,18 @@
 
       <!-- Details -->
       <div class="showcase-details" id="showcase-details">
-        <div class="detail-label detail-item" id="detail-label">Left Ear · Lop Ear</div>
-        <div class="detail-title detail-item" id="detail-title" style="transition-delay:0.08s">Corrective Shell</div>
+        <div class="detail-label detail-item" id="detail-label">Ear Molding</div>
+        <div class="detail-title detail-item" id="detail-title" style="transition-delay:0.08s">Custom Alignment Shell</div>
         <div class="detail-desc detail-item" id="detail-desc" style="transition-delay:0.16s">
-          Designed for lop ear correction where the helix folds forward over the concha. Each aligner applies directional pressure to reshape cartilage within the pliability window.
+          Engineered for ear correction. Each shell is custom-fit and worn day and night, applying gentle directional pressure to reshape cartilage within the pliability window.
         </div>
 
-        <div class="feature-block detail-item" style="transition-delay:0.24s">
-          <div class="feature-row" id="feat-row-0">
-            <div class="feat-header">
-              <div class="feat-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
-                <span id="feat-0-label">Correction Rate</span>
-              </div>
-              <span class="feat-pct" id="feat-0-pct">73%</span>
-            </div>
-            <div class="feat-track">
-              <div class="feat-fill side-left" id="feat-0-fill"></div>
-            </div>
-          </div>
-
-          <div class="feature-row" id="feat-row-1">
-            <div class="feat-header">
-              <div class="feat-left">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
-                <span id="feat-1-label">Tissue Response</span>
-              </div>
-              <span class="feat-pct" id="feat-1-pct">91%</span>
-            </div>
-            <div class="feat-track">
-              <div class="feat-fill side-left" id="feat-1-fill"></div>
-            </div>
-          </div>
-
-          <div class="view-specs-row">
-            <button class="view-specs-btn">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="11" y2="18"/></svg>
-              View Specs
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="detail-compliance detail-item" id="detail-compliance" style="transition-delay:0.32s">
+        <div class="detail-compliance detail-item" id="detail-compliance" style="transition-delay:0.24s">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>
-          <span id="compliance-text">High Wear Compliance</span>
+          <span id="compliance-text">Custom-Fit · Day and Night Wear</span>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- Toggle switcher -->
-  <div class="switcher-wrap">
-    <div class="switcher" id="switcher">
-      <div class="switcher-indicator" id="switcher-indicator"></div>
-      <button class="switcher-btn active" data-side="left">Left</button>
-      <button class="switcher-btn"        data-side="right">Right</button>
     </div>
   </div>
 
@@ -621,157 +576,10 @@
 <script>
 (function () {
 
-  var PRODUCTS = {
-    left: {
-      image:       'uploads/ear-mold-LEFT.png',
-      label:       'Left Ear · Lop Ear',
-      title:       'Corrective Shell',
-      desc:        'Designed for lop ear correction where the helix folds forward over the concha. Each aligner applies directional pressure to reshape cartilage within the pliability window.',
-
-      compliance:  'High Wear Compliance',
-      features: [
-        { label: 'Correction Rate',  pct: 73 },
-        { label: 'Tissue Response',  pct: 91 },
-      ],
-    },
-    right: {
-      image:       'uploads/Right-Ear-Counterpart.png',
-      label:       'Right Ear · Prominent Ear',
-      title:       'Alignment Shell',
-      desc:        'Engineered for prominent ear correction where the auricle sits more than 20° off the skull. Magnetic retention ensures consistent positioning through overnight wear.',
-
-      compliance:  'High Wear Compliance',
-      features: [
-        { label: 'Cartilage Response', pct: 87 },
-        { label: 'Fit Accuracy',       pct: 96 },
-      ],
-    },
-  };
-
-  var side        = 'left';
-  var animating   = false;
-
-  var bgEl        = document.getElementById('showcase-bg');
-  var rowEl       = document.getElementById('showcase-row');
-  var glowEl      = document.getElementById('ring-glow');
-  var imgEl       = document.getElementById('product-img');
-  var labelEl     = document.getElementById('detail-label');
-  var titleEl     = document.getElementById('detail-title');
-  var descEl      = document.getElementById('detail-desc');
-  var compEl      = document.getElementById('compliance-text');
-  var f0label     = document.getElementById('feat-0-label');
-  var f0pct       = document.getElementById('feat-0-pct');
-  var f0fill      = document.getElementById('feat-0-fill');
-  var f1label     = document.getElementById('feat-1-label');
-  var f1pct       = document.getElementById('feat-1-pct');
-  var f1fill      = document.getElementById('feat-1-fill');
   var detailItems = document.querySelectorAll('.detail-item');
 
-  // Switcher indicator
-  var switcher    = document.getElementById('switcher');
-  var indicator   = document.getElementById('switcher-indicator');
-  var btns        = switcher.querySelectorAll('.switcher-btn');
-
-  function positionIndicator(btn) {
-    indicator.style.left  = btn.offsetLeft + 'px';
-    indicator.style.width = btn.offsetWidth + 'px';
-    indicator.style.top   = '6px';
-  }
-
   document.fonts.ready.then(function () {
-    positionIndicator(btns[0]);
-  });
-
-  function hideDetails() {
-    detailItems.forEach(function (el) { el.classList.remove('visible'); });
-  }
-
-  function showDetails() {
     detailItems.forEach(function (el) { el.classList.add('visible'); });
-  }
-
-  function animateBars(data) {
-    // reset first
-    f0fill.style.width = '0';
-    f1fill.style.width = '0';
-    setTimeout(function () {
-      f0fill.style.width = data.features[0].pct + '%';
-      f1fill.style.width = data.features[1].pct + '%';
-    }, 60);
-  }
-
-  function switchSide(newSide) {
-    if (newSide === side || animating) return;
-    animating = true;
-    side = newSide;
-
-    var data = PRODUCTS[side];
-    var isLeft = side === 'left';
-
-    // Update switcher buttons
-    btns.forEach(function (btn) {
-      var active = btn.dataset.side === side;
-      btn.classList.toggle('active', active);
-      if (active) positionIndicator(btn);
-    });
-
-    // Flip row direction
-    rowEl.classList.toggle('flip', !isLeft);
-
-    // Background & glow
-    bgEl.className   = 'showcase-bg side-' + side;
-    glowEl.className = 'ring-glow side-' + side;
-
-    // Hide details
-    hideDetails();
-
-    // Swap image
-    imgEl.classList.add('hidden');
-
-    setTimeout(function () {
-      imgEl.src = data.image;
-      imgEl.onload = function () {
-        imgEl.classList.remove('hidden');
-      };
-      // fallback if already cached
-      if (imgEl.complete) imgEl.classList.remove('hidden');
-    }, 350);
-
-    // Update fill colors
-    var sideClass = 'side-' + side;
-    f0fill.className = 'feat-fill ' + sideClass;
-    f1fill.className = 'feat-fill ' + sideClass;
-
-    // Update text content
-    setTimeout(function () {
-      labelEl.textContent    = data.label;
-      titleEl.textContent    = data.title;
-      descEl.textContent     = data.desc;
-      compEl.textContent     = data.compliance;
-      f0label.textContent    = data.features[0].label;
-      f0pct.textContent      = data.features[0].pct + '%';
-      f1label.textContent    = data.features[1].label;
-      f1pct.textContent      = data.features[1].pct + '%';
-      showDetails();
-      animateBars(data);
-      animating = false;
-    }, 200);
-  }
-
-  // Bind switcher buttons
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () { switchSide(btn.dataset.side); });
-  });
-
-  // Init, trigger initial bar animation + show details
-  document.fonts.ready.then(function () {
-    showDetails();
-    animateBars(PRODUCTS.left);
-  });
-
-  window.addEventListener('resize', function () {
-    var activeBtn = switcher.querySelector('.switcher-btn.active');
-    if (activeBtn) positionIndicator(activeBtn);
   });
 
 }());
