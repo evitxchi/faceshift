@@ -328,6 +328,130 @@
       color: var(--teal-500);
     }
 
+    /* ---- Glint animation ------------------------------------------------ */
+
+    @property --glint-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes cardGlint {
+      to { --glint-angle: 360deg; }
+    }
+
+    /* ---- Nav CTA glint wrapper ------------------------------------------ */
+
+    .nav-cta-glint {
+      position: relative;
+      border-radius: 999px;
+      padding: 2px;
+      display: inline-block;
+    }
+
+    .nav-cta-glint::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: conic-gradient(
+        from var(--glint-angle),
+        transparent 0deg,
+        rgba(180,190,200,0.25) 28deg,
+        rgba(220,230,240,0.65) 44deg,
+        rgba(255,255,255,0.95) 52deg,
+        rgba(220,230,240,0.65) 60deg,
+        rgba(180,190,200,0.25) 76deg,
+        transparent 104deg
+      );
+      animation: cardGlint 2.6s linear infinite;
+      z-index: 0;
+    }
+
+    .nav-cta-glint .nav-cta {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ---- Form module ---------------------------------------------------- */
+
+    .contact-form-module {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 2px 24px rgba(11,23,53,0.07);
+    }
+
+    .form-module-title {
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--navy-900);
+      margin: 0 0 10px;
+    }
+
+    .form-module-sub {
+      font-size: 15px;
+      color: var(--ink-muted);
+      margin: 0 0 36px;
+      line-height: 1.6;
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 14px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 15px;
+      color: var(--navy-900);
+      background: var(--bg-soft);
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      padding: 14px 18px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--ink-muted); }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--teal-400);
+      box-shadow: 0 0 0 3px rgba(43,182,194,0.12);
+    }
+
+    .form-submit {
+      align-self: flex-end;
+      background: linear-gradient(160deg, var(--navy-700), var(--navy-900));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 36px;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(11,23,53,0.28);
+    }
+
+    .form-submit:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(11,23,53,0.35);
+    }
+
     /* ---- Bottom CTA ----------------------------------------------------- */
 
     .contact-footer-cta {
@@ -338,7 +462,7 @@
     .contact-footer-cta p {
       font-size: 16px;
       color: var(--ink-muted);
-      margin: 0 0 16px;
+      margin: 0 0 20px;
     }
 
     .team-contacts {
@@ -346,26 +470,51 @@
       gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 4px;
+    }
+
+    /* Glint wrapper for contact cards */
+    .glint-card-wrap {
+      position: relative;
+      border-radius: 15.5px;
+      padding: 1.5px;
+    }
+
+    .glint-card-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 15.5px;
+      background: conic-gradient(
+        from var(--glint-angle),
+        transparent 0deg,
+        rgba(180,190,200,0.25) 28deg,
+        rgba(220,230,240,0.65) 44deg,
+        rgba(255,255,255,0.95) 52deg,
+        rgba(220,230,240,0.65) 60deg,
+        rgba(180,190,200,0.25) 76deg,
+        transparent 104deg
+      );
+      animation: cardGlint 2.8s linear infinite;
     }
 
     .team-contact-card {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       gap: 4px;
       padding: 16px 24px;
       background: #fff;
-      border: 1px solid var(--rule);
+      border: none;
       border-radius: 14px;
       text-decoration: none;
-      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
       min-width: 180px;
     }
 
     .team-contact-card:hover {
-      border-color: var(--teal-400);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(11,23,53,0.08);
+      box-shadow: 0 8px 24px rgba(11,23,53,0.1);
     }
 
     .team-contact-label {
@@ -382,10 +531,15 @@
       color: var(--teal-500);
     }
 
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-module { padding: 28px 20px; }
+      .form-submit { align-self: stretch; text-align: center; }
+    }
+
     /* ---- Responsive ----------------------------------------------------- */
 
     @media (max-width: 960px) {
-      .cards-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .contact-inner { padding: 72px 20px 60px; }
     }
 
@@ -408,7 +562,9 @@
       <a href="/science">Science</a>
       <a href="/about">About</a>
     </div>
-    <a href="/contact" class="nav-cta active-cta">Work With Us</a>
+    <div class="nav-cta-glint">
+      <a href="/contact" class="nav-cta active-cta">Work With Us</a>
+    </div>
   </div>
 </nav>
 
@@ -439,25 +595,56 @@
       </div>
     </div>
 
-    <!-- Cards -->
-    <div class="cards-grid" id="cards-grid"></div>
+    <!-- Form: Clinicians & Researchers -->
+    <div id="form-clinical" class="contact-form-module reveal" style="transition-delay:0.42s">
+      <h3 class="form-module-title">Tell us about your practice</h3>
+      <p class="form-module-sub">We'll follow up within 48 hours to discuss next steps.</p>
+      <form class="contact-form" data-subject="FaceShift: Clinician / Researcher inquiry">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Email address" required />
+        </div>
+        <textarea name="context" rows="5" placeholder="Tell us about your clinical focus or research area — specialty, institution, patient volume, or what you're hoping to explore with FaceShift."></textarea>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+    </div>
+
+    <!-- Form: Investors & Partners -->
+    <div id="form-partner" class="contact-form-module reveal" style="transition-delay:0.42s; display:none">
+      <h3 class="form-module-title">Tell us about your interest</h3>
+      <p class="form-module-sub">We'll follow up within 48 hours to discuss next steps.</p>
+      <form class="contact-form" data-subject="FaceShift: Investor / Partner inquiry">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Email address" required />
+        </div>
+        <textarea name="context" rows="5" placeholder="Tell us about your investment thesis, partnership interest, or how you see working together — fund stage, check size, strategic focus, or specific synergies."></textarea>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+    </div>
 
     <!-- Footer CTA -->
     <div class="contact-footer-cta reveal" style="transition-delay: 0.9s;">
       <p>Not sure which path fits? Reach out directly.</p>
       <div class="team-contacts">
-        <a class="team-contact-card" href="mailto:info@faceshift.co">
-          <span class="team-contact-label">General inquiries</span>
-          <span class="team-contact-email">info@faceshift.co</span>
-        </a>
-        <a class="team-contact-card" href="mailto:evan@faceshift.co">
-          <span class="team-contact-label">Evan Chau</span>
-          <span class="team-contact-email">evan@faceshift.co</span>
-        </a>
-        <a class="team-contact-card" href="mailto:ayl@faceshift.co">
-          <span class="team-contact-label">Dr. Alexander Lin</span>
-          <span class="team-contact-email">ayl@faceshift.co</span>
-        </a>
+        <div class="glint-card-wrap">
+          <a class="team-contact-card" href="mailto:info@faceshift.co">
+            <span class="team-contact-label">General Inquiries</span>
+            <span class="team-contact-email">info@faceshift.co</span>
+          </a>
+        </div>
+        <div class="glint-card-wrap">
+          <a class="team-contact-card" href="mailto:ayl@faceshift.co">
+            <span class="team-contact-label">Dr. Alexander Lin</span>
+            <span class="team-contact-email">ayl@faceshift.co</span>
+          </a>
+        </div>
+        <div class="glint-card-wrap">
+          <a class="team-contact-card" href="mailto:evan@faceshift.co">
+            <span class="team-contact-label">Evan Chau · Venture Inquiries</span>
+            <span class="team-contact-email">evan@faceshift.co</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -472,206 +659,53 @@
 <script>
 (function () {
 
-  // ---- Data -----------------------------------------------------------
-
-  var ICONS = {
-    hospital: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v4m0 0v4m0-4h4m-4 0H8"/><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M16 2H8v4h8V2z"/></svg>',
-    users:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-    monitor:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
-    network:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4m0 0-5.5 6M12 11l5.5 6"/></svg>',
-    chart:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>',
-    building: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M9 21V7l6-4v18"/><path d="M3 21V10l6-3"/><path d="M9 3v4"/><path d="M13 9h2M13 13h2M13 17h2"/></svg>',
-    plug:     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8H6l1 8a5 5 0 0 0 10 0Z"/></svg>',
-    database: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>',
-    file:     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>',
-    book:     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
-    micro:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h12M12 2a4 4 0 0 1 4 4v6a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/><path d="M19 10a7 7 0 0 1-14 0"/></svg>',
-    shield:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-    award:    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>',
-    trending: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
-    percent:  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>',
-    eye:      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
-    check:    '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
-  };
-
-  var PLANS = {
-    clinical: [
-      {
-        name: 'Pilot Site',
-        description: 'Join our founding clinical cohort at no cost. Limited to three sites nationwide.',
-        popular: false,
-        cta: 'Apply for pilot',
-        ctaClass: 'cta-outline',
-        features: [
-          { icon: 'hospital', text: 'Single clinical site' },
-          { icon: 'users',   text: 'Initial cohort up to 10 patients' },
-          { icon: 'monitor', text: 'Full platform access' },
-        ],
-        includesLabel: 'Pilot includes:',
-        includes: ['Onboarding and training', 'Real-time clinical support', 'Outcome data dashboard'],
-      },
-      {
-        name: 'Clinical Network',
-        description: 'Multi-site coordination with expanded enrollment and co-authorship opportunities.',
-        popular: true,
-        badge: 'Most common',
-        cta: 'Become a partner',
-        ctaClass: 'cta-popular',
-        features: [
-          { icon: 'network', text: 'Multi-site coordination' },
-          { icon: 'users',   text: 'Expanded patient enrollment' },
-          { icon: 'chart',   text: 'Personalized correction reports' },
-        ],
-        includesLabel: 'Everything in Pilot, plus:',
-        includes: ['Co-authorship rights', 'Custom aligner protocols', 'Dedicated clinical liaison'],
-      },
-      {
-        name: 'Health System',
-        description: 'System-wide deployment with full EHR integration and executive advisory access.',
-        popular: false,
-        cta: 'Contact us',
-        ctaClass: 'cta-outline',
-        features: [
-          { icon: 'building', text: 'Unlimited clinical sites' },
-          { icon: 'users',    text: 'Unlimited patient enrollment' },
-          { icon: 'plug',     text: 'Custom EHR integration' },
-        ],
-        includesLabel: 'Everything in Network, plus:',
-        includes: ['White-label option', 'Executive advisory seat', 'Dedicated implementation team'],
-      },
-    ],
-    partner: [
-      {
-        name: 'Research Collaborator',
-        description: 'Access de-identified datasets and IRB support for approved academic research.',
-        popular: false,
-        cta: 'Apply for access',
-        ctaClass: 'cta-outline',
-        features: [
-          { icon: 'database', text: 'De-identified dataset access' },
-          { icon: 'file',     text: 'IRB application support' },
-          { icon: 'book',     text: 'Publication pathway' },
-        ],
-        includesLabel: 'Collaboration includes:',
-        includes: ['Anonymized scan library', 'Outcome benchmarks', 'Co-authorship consideration'],
-      },
-      {
-        name: 'Co-Investigator',
-        description: 'Joint study design, shared IP framework, and grant co-application support.',
-        popular: true,
-        badge: 'Most common',
-        cta: 'Start a conversation',
-        ctaClass: 'cta-popular',
-        features: [
-          { icon: 'micro',  text: 'Joint study design' },
-          { icon: 'shield', text: 'Shared IP framework' },
-          { icon: 'award',  text: 'Grant co-application' },
-        ],
-        includesLabel: 'Everything in Collaborator, plus:',
-        includes: ['Named investigator credit', 'Protocol co-development', 'Preferred licensing terms'],
-      },
-      {
-        name: 'Strategic Partner',
-        description: 'Commercial licensing, equity pathway, and board observer access.',
-        popular: false,
-        cta: 'Contact us',
-        ctaClass: 'cta-outline',
-        features: [
-          { icon: 'trending', text: 'Commercial licensing rights' },
-          { icon: 'percent',  text: 'Equity pathway' },
-          { icon: 'eye',      text: 'Board observer seat' },
-        ],
-        includesLabel: 'Everything in Co-Investigator, plus:',
-        includes: ['Pro-rata follow-on rights', 'Executive briefings', 'First-look on new indications'],
-      },
-    ],
-  };
-
-  // ---- Render cards ---------------------------------------------------
-
-  var grid   = document.getElementById('cards-grid');
-  var mode   = 'clinical';
-
-  function buildCard(plan, delay) {
-    var popularClass = plan.popular ? ' popular' : '';
-    var badge = plan.badge
-      ? '<span class="popular-badge">' + plan.badge + '</span>'
-      : '';
-
-    var feats = plan.features.map(function (f) {
-      return '<li><span class="feat-icon">' + ICONS[f.icon] + '</span>' + f.text + '</li>';
-    }).join('');
-
-    var incl = plan.includes.map(function (t) {
-      return '<li><span class="check-icon">' + ICONS.check + '</span>' + t + '</li>';
-    }).join('');
-
-    var emailHref = 'mailto:info@faceshift.co?subject=' +
-      encodeURIComponent('FaceShift: ' + plan.name + ' inquiry');
-
-    return '<div class="plan-card reveal' + popularClass + '" style="transition-delay:' + delay + 's">' +
-      '<div class="card-header">' +
-        '<div class="card-name-row"><h3 class="card-name">' + plan.name + '</h3>' + badge + '</div>' +
-        '<p class="card-desc">' + plan.description + '</p>' +
-        '<a href="' + emailHref + '" class="card-cta ' + plan.ctaClass + '">' + plan.cta + '</a>' +
-      '</div>' +
-      '<div class="card-body">' +
-        '<ul class="features-list">' + feats + '</ul>' +
-        '<div class="includes-block">' +
-          '<p class="includes-label">' + plan.includesLabel + '</p>' +
-          '<ul class="includes-list">' + incl + '</ul>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function renderCards(newMode) {
-    mode = newMode;
-    var delays = [0.42, 0.56, 0.70];
-    grid.innerHTML = PLANS[mode].map(function (plan, i) {
-      return buildCard(plan, delays[i]);
-    }).join('');
-    // Trigger reveal after paint
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        grid.querySelectorAll('.reveal').forEach(function (el) {
-          el.classList.add('visible');
-        });
-      });
-    });
-  }
-
-  // ---- Toggle ---------------------------------------------------------
-
   var btnClinical  = document.getElementById('btn-clinical');
   var btnPartner   = document.getElementById('btn-partner');
   var indicator    = document.getElementById('toggle-indicator');
+  var formClinical = document.getElementById('form-clinical');
+  var formPartner  = document.getElementById('form-partner');
 
   function positionIndicator(btn) {
-    indicator.style.left   = btn.offsetLeft + 'px';
-    indicator.style.width  = btn.offsetWidth + 'px';
+    indicator.style.left  = btn.offsetLeft + 'px';
+    indicator.style.width = btn.offsetWidth + 'px';
   }
 
-  function switchMode(newMode, activeBtn, inactiveBtn) {
+  function switchMode(mode, activeBtn, inactiveBtn) {
     activeBtn.classList.add('active');
     inactiveBtn.classList.remove('active');
     positionIndicator(activeBtn);
-    renderCards(newMode);
+    if (mode === 'clinical') {
+      formClinical.style.display = '';
+      formPartner.style.display  = 'none';
+    } else {
+      formClinical.style.display = 'none';
+      formPartner.style.display  = '';
+    }
   }
 
-  btnClinical.addEventListener('click', function () {
-    switchMode('clinical', btnClinical, btnPartner);
-  });
+  btnClinical.addEventListener('click', function () { switchMode('clinical', btnClinical, btnPartner); });
+  btnPartner.addEventListener('click',  function () { switchMode('partner',  btnPartner,  btnClinical); });
 
-  btnPartner.addEventListener('click', function () {
-    switchMode('partner', btnPartner, btnClinical);
-  });
-
-  // Init indicator after fonts load
   document.fonts.ready.then(function () {
     positionIndicator(btnClinical);
     window.addEventListener('resize', function () {
-      positionIndicator(mode === 'clinical' ? btnClinical : btnPartner);
+      positionIndicator(document.querySelector('.toggle-btn.active'));
+    });
+  });
+
+  // ---- Form submit → open mailto with prefilled content ---------------
+
+  document.querySelectorAll('.contact-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var subject = form.dataset.subject;
+      var name    = form.elements['name'].value;
+      var email   = form.elements['email'].value;
+      var context = form.elements['context'].value;
+      var body    = 'Name: ' + name + '\nEmail: ' + email + '\n\n' + context;
+      window.location.href = 'mailto:info@faceshift.co'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body='    + encodeURIComponent(body);
     });
   });
 
@@ -679,22 +713,11 @@
 
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
   }, { threshold: 0.15 });
 
-  function observeAll() {
-    document.querySelectorAll('.reveal').forEach(function (el) {
-      observer.observe(el);
-    });
-  }
-
-  // Initial render
-  renderCards('clinical');
-  observeAll();
+  document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
 
 }());
 </script>
