@@ -492,6 +492,173 @@
       .switcher-btn  { width: 80px; height: 40px; font-size: 13px; }
     }
 
+    /* ---- Publications section ------------------------------------------- */
+
+    .publications-section {
+      background: #0a0a0a;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 96px 32px 80px;
+    }
+
+    .publications-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .publications-head {
+      margin-bottom: 48px;
+    }
+
+    .publications-kicker {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal-400);
+      margin: 0 0 14px;
+    }
+
+    .publications-title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin: 0 0 12px;
+      line-height: 1.1;
+    }
+
+    .publications-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .pub-card {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 28px;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-decoration: none;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .pub-card:last-child { border-bottom: none; }
+
+    .pub-card:hover { background: rgba(255,255,255,0.05); }
+
+    .pub-card:hover .pub-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+    .pub-num {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+      width: 24px;
+      text-align: right;
+    }
+
+    .pub-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    .pub-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pub-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.4;
+      margin: 0 0 5px;
+    }
+
+    .pub-meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pub-meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+
+    .pub-tag {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal-400);
+      background: rgba(43,182,194,0.1);
+      border: 1px solid rgba(43,182,194,0.2);
+      border-radius: 4px;
+      padding: 2px 7px;
+      flex-shrink: 0;
+    }
+
+    .pub-arrow {
+      flex-shrink: 0;
+      color: rgba(255,255,255,0.3);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .publications-footer {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .rg-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .rg-link:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.04);
+    }
+
+    @media (max-width: 600px) {
+      .publications-section { padding: 64px 20px 60px; }
+      .pub-card { padding: 18px 16px; gap: 14px; }
+      .pub-num, .pub-divider { display: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -566,6 +733,100 @@
   </div>
 
 </div>
+
+<!-- Publications -->
+<section class="publications-section">
+  <div class="publications-inner">
+
+    <div class="publications-head">
+      <p class="publications-kicker">Selected Publications</p>
+      <h2 class="publications-title">Research behind the platform.</h2>
+      <p class="publications-sub">Peer-reviewed work from Dr. Alexander Lin's lab spanning 3D printing, craniofacial surgery, and AI-assisted care.</p>
+    </div>
+
+    <div class="pub-list">
+
+      <a class="pub-card" href="https://www.researchgate.net/publication/391370112_In-House_3D_Printing_for_Craniofacial_Trauma_7-Year_Review" target="_blank" rel="noopener">
+        <span class="pub-num">01</span>
+        <span class="pub-divider"></span>
+        <span class="pub-body">
+          <span class="pub-title">In-House 3D Printing for Craniofacial Trauma: 7-Year Review</span>
+          <span class="pub-meta">
+            <span class="pub-tag">3D Printing</span>
+            <span class="pub-meta-dot"></span>
+            Craniofacial Trauma
+          </span>
+        </span>
+        <svg class="pub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+
+      <a class="pub-card" href="https://www.researchgate.net/publication/383404210_ChatGPT_for_Improving_Postoperative_Instructions_in_Multiple_Fields_of_Plastic_Surgery" target="_blank" rel="noopener">
+        <span class="pub-num">02</span>
+        <span class="pub-divider"></span>
+        <span class="pub-body">
+          <span class="pub-title">ChatGPT for Improving Postoperative Instructions in Multiple Fields of Plastic Surgery</span>
+          <span class="pub-meta">
+            <span class="pub-tag">AI</span>
+            <span class="pub-meta-dot"></span>
+            Plastic Surgery · Patient Care
+          </span>
+        </span>
+        <svg class="pub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+
+      <a class="pub-card" href="https://www.researchgate.net/publication/373219146_Surgical_outcomes_of_cranioplasty_procedures_with_3D-printed_implants_a_systematic_review" target="_blank" rel="noopener">
+        <span class="pub-num">03</span>
+        <span class="pub-divider"></span>
+        <span class="pub-body">
+          <span class="pub-title">Surgical Outcomes of Cranioplasty Procedures with 3D-Printed Implants: A Systematic Review</span>
+          <span class="pub-meta">
+            <span class="pub-tag">3D Printing</span>
+            <span class="pub-meta-dot"></span>
+            Cranioplasty · Implants
+          </span>
+        </span>
+        <svg class="pub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+
+      <a class="pub-card" href="https://www.researchgate.net/publication/341939626_Three-dimensional_printing_in_medicine_a_systematic_review_of_pediatric_applications" target="_blank" rel="noopener">
+        <span class="pub-num">04</span>
+        <span class="pub-divider"></span>
+        <span class="pub-body">
+          <span class="pub-title">Three-Dimensional Printing in Medicine: A Systematic Review of Pediatric Applications</span>
+          <span class="pub-meta">
+            <span class="pub-tag">Pediatrics</span>
+            <span class="pub-meta-dot"></span>
+            3D Printing · Systematic Review
+          </span>
+        </span>
+        <svg class="pub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+
+      <a class="pub-card" href="https://www.researchgate.net/publication/340816739_Plastic_Surgery_Innovation_with_3D_Printing_for_Craniomaxillofacial_Operations" target="_blank" rel="noopener">
+        <span class="pub-num">05</span>
+        <span class="pub-divider"></span>
+        <span class="pub-body">
+          <span class="pub-title">Plastic Surgery Innovation with 3D Printing for Craniomaxillofacial Operations</span>
+          <span class="pub-meta">
+            <span class="pub-tag">Innovation</span>
+            <span class="pub-meta-dot"></span>
+            Craniomaxillofacial · Surgical Planning
+          </span>
+        </span>
+        <svg class="pub-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+
+    </div>
+
+    <div class="publications-footer">
+      <a class="rg-link" href="https://www.researchgate.net/scientific-contributions/Alexander-Y-Lin-2032119242" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        View all publications on ResearchGate
+      </a>
+    </div>
+
+  </div>
+</section>
 
 <footer style="background:#000;color:rgba(255,255,255,0.3);border-top-color:rgba(255,255,255,0.08);margin-top:0;">
   <span>© 2026 FaceShift Bio, Inc.</span>
