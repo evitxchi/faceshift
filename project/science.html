@@ -87,8 +87,9 @@
       position: relative;
       z-index: 3;
       pointer-events: none;
-      padding-top: 48px;
     }
+
+    section.module.boxes-content { padding-top: 48px; }
 
     .boxes-content * {
       pointer-events: auto;
@@ -504,9 +505,10 @@
       z-index: 0;
     }
 
-    /* Ensure boxes-section stacks content above canvas */
-    .boxes-section > *:not(.flicker-canvas) { position: relative; z-index: 1; }
-    .showcase-bg, .showcase-inner { position: relative; z-index: 1; }
+    /* Ensure content sits above flickering canvas */
+    .boxes-content { z-index: 3; }
+    .boxes-overlay { z-index: 2; }
+    .flicker-canvas { z-index: 0; }
 
     /* ---- Dark → light fade ---------------------------------------------- */
 
