@@ -17,8 +17,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       overflow: hidden;
-      padding: 180px 0 0;
+      padding: 80px 0;
+      min-height: 100vh;
     }
 
     .hero-content {
@@ -27,7 +29,7 @@
       text-align: center;
       max-width: 900px;
       width: 100%;
-      margin: 0 auto 96px;
+      margin: 0 auto 56px;
       padding: 0 32px;
     }
 
@@ -845,7 +847,6 @@
     </a>
     <div class="nav-links">
       <a href="/" class="active">Platform</a>
-      <a href="/indications">Indications</a>
       <a href="/science">Science</a>
       <a href="/about">About</a>
     </div>
@@ -871,14 +872,14 @@
       </a>
     </div>
   </div>
-  <div class="hero-image-wrap">
-    <img
-      src="uploads/plastic-and-reconstructive-surgery-2x.jpg"
-      alt="Child playing with colorful building blocks"
-      class="hero-image"
-    />
-  </div>
 </section>
+<div class="hero-image-wrap">
+  <img
+    src="uploads/plastic-and-reconstructive-surgery-2x.jpg"
+    alt="Child playing with colorful building blocks"
+    class="hero-image"
+  />
+</div>
 
 <!-- Banner text -->
 <div class="banner-section" id="banner-section">
@@ -926,7 +927,7 @@
       </div>
       <div>
         <span>Material</span>
-        <span class="k">Soft elastomer</span>
+        <span class="k">Medical-Grade Biocompatible Material</span>
       </div>
       <div>
         <span>Thickness</span>
@@ -946,7 +947,7 @@
 <section class="pb-section" id="pb-section">
   <div class="pb-content-wrap">
     <div class="pb-card">
-      <p class="pb-card-title">Every mold<br>begins with you.</p>
+      <p class="pb-card-title">Every guide<br>begins with you.</p>
       <p class="pb-card-sub">Personalized care, from scan to fit.</p>
     </div>
   </div>
@@ -996,7 +997,7 @@
 <section class="module" id="platform">
   <div class="module-head">
     <div>
-      <p class="kicker">§ Platform</p>
+      <p class="kicker">Platform</p>
       <h2 class="title">How it works.</h2>
     </div>
     <p class="lede">Five interconnected stages, from a 30-second bedside scan to ongoing monitored correction. Click any node to explore the pipeline.</p>
@@ -1099,7 +1100,7 @@
   var DATA = [
     {
       id: 1, title: '3D Scan', date: 'Step 01',
-      content: 'A 30-second structured-light scan captured at the bedside. No anesthesia, no contact. The infant stays in the parent\'s arms.',
+      content: 'A 30-second structured-light scan captured at the bedside. No anesthesia. The infant or child can remain comfortably in a caregiver\'s arms during scanning.',
       relatedIds: [2], status: 'completed', energy: 100,
       icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>',
     },
@@ -1110,20 +1111,20 @@
       icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M9 2v2M2 15h2M2 9h2M15 22v-2M9 22v-2M22 15h-2M22 9h-2"/></svg>',
     },
     {
-      id: 3, title: 'Silicone Print', date: 'Step 03',
-      content: 'Printed in medical-grade silicone and sterilized for clinical use. The first aligner ships the same day as the scan.',
+      id: 3, title: '3D-Printed Medical-Grade Guide', date: 'Step 03',
+      content: '3D printing is used to craft a patient-specific, medical-grade guide for clinical use.',
       relatedIds: [2, 4], status: 'in-progress', energy: 72,
       icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>',
     },
     {
       id: 4, title: 'Fitting', date: 'Step 04',
-      content: 'Magnetically retained aligner fitted by the clinical team. Optical clarity lets clinicians monitor tissue progress without removal.',
+      content: 'Patient-specific custom-fit aligner fitted by the clinical team. Optical clarity allows clinicians to monitor tissue progress without needing guide removal. Removal and replacement are simple enough for families to perform at home when instructed.',
       relatedIds: [3, 5], status: 'in-progress', energy: 55,
       icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
     },
     {
       id: 5, title: 'Monitoring', date: 'Step 05',
-      content: 'Sequential aligners delivered as correction progresses. Each device is printed fresh and adapted to the infant\'s evolving anatomy.',
+      content: 'Sequential guide is delivered as correction progresses. Each device is adapted to the child\'s evolving anatomy.',
       relatedIds: [4, 1], status: 'pending', energy: 38,
       icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>',
     },

@@ -46,7 +46,7 @@ body { overflow-x: hidden; }
 .nav-inner {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 15px 32px;
+  padding: 44px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -177,7 +177,7 @@ footer {
 
 @media (max-width: 900px) {
   .nav-links { display: none; }
-  .nav-inner { padding: 14px 20px; }
+  .nav-inner { padding: 28px 20px; }
   .module-head { grid-template-columns: 1fr; gap: 20px; border-bottom: none; padding-bottom: 32px; }
   section.module { padding: 80px 20px 32px; }
   footer { padding: 20px 20px 28px; margin-top: 40px; }
