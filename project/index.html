@@ -111,6 +111,37 @@
       color: var(--teal-500);
     }
 
+    .tagline-flip-wrap {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .tagline-word {
+      display: inline-block;
+      color: var(--teal-500);
+      transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tagline-word.exit-up {
+      opacity: 0;
+      transform: translateY(-100%);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .tagline-word.enter-from-below {
+      opacity: 0;
+      transform: translateY(60%);
+    }
+
+    .tagline-word.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .sub {
       font-size: 17px;
       line-height: 1.6;
@@ -866,7 +897,7 @@
       <div class="brand-mark-xl" aria-hidden="true"></div>
       <h1>Face<span style="color:var(--teal-400)">Shift</span></h1>
     </div>
-    <p class="tagline">Reshape, not <em>reconstruct</em>.</p>
+    <p class="tagline">Reshape, not <span class="tagline-flip-wrap"><em class="tagline-word visible" id="tagline-flip">reconstruct</em></span>.</p>
     <p class="sub">A 30-second scan becomes a series of biocompatible aligners: 3D-printed, custom-fit and worn, and gently corrective.</p>
     <div class="backed-tag-wrap">
       <a class="backed-tag" href="https://innovation.ucsf.edu/" target="_blank" rel="noopener">
@@ -1264,6 +1295,64 @@
 
   render();
   startTimer();
+}());
+
+// ---- Hero tagline word flipper ----------------------------------------
+(function () {
+  var WORDS = [
+    'reconstruct',
+    'operate',
+    'sedate',
+    'cut',
+    'repair later',
+    'intervene',
+  ];
+
+  var el = document.getElementById('tagline-flip');
+  if (!el) return;
+
+  var wrap = el.parentElement;
+  var idx = 0;
+
+  function flipTo(nextWord) {
+    var current = wrap.querySelector('.visible');
+    if (!current) return;
+
+    // Measure width of next word so wrap doesn't jump
+    var next = document.createElement('em');
+    next.className = 'tagline-word enter-from-below';
+    next.textContent = nextWord;
+    wrap.appendChild(next);
+
+    // Set wrap width to max of current and next
+    wrap.style.minWidth = Math.max(current.offsetWidth, next.offsetWidth) + 'px';
+
+    // Exit current
+    current.classList.remove('visible');
+    current.classList.add('exit-up');
+
+    // Enter next after a tick
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        next.classList.remove('enter-from-below');
+        next.classList.add('visible');
+      });
+    });
+
+    // Clean up exited element after transition
+    setTimeout(function () {
+      if (current.parentElement) current.parentElement.removeChild(current);
+      wrap.style.minWidth = next.offsetWidth + 'px';
+    }, 320);
+  }
+
+  // Start after hero animation settles
+  setTimeout(function () {
+    setInterval(function () {
+      idx = (idx + 1) % WORDS.length;
+      flipTo(WORDS[idx]);
+    }, 2200);
+  }, 2800);
 }());
 
 // ---- Hero particles background ----------------------------------------
