@@ -492,12 +492,35 @@
       .switcher-btn  { width: 80px; height: 40px; font-size: 13px; }
     }
 
+    /* ---- Flickering grid canvas ----------------------------------------- */
+
+    .flicker-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Ensure boxes-section stacks content above canvas */
+    .boxes-section > *:not(.flicker-canvas) { position: relative; z-index: 1; }
+    .showcase-bg, .showcase-inner { position: relative; z-index: 1; }
+
+    /* ---- Dark → light fade ---------------------------------------------- */
+
+    .science-fade-out {
+      background: linear-gradient(to bottom, #000 0%, #f4f6fb 100%);
+      height: 120px;
+      pointer-events: none;
+    }
+
     /* ---- Publications section ------------------------------------------- */
 
     .publications-section {
-      background: #0a0a0a;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 96px 32px 80px;
+      background: #f4f6fb;
+      border-top: none;
+      padding: 80px 32px 96px;
     }
 
     .publications-inner {
@@ -514,7 +537,7 @@
       font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--teal-400);
+      color: var(--teal-500);
       margin: 0 0 14px;
     }
 
@@ -522,14 +545,14 @@
       font-size: clamp(28px, 3.5vw, 42px);
       font-weight: 600;
       letter-spacing: -0.03em;
-      color: #fff;
+      color: var(--navy-900);
       margin: 0 0 12px;
       line-height: 1.1;
     }
 
     .publications-sub {
       font-size: 15px;
-      color: rgba(255,255,255,0.45);
+      color: var(--ink-muted);
       margin: 0;
       line-height: 1.6;
     }
@@ -538,9 +561,11 @@
       display: flex;
       flex-direction: column;
       gap: 0;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(11,23,53,0.09);
       border-radius: 16px;
       overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 24px rgba(11,23,53,0.06);
     }
 
     .pub-card {
@@ -548,8 +573,8 @@
       align-items: center;
       gap: 24px;
       padding: 24px 28px;
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: transparent;
+      border-bottom: 1px solid rgba(11,23,53,0.06);
       text-decoration: none;
       transition: background 0.2s;
       position: relative;
@@ -557,7 +582,7 @@
 
     .pub-card:last-child { border-bottom: none; }
 
-    .pub-card:hover { background: rgba(255,255,255,0.05); }
+    .pub-card:hover { background: var(--bg-soft); }
 
     .pub-card:hover .pub-arrow { opacity: 1; transform: translate(2px, -2px); }
 
@@ -565,7 +590,7 @@
       font-family: 'Inter Tight', sans-serif;
       font-size: 11px;
       font-weight: 600;
-      color: rgba(255,255,255,0.2);
+      color: rgba(11,23,53,0.2);
       letter-spacing: 0.06em;
       flex-shrink: 0;
       width: 24px;
@@ -575,7 +600,7 @@
     .pub-divider {
       width: 1px;
       height: 36px;
-      background: rgba(255,255,255,0.08);
+      background: rgba(11,23,53,0.08);
       flex-shrink: 0;
     }
 
@@ -587,14 +612,14 @@
     .pub-title {
       font-size: 15px;
       font-weight: 500;
-      color: rgba(255,255,255,0.88);
+      color: var(--navy-900);
       line-height: 1.4;
       margin: 0 0 5px;
     }
 
     .pub-meta {
       font-size: 12px;
-      color: rgba(255,255,255,0.35);
+      color: var(--ink-muted);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -604,7 +629,7 @@
       width: 3px;
       height: 3px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
+      background: rgba(11,23,53,0.2);
       flex-shrink: 0;
     }
 
@@ -613,9 +638,9 @@
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--teal-400);
-      background: rgba(43,182,194,0.1);
-      border: 1px solid rgba(43,182,194,0.2);
+      color: var(--teal-500);
+      background: rgba(14,154,167,0.08);
+      border: 1px solid rgba(14,154,167,0.2);
       border-radius: 4px;
       padding: 2px 7px;
       flex-shrink: 0;
@@ -623,7 +648,7 @@
 
     .pub-arrow {
       flex-shrink: 0;
-      color: rgba(255,255,255,0.3);
+      color: var(--ink-muted);
       opacity: 0;
       transition: opacity 0.2s, transform 0.2s;
     }
@@ -639,18 +664,19 @@
       gap: 8px;
       font-size: 14px;
       font-weight: 500;
-      color: rgba(255,255,255,0.5);
+      color: var(--ink-muted);
       text-decoration: none;
       padding: 10px 20px;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(11,23,53,0.12);
       border-radius: 999px;
       transition: color 0.2s, border-color 0.2s, background 0.2s;
+      background: #fff;
     }
 
     .rg-link:hover {
-      color: #fff;
-      border-color: rgba(255,255,255,0.25);
-      background: rgba(255,255,255,0.04);
+      color: var(--navy-900);
+      border-color: var(--teal-400);
+      background: rgba(43,182,194,0.04);
     }
 
     @media (max-width: 600px) {
@@ -679,6 +705,7 @@
 </nav>
 
 <div class="boxes-section">
+  <canvas class="flicker-canvas" id="flicker-boxes"></canvas>
   <div class="boxes-grid-wrap" id="sci-boxes"></div>
   <div class="boxes-overlay"></div>
   <section class="module boxes-content">
@@ -694,6 +721,7 @@
 
 <!-- Ear Mold Showcase -->
 <div class="showcase-wrap">
+  <canvas class="flicker-canvas" id="flicker-showcase"></canvas>
   <div class="showcase-bg side-left" id="showcase-bg"></div>
 
   <div class="showcase-inner">
@@ -733,6 +761,8 @@
   </div>
 
 </div>
+
+<div class="science-fade-out"></div>
 
 <!-- Publications -->
 <section class="publications-section">
@@ -832,6 +862,100 @@
   <span>© 2026 FaceShift Bio, Inc.</span>
   <span class="mono">v0.4.2 · science</span>
 </footer>
+
+<script>
+// ---- Flickering Grid (ported from React component) ---------------------
+(function () {
+  function flickeringGrid(canvas, opts) {
+    var squareSize   = opts.squareSize   || 4;
+    var gridGap      = opts.gridGap      || 6;
+    var flickerChance = opts.flickerChance || 0.3;
+    var maxOpacity   = opts.maxOpacity   || 0.3;
+    var color        = opts.color        || 'rgb(255,255,255)';
+
+    // Resolve color to rgba prefix via offscreen canvas
+    var tmp = document.createElement('canvas');
+    tmp.width = tmp.height = 1;
+    var tc = tmp.getContext('2d');
+    tc.fillStyle = color;
+    tc.fillRect(0, 0, 1, 1);
+    var d = tc.getImageData(0, 0, 1, 1).data;
+    var rgba = 'rgba(' + d[0] + ',' + d[1] + ',' + d[2] + ',';
+
+    var container = canvas.parentElement;
+    var cols, rows, squares, dpr;
+    var rafId, lastTime = 0, inView = false;
+
+    function setup() {
+      dpr = window.devicePixelRatio || 1;
+      var w = container.clientWidth;
+      var h = container.clientHeight;
+      canvas.width  = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width  = w + 'px';
+      canvas.style.height = h + 'px';
+      cols = Math.floor(w / (squareSize + gridGap));
+      rows = Math.floor(h / (squareSize + gridGap));
+      squares = new Float32Array(cols * rows);
+      for (var i = 0; i < squares.length; i++) squares[i] = Math.random() * maxOpacity;
+    }
+
+    function draw() {
+      var ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < cols; i++) {
+        for (var j = 0; j < rows; j++) {
+          ctx.fillStyle = rgba + squares[i * rows + j] + ')';
+          ctx.fillRect(
+            i * (squareSize + gridGap) * dpr,
+            j * (squareSize + gridGap) * dpr,
+            squareSize * dpr,
+            squareSize * dpr
+          );
+        }
+      }
+    }
+
+    function update(dt) {
+      for (var i = 0; i < squares.length; i++) {
+        if (Math.random() < flickerChance * dt) squares[i] = Math.random() * maxOpacity;
+      }
+    }
+
+    function animate(t) {
+      if (!inView) return;
+      var dt = (t - lastTime) / 1000;
+      lastTime = t;
+      update(dt);
+      draw();
+      rafId = requestAnimationFrame(animate);
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      inView = entries[0].isIntersecting;
+      if (inView) { lastTime = performance.now(); rafId = requestAnimationFrame(animate); }
+      else cancelAnimationFrame(rafId);
+    });
+    io.observe(canvas);
+
+    new ResizeObserver(function () { setup(); }).observe(container);
+    setup();
+  }
+
+  // Teal/indigo squares on dark backgrounds — subtle, fast flicker
+  var boxes = document.getElementById('flicker-boxes');
+  if (boxes) flickeringGrid(boxes, {
+    squareSize: 4, gridGap: 6,
+    color: 'rgb(43,182,194)', maxOpacity: 0.12, flickerChance: 0.18,
+  });
+
+  var showcase = document.getElementById('flicker-showcase');
+  if (showcase) flickeringGrid(showcase, {
+    squareSize: 4, gridGap: 6,
+    color: 'rgb(55,86,168)', maxOpacity: 0.14, flickerChance: 0.15,
+  });
+}());
+</script>
 
 <script>
 (function () {
