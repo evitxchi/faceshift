@@ -188,12 +188,14 @@
       background: conic-gradient(
         from var(--glow-angle),
         transparent 0deg,
-        rgba(180, 210, 255, 0.55) 38deg,
-        rgba(230, 242, 255, 0.95) 58deg,
-        rgba(200, 225, 255, 0.65) 78deg,
-        transparent 116deg
+        rgba(180, 190, 200, 0.3) 28deg,
+        rgba(220, 230, 240, 0.7) 44deg,
+        rgba(255, 255, 255, 1) 52deg,
+        rgba(220, 230, 240, 0.7) 60deg,
+        rgba(180, 190, 200, 0.3) 76deg,
+        transparent 104deg
       );
-      animation: traceGlow 3s linear infinite;
+      animation: traceGlow 2.4s linear infinite;
       z-index: 0;
     }
 
@@ -583,15 +585,17 @@
       top: 48px; left: 50%;
       transform: translateX(-50%);
       white-space: nowrap;
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.75);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255,255,255,0.45);
       pointer-events: none;
-      transition: color 0.3s, transform 0.3s;
+      transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
     }
 
     .node-label.active {
       color: #fff;
+      text-shadow: 0 0 18px rgba(43,182,194,0.7);
       transform: translateX(-50%) scale(1.12);
     }
 
@@ -860,7 +864,7 @@
   <div class="hero-content">
     <div class="hero-lockup">
       <div class="brand-mark-xl" aria-hidden="true"></div>
-      <h1>FaceShift</h1>
+      <h1>Face<span style="color:var(--teal-400)">Shift</span></h1>
     </div>
     <p class="tagline">Reshape, not <em>reconstruct</em>.</p>
     <p class="sub">A 30-second scan becomes a series of biocompatible aligners: 3D-printed, custom-fit and worn, and gently corrective.</p>
