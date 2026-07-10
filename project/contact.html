@@ -341,13 +341,46 @@
       margin: 0 0 16px;
     }
 
-    .contact-footer-cta a {
-      color: var(--teal-500);
-      font-weight: 500;
-      text-decoration: none;
+    .team-contacts {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 4px;
     }
 
-    .contact-footer-cta a:hover { text-decoration: underline; }
+    .team-contact-card {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 16px 24px;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 14px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      min-width: 180px;
+    }
+
+    .team-contact-card:hover {
+      border-color: var(--teal-400);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(11,23,53,0.08);
+    }
+
+    .team-contact-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .team-contact-email {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--teal-500);
+    }
 
     /* ---- Responsive ----------------------------------------------------- */
 
@@ -412,7 +445,20 @@
     <!-- Footer CTA -->
     <div class="contact-footer-cta reveal" style="transition-delay: 0.9s;">
       <p>Not sure which path fits? Reach out directly.</p>
-      <a href="mailto:faceshift@ucsfbenioffoakland.org">faceshift@ucsfbenioffoakland.org</a>
+      <div class="team-contacts">
+        <a class="team-contact-card" href="mailto:info@faceshift.co">
+          <span class="team-contact-label">General inquiries</span>
+          <span class="team-contact-email">info@faceshift.co</span>
+        </a>
+        <a class="team-contact-card" href="mailto:evan@faceshift.co">
+          <span class="team-contact-label">Evan Chau</span>
+          <span class="team-contact-email">evan@faceshift.co</span>
+        </a>
+        <a class="team-contact-card" href="mailto:ayl@faceshift.co">
+          <span class="team-contact-label">Dr. Alexander Lin</span>
+          <span class="team-contact-email">ayl@faceshift.co</span>
+        </a>
+      </div>
     </div>
 
   </div>
@@ -560,7 +606,7 @@
       return '<li><span class="check-icon">' + ICONS.check + '</span>' + t + '</li>';
     }).join('');
 
-    var emailHref = 'mailto:faceshift@ucsfbenioffoakland.org?subject=' +
+    var emailHref = 'mailto:info@faceshift.co?subject=' +
       encodeURIComponent('FaceShift: ' + plan.name + ' inquiry');
 
     return '<div class="plan-card reveal' + popularClass + '" style="transition-delay:' + delay + 's">' +
