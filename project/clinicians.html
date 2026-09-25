@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FaceShift · Clinicians</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -114,20 +117,20 @@
       transition: opacity 0.2s, transform 0.2s;
       cursor: pointer;
       border: none;
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
     }
 
-    .profile-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .profile-btn:hover { background: var(--action-teal-hover); transform: translateY(-1px); }
 
     .btn-primary {
-      background: var(--teal-500);
+      background: var(--action-teal);
       color: #fff;
     }
 
     .btn-outline {
-      background: rgba(255,255,255,0.1);
+      background: var(--action-teal);
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid var(--action-teal);
     }
 
     .profile-photo-wrap {
@@ -412,7 +415,13 @@
 
 <footer>
   <span>© 2026 FaceShift Bio, Inc.</span>
-  <span class="mono">v0.4.2 · clinicians</span>
+  <span class="footer-contacts">
+    <a href="mailto:info@faceshift.co">info@faceshift.co</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:ayl@faceshift.co">Dr. Alexander Lin</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:evan@faceshift.co">Evan Chau</a>
+  </span>
 </footer>
 
 </body>

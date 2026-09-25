@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FaceShift · Science</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +27,8 @@
     .nav-links a { color: rgba(255,255,255,0.5); }
     .nav-links a:hover, .nav-links a.active { color: #fff; }
     .nav-links a.active { font-weight: 500; }
-    .nav-cta { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+    .nav-cta { background: var(--action-teal); border: 1px solid var(--action-teal); box-shadow: 0 2px 8px rgba(0,87,95,.24); }
+    .nav-cta:hover { background: var(--action-teal-hover); border-color: var(--action-teal-hover); }
 
     /* ---- Background Boxes section -------------------------------------- */
 
@@ -345,7 +349,7 @@
 
     .feat-pct {
       font-size: 11px;
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       color: rgba(255,255,255,0.4);
       letter-spacing: 0.05em;
     }
@@ -387,7 +391,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       transition: color 0.2s;
       padding: 0;
     }
@@ -452,7 +456,7 @@
       border-radius: 999px;
       border: none;
       background: transparent;
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 14px;
       font-weight: 500;
       color: rgba(255,255,255,0.4);
@@ -590,7 +594,7 @@
     .pub-card:hover .pub-arrow { opacity: 1; transform: translate(2px, -2px); }
 
     .pub-num {
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 11px;
       font-weight: 600;
       color: rgba(11,23,53,0.2);
@@ -714,7 +718,6 @@
   <section class="module boxes-content">
     <div class="module-head">
       <div>
-        <p class="kicker">Science</p>
         <h2 class="title">Why now is the right moment.</h2>
       </div>
       <p class="lede">Recent advances in non-surgical molding, combined with accessible 3D printing of biocompatible materials, have unlocked a corrective approach that was unfeasible a decade ago.</p>
@@ -863,7 +866,13 @@
 
 <footer style="background:#000;color:rgba(255,255,255,0.3);border-top-color:rgba(255,255,255,0.08);margin-top:0;">
   <span>© 2026 FaceShift Bio, Inc.</span>
-  <span class="mono">v0.4.2 · science</span>
+  <span class="footer-contacts">
+    <a href="mailto:info@faceshift.co">info@faceshift.co</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:ayl@faceshift.co">Dr. Alexander Lin</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:evan@faceshift.co">Evan Chau</a>
+  </span>
 </footer>
 
 <script>

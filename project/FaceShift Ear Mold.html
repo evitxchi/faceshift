@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>FaceShift, 3D Ear-Mold Display</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <script type="importmap">
 {
   "imports": {
@@ -16,6 +19,13 @@
 }
 </script>
 <style>
+  @font-face {
+    font-family: 'YDGothic 100 Pro';
+    src: url('uploads/yd-gothic-100-pro.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
   :root {
     --navy-900: #0b1735;
     --navy-800: #11214a;
@@ -23,6 +33,9 @@
     --navy-500: #3756a8;
     --teal-500: #0e9aa7;
     --teal-400: #2bb6c2;
+    --action-teal: #007d86;
+    --action-teal-hover: #006a72;
+    --action-teal-active: #00575f;
     --bg: #f5f7fb;
     --bg-soft: #eef2fa;
     --bg-card: #ffffff;
@@ -35,11 +48,13 @@
     margin: 0; padding: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-family: 'YDGothic 100 Pro', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Inter Tight', system-ui, sans-serif; }
+  button, input, select, textarea { font-family: inherit; }
   body { overflow-x: hidden; }
-  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .mono { font-family: 'YDGothic 100 Pro', sans-serif; }
 
   /* ---------- nav ----------------------------------------------------- */
   .nav {
@@ -72,11 +87,12 @@
   .nav-links a { color: inherit; text-decoration: none; }
   .nav-links a:hover { color: var(--navy-900); }
   .nav-cta {
-    background: var(--navy-900); color: #fff;
+    background: var(--action-teal); color: #fff;
     padding: 9px 18px; border-radius: 999px;
     font-size: 13px; font-weight: 500;
     text-decoration: none;
   }
+  .nav-cta:hover { background: var(--action-teal-hover); }
 
   /* ---------- hero ---------------------------------------------------- */
   .hero {
@@ -106,23 +122,24 @@
     display: inline-flex; align-items: center; gap: 8px;
     margin-top: 28px;
     padding: 9px 16px;
-    background: #fff;
-    border: 1px solid var(--rule);
+    background: var(--action-teal);
+    border: 1px solid var(--action-teal);
     border-radius: 999px;
     font-size: 13px;
-    color: var(--navy-900);
-    box-shadow: 0 2px 8px rgba(11,23,53,0.04);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,87,95,.24);
     text-decoration: none;
     transition: border-color .2s, transform .2s, box-shadow .2s;
   }
   .backed-tag:hover {
-    border-color: var(--teal-400);
+    background: var(--action-teal-hover);
+    border-color: var(--action-teal-hover);
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(11,23,53,0.08);
+    box-shadow: 0 6px 16px rgba(0,87,95,.3);
   }
-  .backed-tag svg { color: var(--ink-muted); margin-left: 2px; }
-  .backed-tag strong { color: var(--navy-900); font-weight: 600; }
-  .backed-tag .muted { color: var(--ink-muted); }
+  .backed-tag svg { color: #fff; margin-left: 2px; }
+  .backed-tag strong { color: #fff; font-weight: 600; }
+  .backed-tag .muted { color: rgba(255,255,255,.86); }
   .hero .tagline {
     font-size: clamp(20px, 2.2vw, 28px);
     line-height: 1.3; letter-spacing: -0.015em;
@@ -191,10 +208,15 @@
     position: relative;
   }
   .panel .tag {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; letter-spacing: 0.12em;
-    color: var(--teal-500); text-transform: uppercase;
+    color: #fff; text-transform: uppercase;
     margin-bottom: 12px;
+    display: inline-flex; align-items: center;
+    padding: 8px 12px;
+    background: var(--action-teal);
+    border: 1px solid var(--action-teal);
+    border-radius: 5px;
   }
   .panel h2 {
     font-size: 30px; line-height: 1.05;
@@ -216,7 +238,7 @@
   .readouts {
     position: absolute; left: 56px; bottom: 36px;
     display: flex; gap: 28px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; color: var(--ink-muted);
     letter-spacing: 0.08em;
   }
@@ -225,7 +247,7 @@
   .scroll-hint {
     position: absolute;
     right: 56px; bottom: 36px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; color: var(--ink-muted);
     letter-spacing: 0.12em; text-transform: uppercase;
     display: flex; align-items: center; gap: 10px;
@@ -260,7 +282,7 @@
     margin-bottom: 56px;
   }
   .module-head .kicker {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; letter-spacing: 0.18em;
     color: var(--teal-500); text-transform: uppercase;
     margin: 0 0 14px;
@@ -280,45 +302,70 @@
   }
 
   /* ---------- platform ---------------------------------------------- */
-  .platform-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  .process-fan {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;
+    width: min(100%, 1120px); margin: 0 auto 24px;
   }
-  .platform-card {
-    background: var(--bg-card);
-    border: 1px solid var(--rule);
-    border-radius: 18px;
-    padding: 36px 32px 32px;
-    position: relative; overflow: hidden;
-    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
+  .process-card {
+    display: flex; flex-direction: column;
+    min-width: 0; min-height: 420px;
+    overflow: hidden; border: 1px solid rgba(11,23,53,.1);
+    border-radius: 8px; background: #fff;
+    box-shadow: 0 18px 46px rgba(11,23,53,.16);
+    transition: box-shadow 300ms ease;
   }
-  .platform-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(11,23,53,0.08);
+  .process-fan.is-ready {
+    display: block; position: relative; isolation: isolate;
+    height: 470px; perspective: 1200px;
   }
-  .platform-card .step {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: 0.14em;
-    color: var(--teal-500);
+  .process-fan.is-ready .process-card {
+    position: absolute; top: 10px; left: 50%;
+    width: min(340px, 34vw); height: 420px; min-height: 0;
+    opacity: 0; transform: translate(-50%, 36px) scale(.78);
+    transition: transform 850ms cubic-bezier(.2,.8,.2,1), opacity 500ms ease, box-shadow 300ms ease;
+    will-change: transform, opacity;
   }
-  .platform-card .icon {
-    width: 56px; height: 56px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 18px 0 28px;
-    color: var(--navy-700);
+  .process-fan.is-visible .process-card { opacity: 1; }
+  .process-card[aria-current="step"] { box-shadow: 0 24px 58px rgba(11,23,53,.24); }
+  .process-card:not([aria-current="step"]) img { height: 100%; }
+  .process-card-copy { transition: opacity 240ms ease; }
+  .process-card:not([aria-current="step"]) .process-card-copy { opacity: 0; pointer-events: none; }
+  .process-card img {
+    display: block; width: 100%; height: 250px;
+    object-fit: cover; background: #e8f1f4;
   }
-  .platform-card h3 {
-    font-size: 22px; line-height: 1.15; letter-spacing: -0.015em;
-    margin: 0 0 12px; color: var(--navy-900); font-weight: 600;
+  .process-card-copy { padding: 22px 23px; }
+  .process-card .step {
+    display: block; margin-bottom: 12px;
+    color: var(--teal-600, #087d86);
+    font: 500 12px/1.2 'YDGothic 100 Pro', sans-serif;
   }
-  .platform-card p {
-    font-size: 14px; line-height: 1.6;
-    color: var(--ink-muted); margin: 0;
+  .process-card h3 {
+    margin: 0 0 9px; color: var(--navy-900);
+    font-size: 22px; line-height: 1.15; font-weight: 600;
   }
-  .platform-card .conn {
-    position: absolute; right: -12px; top: 60px;
-    color: var(--teal-400); opacity: 0.5;
+  .process-card p { margin: 0; color: var(--ink-muted); font-size: 13px; line-height: 1.5; }
+  .process-controls {
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+    position: relative; z-index: 40; margin: -4px auto 0;
   }
-  .platform-card:last-child .conn { display: none; }
+  .process-control {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border: 0; border-radius: 50%;
+    background: #087f88; color: #fff; cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .process-control:hover { background: #05656d; transform: scale(1.05); }
+  .process-control:focus-visible { outline: 3px solid #8bd8d5; outline-offset: 3px; }
+  .process-control svg { width: 18px; height: 18px; }
+  .process-control svg[hidden] { display: none; }
+  .process-dots { display: flex; align-items: center; gap: 9px; }
+  .process-dot {
+    width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%;
+    background: #b4c0cd; cursor: pointer; transition: transform .2s ease, background .2s ease;
+  }
+  .process-dot[aria-current="step"] { background: #087f88; transform: scale(1.35); }
+  .process-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   .platform-quote {
     margin-top: 48px;
     background: var(--navy-900); color: #fff;
@@ -334,7 +381,7 @@
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .platform-quote .stat-label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--teal-400); margin-top: 14px;
   }
@@ -377,7 +424,7 @@
     padding: 36px;
   }
   .ind-conditions h3 {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--teal-500); margin: 0 0 24px;
   }
@@ -401,7 +448,7 @@
     display: block; font-size: 12px; color: var(--ink-muted); font-weight: 400; margin-top: 2px;
   }
   .ind-list .stage {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    font-family: 'YDGothic 100 Pro', sans-serif; font-size: 11px;
     color: var(--ink-muted); letter-spacing: 0.1em;
   }
 
@@ -457,13 +504,13 @@
   }
   .clin-cta p { margin: 0; font-size: 14px; line-height: 1.5; max-width: 380px; }
   .clin-cta a {
-    background: rgba(255,255,255,0.16); color: #fff;
+    background: var(--action-teal); color: #fff;
     padding: 10px 18px; border-radius: 999px;
     font-size: 13px; text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid var(--action-teal);
     white-space: nowrap;
   }
-  .clin-cta a:hover { background: rgba(255,255,255,0.26); }
+  .clin-cta a:hover { background: var(--action-teal-hover); border-color: var(--action-teal-hover); }
 
   /* ---------- science ----------------------------------------------- */
   .sci-grid {
@@ -497,7 +544,7 @@
     border-radius: 14px; padding: 24px;
   }
   .sci-pill .label {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; letter-spacing: 0.16em;
     color: var(--teal-500); text-transform: uppercase;
   }
@@ -514,7 +561,7 @@
     padding: 32px 36px;
   }
   .sci-progress h4 {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--teal-500); margin: 0 0 20px;
   }
@@ -545,7 +592,7 @@
     box-shadow: 0 0 0 6px rgba(14,154,167,0.18);
   }
   .sci-step .when {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    font-family: 'YDGothic 100 Pro', sans-serif; font-size: 11px;
     color: var(--ink-muted); letter-spacing: 0.1em;
   }
   .sci-step h5 {
@@ -566,7 +613,7 @@
   }
   .about-head { display: grid; grid-template-columns: 1fr 2fr; gap: 64px; margin-bottom: 64px; }
   .about-head .kicker {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'YDGothic 100 Pro', sans-serif;
     font-size: 11px; letter-spacing: 0.18em;
     color: var(--teal-400); text-transform: uppercase;
     margin: 0 0 14px;
@@ -615,13 +662,29 @@
     .panel { display: none; }
     .readouts, .scroll-hint { display: none; }
     .module-head, .ind-wrap, .clin-wrap, .about-head { grid-template-columns: 1fr; gap: 24px; }
-    .platform-grid { grid-template-columns: 1fr; }
+    .process-fan:not(.is-ready) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .process-fan.is-ready { height: 430px; }
+    .process-fan.is-ready .process-card { width: min(320px, 48vw); height: 390px; }
+    .process-card img { height: 225px; }
     .platform-quote { grid-template-columns: 1fr; padding: 32px; gap: 20px; }
     .sci-quote, .sci-side, .sci-progress { grid-column: span 12; }
     .sci-track { grid-template-columns: 1fr 1fr; gap: 24px; }
     .sci-track::before, .sci-track::after { display: none; }
     section.module { padding: 96px 24px 24px; }
   }
+  @media (max-width: 600px) {
+    .process-fan:not(.is-ready) { grid-template-columns: 1fr; }
+    .process-fan.is-ready { height: 405px; margin-inline: -12px; }
+    .process-fan.is-ready .process-card { top: 8px; width: min(280px, 72vw); height: 370px; }
+    .process-card img { height: 210px; }
+    .process-card-copy { padding: 19px; }
+    .process-card h3 { font-size: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .process-card, .process-control, .process-dot { transition-duration: .01ms !important; }
+  }
+  .process-card:not([aria-current="step"]) img { height: auto; flex: 1; }
+  .process-card:not([aria-current="step"]) .process-card-copy { display: none; }
 </style>
 </head>
 <body>
@@ -686,59 +749,50 @@
 <section class="module" id="platform" data-screen-label="03 Platform">
   <div class="module-head">
     <div>
-      <p class="kicker">Platform</p>
-      <h2 class="title">Three steps. One pipeline.</h2>
+      <h2 class="title">A guide shaped around each patient.</h2>
     </div>
-    <p class="lede">FaceShift is the first 3D-printed predicate for customizable craniofacial molding, combining a bedside scan, a clinician-guided design process, and a same-day silicone print into a single corrective workflow.</p>
+    <p class="lede">A quick scan starts a clinician-guided process. Each guide is custom-fit from a 3D print to match a patient's anatomy and treatment goals.</p>
   </div>
 
-  <div class="platform-grid">
-    <div class="platform-card">
-      <div class="step">01 · SCAN</div>
-      <div class="icon" aria-hidden="true">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M8 18V12a4 4 0 0 1 4-4h6"/><path d="M38 8h6a4 4 0 0 1 4 4v6"/>
-          <path d="M48 38v6a4 4 0 0 1-4 4h-6"/><path d="M18 48h-6a4 4 0 0 1-4-4v-6"/>
-          <ellipse cx="28" cy="28" rx="8" ry="11"/>
-          <path d="M28 22c2 2 2 6 0 8M28 25c1 1 1 3 0 4"/>
-          <path d="M14 28h4M38 28h4" stroke-dasharray="2 2"/>
-        </svg>
-      </div>
-      <h3>30-second 3D scan</h3>
-      <p>Captured at the bedside with a structured-light depth sensor. No anesthesia. The infant or child can remain comfortably in a caregiver's arms during scanning.</p>
-      <svg class="conn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  <div class="process-fan" data-process-fan role="region" aria-label="FaceShift treatment steps" tabindex="0">
+    <article class="process-card" data-process-card>
+      <img src="uploads/workflow-scan.webp" alt="A child receives a contact-free 3D scan" width="1344" height="752" loading="lazy">
+      <div class="process-card-copy"><span class="step">STEP 01</span><h3>Capture a 3D scan</h3><p>A quick, contact-free scan records the patient's anatomy for a precise starting model.</p></div>
+    </article>
+    <article class="process-card" data-process-card>
+      <img src="uploads/workflow-plan.webp" alt="A clinician plans a custom guide around patient anatomy" width="1344" height="752" loading="lazy">
+      <div class="process-card-copy"><span class="step">STEP 02</span><h3>Plan a custom fit</h3><p>The care team shapes a guide around the patient's anatomy, age, and treatment goals.</p></div>
+    </article>
+    <article class="process-card" data-process-card>
+      <img src="uploads/workflow-print.webp" alt="A custom craniofacial guide is 3D-printed" width="1344" height="752" loading="lazy">
+      <div class="process-card-copy"><span class="step">STEP 03</span><h3>3D-print the guide</h3><p>A medical-grade guide is custom-made from the scan, in one piece or two as the fit requires.</p></div>
+    </article>
+    <article class="process-card" data-process-card>
+      <img src="uploads/workflow-fit.webp" alt="A clinician checks the fit and placement of a custom guide" width="1344" height="752" loading="lazy">
+      <div class="process-card-copy"><span class="step">STEP 04</span><h3>Fit with the care team</h3><p>Clinicians check placement and help families follow a comfortable, consistent wear plan.</p></div>
+    </article>
+    <article class="process-card" data-process-card>
+      <img src="uploads/workflow-wear.webp" alt="A child rests wearing a clear custom ear guide" width="1344" height="752" loading="lazy">
+      <div class="process-card-copy"><span class="step">STEP 05</span><h3>Wear day and night</h3><p>The guide is custom-fit and worn as directed, with a clear design that supports clinical checks.</p></div>
+    </article>
+    <article class="process-card" data-process-card>
+      <img src="uploads/workflow-review.webp" alt="The care team reviews progress and adapts the next guide" width="1344" height="752" loading="lazy">
+      <div class="process-card-copy"><span class="step">STEP 06</span><h3>Review and adapt</h3><p>Follow-up tracks progress and informs each next guide as anatomy and treatment needs change.</p></div>
+    </article>
+  </div>
+  <div class="process-controls" data-process-controls role="group" aria-label="Treatment steps controls">
+    <button class="process-control" type="button" data-process-prev aria-label="Previous treatment step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+    <div class="process-dots" aria-label="Choose a treatment step">
+      <button class="process-dot" type="button" data-process-dot="0" aria-label="Show step 1" aria-current="step"></button>
+      <button class="process-dot" type="button" data-process-dot="1" aria-label="Show step 2"></button>
+      <button class="process-dot" type="button" data-process-dot="2" aria-label="Show step 3"></button>
+      <button class="process-dot" type="button" data-process-dot="3" aria-label="Show step 4"></button>
+      <button class="process-dot" type="button" data-process-dot="4" aria-label="Show step 5"></button>
+      <button class="process-dot" type="button" data-process-dot="5" aria-label="Show step 6"></button>
     </div>
-
-    <div class="platform-card">
-      <div class="step">02 · DESIGN</div>
-      <div class="icon" aria-hidden="true">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="28" cy="28" r="3"/>
-          <circle cx="12" cy="14" r="2.5"/><circle cx="44" cy="14" r="2.5"/>
-          <circle cx="10" cy="34" r="2.5"/><circle cx="46" cy="34" r="2.5"/>
-          <circle cx="22" cy="46" r="2.5"/><circle cx="34" cy="46" r="2.5"/>
-          <path d="M28 28L12 14M28 28L44 14M28 28L10 34M28 28L46 34M28 28L22 46M28 28L34 46"/>
-        </svg>
-      </div>
-      <h3>Clinician-guided correction plan</h3>
-      <p>A personalized correction path is built around each infant's anatomy, each aligner gently repositioning cartilage before the next is delivered.</p>
-      <svg class="conn" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </div>
-
-    <div class="platform-card">
-      <div class="step">03 · PRINT</div>
-      <div class="icon" aria-hidden="true">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="10" y="10" width="36" height="24" rx="3"/>
-          <path d="M22 34v6M34 34v6"/>
-          <rect x="16" y="40" width="24" height="6" rx="1"/>
-          <path d="M22 16h12"/>
-          <circle cx="28" cy="24" r="4"/>
-        </svg>
-      </div>
-      <h3>Same-day silicone</h3>
-      <p>3D printing is used to craft a patient-specific, medical-grade guide for clinical use.</p>
-    </div>
+    <button class="process-control" type="button" data-process-toggle aria-label="Pause automatic step changes" aria-pressed="false"><svg data-process-pause viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3v14H7zm7 0h3v14h-3z"/></svg><svg data-process-play viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="m8 5 12 7-12 7z"/></svg></button>
+    <button class="process-control" type="button" data-process-next aria-label="Next treatment step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+    <span class="process-status" aria-live="polite" data-process-status>Step 1 of 6: Capture a 3D scan</span>
   </div>
 
   <div class="platform-quote">
@@ -754,7 +808,6 @@
 <section class="module" id="indications" data-screen-label="04 Indications">
   <div class="module-head">
     <div>
-      <p class="kicker">Indications</p>
       <h2 class="title">Where early molding works.</h2>
     </div>
     <p class="lede">Initially developed for ear deformities like lop and prominent ear, FaceShift extends to nasoalveolar molding for cleft lip and palate, jaw alignment, and other craniofacial differences, all in the soft-tissue window of the first weeks of life.</p>
@@ -803,7 +856,6 @@
 <section class="module" id="clinicians" data-screen-label="05 Clinicians">
   <div class="module-head">
     <div>
-      <p class="kicker">Clinicians</p>
       <h2 class="title">Built with surgeons, in the clinic.</h2>
     </div>
     <p class="lede">FaceShift is co-developed with the team at UCSF Benioff Children's Hospital, led by Dr.&nbsp;Alexander&nbsp;Lin, a craniofacial surgeon and 3D-printing researcher whose practice has shaped every part of the platform.</p>
@@ -859,7 +911,6 @@
 <section class="module" id="science" data-screen-label="06 Science">
   <div class="module-head">
     <div>
-      <p class="kicker">Science</p>
       <h2 class="title">Why now is the right moment.</h2>
     </div>
     <p class="lede">Recent advances in non-surgical molding, plus accessible 3D printing of biocompatible elastomers, have unlocked a corrective approach that was infeasible a decade ago.</p>
@@ -917,7 +968,6 @@
   <div class="about-inner">
     <div class="about-head">
       <div>
-        <p class="kicker">About</p>
         <h2 class="title">Beyond surgery.</h2>
       </div>
       <p class="lede">Traditional surgeries for craniofacial deformities have been costly, invasive, and often delayed, placing unnecessary burden on children and their families. FaceShift reduces that burden by making correction available earlier in life, with the potential to impact thousands of families and let children grow up without the stigma of craniofacial differences.</p>
@@ -932,7 +982,13 @@
 
 <footer>
   <span>© 2026 FaceShift Bio, Inc.</span>
-  <span class="mono">v0.4.2 · ear-mold-display</span>
+  <span class="footer-contacts">
+    <a href="mailto:info@faceshift.co">info@faceshift.co</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:ayl@faceshift.co">Dr. Alexander Lin</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:evan@faceshift.co">Evan Chau</a>
+  </span>
 </footer>
 
 <!-- ------------------- 3D SCRIPT ------------------------------------- -->
@@ -942,6 +998,131 @@
   const canvas = document.getElementById('ear-canvas');
   const section = document.getElementById('rotate-section');
   const handle = mountEarMold({ canvas, scrollContainer: section });
+</script>
+
+<script>
+(() => {
+  const fan = document.querySelector('[data-process-fan]');
+  if (!fan) return;
+
+  const cards = Array.from(fan.querySelectorAll('[data-process-card]'));
+  const dots = Array.from(document.querySelectorAll('[data-process-dot]'));
+  const status = document.querySelector('[data-process-status]');
+  const previous = document.querySelector('[data-process-prev]');
+  const next = document.querySelector('[data-process-next]');
+  const toggle = document.querySelector('[data-process-toggle]');
+  const pauseIcon = toggle.querySelector('[data-process-pause]');
+  const playIcon = toggle.querySelector('[data-process-play]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let activeIndex = 0;
+  let isInView = false;
+  let paused = reducedMotion.matches;
+  let timer = null;
+
+  const render = (initial = false) => {
+    const preferredSpacing = window.innerWidth < 600 ? 18 : window.innerWidth < 900 ? 92 : 126;
+    const cardWidth = cards[0].getBoundingClientRect().width;
+    const spacing = Math.min(preferredSpacing, Math.max(8, (fan.clientWidth - cardWidth) / (cards.length - 1) * 0.84));
+    cards.forEach((card, index) => {
+      let offset = index - activeIndex;
+      if (offset > cards.length / 2) offset -= cards.length;
+      if (offset < -cards.length / 2) offset += cards.length;
+      const distance = Math.abs(offset);
+      const x = offset * spacing;
+      const y = distance * 8;
+      const rotation = offset * 5.5;
+      const scale = 1 - distance * 0.045;
+      card.style.transitionDelay = initial && !reducedMotion.matches ? `${distance * 55}ms` : '0ms';
+      card.style.transform = `translate(calc(-50% + ${x}px), ${y}px) rotate(${rotation}deg) scale(${scale})`;
+      card.style.zIndex = String(20 - distance);
+      card.setAttribute('aria-current', index === activeIndex ? 'step' : 'false');
+      card.setAttribute('aria-hidden', String(index !== activeIndex));
+    });
+
+    dots.forEach((dot, index) => {
+      if (index === activeIndex) dot.setAttribute('aria-current', 'step');
+      else dot.removeAttribute('aria-current');
+    });
+    const title = cards[activeIndex].querySelector('h3').textContent;
+    status.textContent = `Step ${activeIndex + 1} of ${cards.length}: ${title}`;
+  };
+
+  const setActive = (index, fromUser = false) => {
+    activeIndex = (index + cards.length) % cards.length;
+    render();
+    if (fromUser) syncTimer();
+  };
+
+  const stopTimer = () => {
+    if (timer) window.clearInterval(timer);
+    timer = null;
+  };
+  const syncTimer = () => {
+    stopTimer();
+    if (isInView && !paused && !document.hidden && !reducedMotion.matches) {
+      timer = window.setInterval(() => setActive(activeIndex + 1), 4800);
+    }
+  };
+  const updateToggle = () => {
+    toggle.setAttribute('aria-pressed', String(paused));
+    toggle.setAttribute('aria-label', paused ? 'Resume automatic step changes' : 'Pause automatic step changes');
+    pauseIcon.hidden = paused;
+    playIcon.hidden = !paused;
+  };
+
+  fan.classList.add('is-ready');
+  render(true);
+  requestAnimationFrame(() => {
+    if (!('IntersectionObserver' in window)) {
+      fan.classList.add('is-visible');
+      isInView = true;
+      render(true);
+      syncTimer();
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      isInView = entry.isIntersecting;
+      if (isInView) {
+        fan.classList.add('is-visible');
+        render(true);
+      }
+      syncTimer();
+    }, { threshold: 0.25 });
+    observer.observe(fan);
+  });
+
+  previous.addEventListener('click', () => setActive(activeIndex - 1, true));
+  next.addEventListener('click', () => setActive(activeIndex + 1, true));
+  dots.forEach((dot) => dot.addEventListener('click', () => setActive(Number(dot.dataset.processDot), true)));
+  toggle.addEventListener('click', () => {
+    paused = !paused;
+    updateToggle();
+    syncTimer();
+  });
+  fan.addEventListener('mouseenter', () => { paused = true; updateToggle(); syncTimer(); });
+  fan.addEventListener('mouseleave', () => { paused = reducedMotion.matches; updateToggle(); syncTimer(); });
+  fan.addEventListener('focusin', () => { paused = true; updateToggle(); syncTimer(); });
+  fan.addEventListener('focusout', (event) => {
+    if (!fan.contains(event.relatedTarget)) {
+      paused = reducedMotion.matches;
+      updateToggle();
+      syncTimer();
+    }
+  });
+  fan.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { event.preventDefault(); setActive(activeIndex + 1, true); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); setActive(activeIndex - 1, true); }
+  });
+  window.addEventListener('resize', () => render());
+  document.addEventListener('visibilitychange', syncTimer);
+  reducedMotion.addEventListener?.('change', () => {
+    paused = reducedMotion.matches;
+    updateToggle();
+    render();
+    syncTimer();
+  });
+  updateToggle();
+})();
 </script>
 
 </body>

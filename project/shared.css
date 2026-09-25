@@ -1,5 +1,13 @@
 /* FaceShift, shared design tokens & components */
 
+@font-face {
+  font-family: 'YDGothic 100 Pro';
+  src: url('uploads/yd-gothic-100-pro.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --navy-900: #0b1735;
   --navy-800: #11214a;
@@ -7,6 +15,9 @@
   --navy-500: #3756a8;
   --teal-500: #0e9aa7;
   --teal-400: #2bb6c2;
+  --action-teal: #007d86;
+  --action-teal-hover: #006a72;
+  --action-teal-active: #00575f;
   --bg: #f4f6fb;
   --bg-soft: #ecf0f9;
   --bg-card: #ffffff;
@@ -22,14 +33,20 @@ html, body {
   padding: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: 'Inter Tight', system-ui, sans-serif;
+  font-family: 'YDGothic 100 Pro', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter Tight', system-ui, sans-serif;
+}
+
+button, input, select, textarea { font-family: inherit; }
+
 body { overflow-x: hidden; }
 
-.mono { font-family: 'Inter Tight', sans-serif; }
+.mono { font-family: 'YDGothic 100 Pro', sans-serif; }
 
 /* ---- Nav ---------------------------------------------------------------- */
 
@@ -94,7 +111,7 @@ body { overflow-x: hidden; }
 .nav-links a.active { color: var(--navy-900); font-weight: 500; }
 
 .nav-cta {
-  background: var(--navy-900);
+  background: var(--action-teal);
   color: #fff;
   padding: 8px 20px;
   border-radius: 999px;
@@ -102,14 +119,20 @@ body { overflow-x: hidden; }
   font-weight: 500;
   letter-spacing: 0.01em;
   text-decoration: none;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
   white-space: nowrap;
-  box-shadow: 0 1px 4px rgba(11, 23, 53, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 87, 95, 0.24);
 }
 
 .nav-cta:hover {
-  background: var(--navy-700);
-  box-shadow: 0 4px 12px rgba(11, 23, 53, 0.32);
+  background: var(--action-teal-hover);
+  box-shadow: 0 4px 12px rgba(0, 87, 95, 0.3);
+  transform: translateY(-1px);
+}
+
+:is(button, [role="button"], .nav-cta, .backed-tag, .clinician-btn, .profile-btn, .clin-cta a, .card-cta):focus-visible {
+  outline: 3px solid rgba(0, 125, 134, 0.36);
+  outline-offset: 3px;
 }
 
 /* ---- Generic section module --------------------------------------------- */
@@ -132,7 +155,7 @@ section.module {
 }
 
 .module-head .kicker {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'YDGothic 100 Pro', sans-serif;
   font-size: 10.5px;
   letter-spacing: 0.2em;
   color: var(--teal-500);
@@ -172,6 +195,29 @@ footer {
   font-size: 12.5px;
   border-top: 1px solid var(--rule);
 }
+
+.footer-contacts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.footer-contacts a {
+  color: var(--teal-500);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(14,154,167,0.4);
+  transition: color 0.18s, text-decoration-color 0.18s;
+  pointer-events: auto;
+}
+
+.footer-contacts a:hover {
+  color: var(--teal-400);
+  text-decoration-color: var(--teal-400);
+}
+
+.footer-sep { opacity: 0.4; }
 
 /* ---- Responsive --------------------------------------------------------- */
 

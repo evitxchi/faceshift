@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FaceShift · Indications</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,8 +33,8 @@
     .nav-links a { color: rgba(255,255,255,0.48); }
     .nav-links a:hover, .nav-links a.active { color: #fff; }
     .nav-links a.active { font-weight: 500; }
-    .nav-cta { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16); box-shadow: none; }
-    .nav-cta:hover { background: rgba(255,255,255,0.15); box-shadow: none; }
+    .nav-cta { background: var(--action-teal); border: 1px solid var(--action-teal); box-shadow: 0 2px 8px rgba(0,87,95,.24); }
+    .nav-cta:hover { background: var(--action-teal-hover); border-color: var(--action-teal-hover); box-shadow: 0 4px 12px rgba(0,87,95,.3); }
 
     /* ---- Module head overrides -------------------------------------------- */
     .module-head .kicker { color: var(--teal-400); }
@@ -155,7 +158,6 @@
   <section class="module boxes-content">
     <div class="module-head">
       <div>
-        <p class="kicker">Indications</p>
         <h2 class="title">Where early molding works.</h2>
       </div>
       <p class="lede">Initially developed for ear differences like lop and prominent ear, FaceShift extends to the nose, septum, jaws, and other craniofacial differences.</p>
@@ -169,7 +171,13 @@
 
 <footer>
   <span>© 2026 FaceShift Bio, Inc.</span>
-  <span class="mono">v0.4.2 · indications</span>
+  <span class="footer-contacts">
+    <a href="mailto:info@faceshift.co">info@faceshift.co</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:ayl@faceshift.co">Dr. Alexander Lin</a>
+    <span class="footer-sep">·</span>
+    <a href="mailto:evan@faceshift.co">Evan Chau</a>
+  </span>
 </footer>
 
 <script>
