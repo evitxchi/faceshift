@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="shared.css?v=faceshift-20260925" />
   <style>
 
     /* ---- Hero ----------------------------------------------------------- */
@@ -373,7 +373,7 @@
     .panel { position: relative; }
 
     .panel .tag {
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 10px;
       letter-spacing: 0.16em;
       color: var(--teal-500);
@@ -415,7 +415,7 @@
       bottom: 36px;
       display: flex;
       gap: 0;
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 10px;
       color: var(--ink-muted);
       letter-spacing: 0.1em;
@@ -449,7 +449,7 @@
       position: absolute;
       right: 56px;
       bottom: 36px;
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 11px;
       color: var(--ink-muted);
       letter-spacing: 0.12em;
@@ -656,7 +656,7 @@
     }
 
     .status-badge {
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 9px; font-weight: 600;
       letter-spacing: 0.12em;
       padding: 3px 9px; border-radius: 999px; border: 1px solid;
@@ -667,7 +667,7 @@
     .badge-pending  { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.05); }
 
     .node-card-date {
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 10px; color: rgba(255,255,255,0.55);
     }
 
@@ -685,7 +685,7 @@
 
     .energy-label {
       display: flex; justify-content: space-between;
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 10px; color: rgba(255,255,255,0.65);
       margin-bottom: 6px;
     }
@@ -708,7 +708,7 @@
     }
 
     .node-card-related-label {
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
       color: rgba(255,255,255,0.55);
       margin-bottom: 8px;
@@ -717,7 +717,7 @@
     .node-card-links { display: flex; flex-wrap: wrap; gap: 6px; }
 
     .node-card-link {
-      font-size: 11px; font-family: 'Inter Tight', sans-serif;
+      font-size: 11px; font-family: 'YDGothic 100 Pro', sans-serif;
       color: rgba(255,255,255,0.88);
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.25);
@@ -727,6 +727,119 @@
     }
 
     .node-card-link:hover { background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.5); }
+
+    /* ---- Scan-to-fit timeline ------------------------------------------ */
+    .workflow-timeline {
+      position: relative;
+      padding: 84px 24px 104px;
+      background: #f4f6fb;
+      overflow: hidden;
+      scroll-margin-top: 112px;
+    }
+
+    .workflow-timeline::before {
+      position: absolute;
+      inset: 0;
+      content: '';
+      background: repeating-linear-gradient(to bottom, transparent 0 63px, rgba(11,23,53,.06) 64px 65px);
+      pointer-events: none;
+    }
+
+    .workflow-timeline-inner {
+      position: relative;
+      z-index: 1;
+      width: min(960px, 100%);
+      margin: 0 auto;
+    }
+
+    .workflow-timeline-title {
+      margin: 0 0 54px;
+      text-align: center;
+      color: var(--navy-900);
+      font-size: clamp(32px, 4.3vw, 48px);
+      line-height: 1.05;
+      font-weight: 600;
+    }
+
+    .timeline-step {
+      position: relative;
+      padding: 0 0 68px;
+      text-align: center;
+      opacity: 1;
+      transform: none;
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .workflow-timeline.is-enhanced .timeline-step { opacity: 0; transform: translateY(28px); }
+    .workflow-timeline.is-enhanced .timeline-step.is-visible { opacity: 1; transform: translateY(0); }
+
+    .timeline-marker {
+      position: relative;
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin: 0 auto 22px;
+      border: 2px solid rgba(255,255,255,.9);
+      border-radius: 50% 50% 50% 0;
+      background: var(--marker-color, #087f88);
+      transform: rotate(-45deg);
+      box-shadow: 0 5px 18px rgba(7,80,87,.22);
+    }
+
+    .timeline-marker::after { position: absolute; inset: 5px; content: ''; border-radius: 50%; background: #fff; }
+
+    .timeline-card {
+      overflow: hidden;
+      padding: 12px;
+      border: 1px solid rgba(11,23,53,.1);
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 18px 42px rgba(11,23,53,.12);
+      text-align: left;
+    }
+
+    .timeline-card-visual {
+      position: relative;
+      height: clamp(190px, 28vw, 300px);
+      overflow: hidden;
+      padding: 5px;
+      border-radius: 8px;
+      background: linear-gradient(140deg, var(--step-deep), var(--step-mid) 58%, var(--step-light));
+    }
+
+    .timeline-card-visual::after {
+      position: absolute;
+      inset: 0;
+      content: '';
+      background: linear-gradient(135deg, color-mix(in srgb, var(--step-deep), transparent 62%), transparent 55%, color-mix(in srgb, var(--step-light), transparent 54%));
+      pointer-events: none;
+    }
+
+    .timeline-card-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+      border-radius: 5px;
+      mix-blend-mode: normal;
+    }
+
+    .timeline-card-copy { padding: 22px 22px 18px; }
+    .timeline-card .step { display: block; margin: 0 0 9px; color: var(--step-accent); font-size: 12px; }
+    .timeline-card h3 { margin: 0 0 8px; color: var(--navy-900); font-size: 26px; line-height: 1.12; font-weight: 600; }
+    .timeline-card p { max-width: 780px; margin: 0; color: var(--ink-muted); font-size: 16px; line-height: 1.55; }
+
+    .timeline-step:nth-child(2) { --marker-color: #087f88; --step-deep: #09606d; --step-mid: #168998; --step-light: #c6ece8; --step-accent: #08727b; }
+    .timeline-step:nth-child(3) { --marker-color: #3756a8; --step-deep: #243e82; --step-mid: #6482ce; --step-light: #d2dcf7; --step-accent: #3756a8; }
+    .timeline-step:nth-child(4) { --marker-color: #ad603f; --step-deep: #81432f; --step-mid: #c77b50; --step-light: #f0d5bd; --step-accent: #985338; }
+    .timeline-step:nth-child(5) { --marker-color: #18756b; --step-deep: #075057; --step-mid: #228d82; --step-light: #c4e9de; --step-accent: #126b63; }
+    .timeline-step:nth-child(6) { --marker-color: #7764a4; --step-deep: #54457f; --step-mid: #9783c1; --step-light: #e2d8f0; --step-accent: #69558f; }
+    .timeline-step:nth-child(7) { --marker-color: #287f9c; --step-deep: #15536e; --step-mid: #459db2; --step-light: #c9e8ef; --step-accent: #216b81; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .timeline-step { opacity: 1; transform: none; transition: none; }
+    }
 
     /* ---- Scroll-triggered workflow fan --------------------------------- */
     .process-fan {
@@ -990,7 +1103,7 @@
     }
 
     .pb-label {
-      font-family: 'Inter Tight', sans-serif;
+      font-family: 'YDGothic 100 Pro', sans-serif;
       font-size: 9.5px;
       fill: rgba(255,255,255,0.32);
       letter-spacing: 0.1em;
@@ -998,9 +1111,10 @@
     }
 
     @media (max-width: 860px) {
-      .pb-svg { width: 100%; height: auto; }
-      .pb-card-title { font-size: 24px; }
-      .pb-card { padding: 24px 32px; }
+      .workflow-timeline { padding: 64px 20px 72px; }
+      .timeline-card-copy { padding: 18px 14px 14px; }
+      .timeline-card h3 { font-size: 22px; }
+      .timeline-card p { font-size: 14px; }
     }
 
   </style>
@@ -1016,10 +1130,11 @@
     </a>
     <div class="nav-links">
       <a href="/" class="active">Platform</a>
-      <a href="/science">Science</a>
-      <a href="/about">About</a>
+      <a href="/indications.html">Indications</a>
+      <a href="/science.html">Science</a>
+      <a href="/about.html">About</a>
     </div>
-    <a href="/contact" class="nav-cta">Work With Us</a>
+    <a href="/contact.html" class="nav-cta">Work With Us</a>
   </div>
 </nav>
 
@@ -1066,9 +1181,9 @@
     <div class="rotate-grid">
 
       <div class="panel left">
-        <div class="tag">Material · Specimen 04-A</div>
-        <h2>Medical-grade biocompatibility, printed in a single pass.</h2>
-        <p>Each shell is biocompatible. Optical clarity lets clinicians track tissue progress through the device without removal.</p>
+      <div class="tag">Material · Specimen 04-A</div>
+      <h2>Medical-grade biocompatibility, printed in a single pass.</h2>
+      <p>Each custom guide is made from biocompatible material. Optical clarity lets clinicians track tissue progress through the device without removal.</p>
       </div>
 
       <div class="rotate-canvas-wrap">
@@ -1076,7 +1191,7 @@
           id="ear-frame"
           class="ear-frame"
           src="uploads/ear-mold- 03_14_56 PM (1).png"
-          alt="Rotating 3D model of a FaceShift silicone ear mold"
+          alt="Rotating view of a custom FaceShift alignment guide"
           draggable="false"
         />
       </div>
@@ -1084,7 +1199,7 @@
       <div class="panel right">
         <div class="tag">Geometry · Patient-specific</div>
         <h2>Tailored to each patient, by clinicians who know them.</h2>
-        <p>A personalized sequence of aligners is planned around each patient's anatomy, gently repositioning cartilage at each stage before the next is delivered.</p>
+      <p>Each guide is custom-fit from a 3D print, sometimes in one piece and sometimes in two, to fit a wide range of ages and anatomy sizes. FaceShift primarily acts on cartilage and may also influence bone remodeling.</p>
       </div>
 
     </div>
@@ -1112,53 +1227,52 @@
   </div>
 </div>
 
-<!-- Pulse Beams, Patient Connection -->
-<section class="pb-section" id="pb-section">
-  <div class="pb-content-wrap">
-    <div class="pb-card">
-      <p class="pb-card-title">Every guide<br>begins with you.</p>
-      <p class="pb-card-sub">Personalized care, from scan to fit.</p>
-    </div>
-  </div>
-  <div class="pb-svg-wrap">
-    <svg class="pb-svg" viewBox="0 -28 858 490" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg">
-
-      <!-- Peripheral node labels -->
-      <text class="pb-label" x="6.5" y="418" text-anchor="middle">3D Scan</text>
-      <text class="pb-label" x="851" y="20" text-anchor="middle">Patient Fit</text>
-      <text class="pb-label" x="142" y="452" text-anchor="middle">Clinical Review</text>
-      <text class="pb-label" x="770" y="452" text-anchor="middle">Monitoring</text>
-      <text class="pb-label" x="420.5" y="-12" text-anchor="middle">Same-day Print</text>
-
-      <!-- Static base paths -->
-      <path class="pb-base" d="M269 220.5H16.5C10.9772 220.5 6.5 224.977 6.5 230.5V398.5"/>
-      <path class="pb-base" d="M568 200H841C846.523 200 851 195.523 851 190V40"/>
-      <path class="pb-base" d="M425.5 274V333C425.5 338.523 421.023 343 415.5 343H152C146.477 343 142 347.477 142 353V426.5"/>
-      <path class="pb-base" d="M493 274V333.226C493 338.749 497.477 343.226 503 343.226H760C765.523 343.226 770 347.703 770 353.226V427"/>
-      <path class="pb-base" d="M380 168V17C380 11.4772 384.477 7 390 7H414"/>
-
-      <!-- Animated pulse paths (same geometry) -->
-      <path class="pb-pulse" data-pb-delay="0"   d="M269 220.5H16.5C10.9772 220.5 6.5 224.977 6.5 230.5V398.5"/>
-      <path class="pb-pulse" data-pb-delay="1.5" d="M568 200H841C846.523 200 851 195.523 851 190V40"/>
-      <path class="pb-pulse" data-pb-delay="0.7" d="M425.5 274V333C425.5 338.523 421.023 343 415.5 343H152C146.477 343 142 347.477 142 353V426.5"/>
-      <path class="pb-pulse" data-pb-delay="2.3" d="M493 274V333.226C493 338.749 497.477 343.226 503 343.226H760C765.523 343.226 770 347.703 770 353.226V427"/>
-      <path class="pb-pulse" data-pb-delay="1.1" d="M380 168V17C380 11.4772 384.477 7 390 7H414"/>
-
-      <!-- Peripheral connection dots -->
-      <circle cx="6.5"   cy="398.5" r="5"   class="pb-dot pb-dot-outer"/>
-      <circle cx="851"   cy="34"    r="5.5" class="pb-dot pb-dot-outer"/>
-      <circle cx="142"   cy="427"   r="5.5" class="pb-dot pb-dot-outer"/>
-      <circle cx="770"   cy="427"   r="5.5" class="pb-dot pb-dot-outer"/>
-      <circle cx="420.5" cy="6.5"   r="5"   class="pb-dot pb-dot-outer"/>
-
-      <!-- Center card edge dots -->
-      <circle cx="269"   cy="220.5" r="5"   class="pb-dot pb-dot-inner"/>
-      <circle cx="568"   cy="200"   r="5"   class="pb-dot pb-dot-inner"/>
-      <circle cx="425.5" cy="274"   r="5"   class="pb-dot pb-dot-inner"/>
-      <circle cx="493"   cy="274"   r="5"   class="pb-dot pb-dot-inner"/>
-      <circle cx="380"   cy="168"   r="5"   class="pb-dot pb-dot-inner"/>
-
-    </svg>
+<!-- Treatment timeline -->
+<section class="workflow-timeline" id="journey" aria-labelledby="timeline-title">
+  <div class="workflow-timeline-inner">
+    <h2 class="workflow-timeline-title" id="timeline-title">A guide shaped around each patient.</h2>
+    <article class="timeline-step">
+      <span class="timeline-marker" aria-hidden="true"></span>
+      <div class="timeline-card">
+        <div class="timeline-card-visual"><img src="uploads/workflow-scan.webp" alt="A clinician captures a contact-free 3D scan in a clinic" loading="lazy"></div>
+        <div class="timeline-card-copy"><span class="step">STEP 01</span><h3>Capture a 3D scan</h3><p>A quick, contact-free scan records the patient's anatomy for a precise starting model.</p></div>
+      </div>
+    </article>
+    <article class="timeline-step">
+      <span class="timeline-marker" aria-hidden="true"></span>
+      <div class="timeline-card">
+        <div class="timeline-card-visual"><img src="uploads/workflow-plan.webp" alt="A care team reviews a digital model to plan a custom fit" loading="lazy"></div>
+        <div class="timeline-card-copy"><span class="step">STEP 02</span><h3>Plan a custom fit</h3><p>The care team shapes a guide around the patient's anatomy, age, and treatment goals.</p></div>
+      </div>
+    </article>
+    <article class="timeline-step">
+      <span class="timeline-marker" aria-hidden="true"></span>
+      <div class="timeline-card">
+        <div class="timeline-card-visual"><img src="uploads/workflow-print.webp" alt="A custom craniofacial guide is 3D-printed" loading="lazy"></div>
+        <div class="timeline-card-copy"><span class="step">STEP 03</span><h3>3D-print the guide</h3><p>A biocompatible guide is custom-made from the scan, in one piece or two as the fit requires.</p></div>
+      </div>
+    </article>
+    <article class="timeline-step">
+      <span class="timeline-marker" aria-hidden="true"></span>
+      <div class="timeline-card">
+        <div class="timeline-card-visual"><img src="uploads/workflow-fit.webp" alt="A clinician checks the placement of a custom guide" loading="lazy"></div>
+        <div class="timeline-card-copy"><span class="step">STEP 04</span><h3>Fit with the care team</h3><p>Clinicians check placement and help families follow a comfortable, consistent wear plan.</p></div>
+      </div>
+    </article>
+    <article class="timeline-step">
+      <span class="timeline-marker" aria-hidden="true"></span>
+      <div class="timeline-card">
+        <div class="timeline-card-visual"><img src="uploads/workflow-wear.webp" alt="A child rests wearing a clear custom ear guide" loading="lazy"></div>
+        <div class="timeline-card-copy"><span class="step">STEP 05</span><h3>Wear day and night</h3><p>The guide is custom-fit and worn as directed, with a clear design that supports clinical checks.</p></div>
+      </div>
+    </article>
+    <article class="timeline-step">
+      <span class="timeline-marker" aria-hidden="true"></span>
+      <div class="timeline-card">
+        <div class="timeline-card-visual"><img src="uploads/workflow-review.webp" alt="The care team reviews progress and adapts the next guide" loading="lazy"></div>
+        <div class="timeline-card-copy"><span class="step">STEP 06</span><h3>Review and adapt</h3><p>Follow-up tracks progress and informs each next guide as anatomy and treatment needs change.</p></div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -1168,7 +1282,7 @@
     <div>
       <h2 class="title">How it works.</h2>
     </div>
-    <p class="lede">A quick scan starts a clinician-guided process. Each guide is custom-fit from a 3D print to match a patient's anatomy and treatment goals.</p>
+    <p class="lede">A quick scan starts a clinician-guided process. Each guide is custom-fit from a 3D print to match the patient's anatomy and treatment goals.</p>
   </div>
 
   <div class="process-fan" data-process-fan role="region" aria-label="FaceShift treatment steps" tabindex="0">
@@ -1215,7 +1329,6 @@
 
 <footer>
   <span>© 2026 FaceShift Bio, Inc.</span>
-  <span class="mono">v0.4.2 · platform</span>
 </footer>
 
 <script>
@@ -1287,173 +1400,6 @@
 
   // Run once on load in case page starts mid-scroll
   update();
-}());
-
-// ---- Radial Orbital Timeline ------------------------------------------
-(function () {
-  var DATA = [
-    {
-      id: 1, title: '3D Scan', date: 'Step 01',
-      content: 'A 30-second structured-light scan captured at the bedside. No anesthesia. The infant or child can remain comfortably in a caregiver\'s arms during scanning.',
-      relatedIds: [2], status: 'completed', energy: 100,
-      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3"/></svg>',
-    },
-    {
-      id: 2, title: 'Custom Design', date: 'Step 02',
-      content: 'A personalized correction plan is built around each patient\'s anatomy, mapping the sequence of aligners needed to reshape tissue gently over time.',
-      relatedIds: [1, 3], status: 'completed', energy: 88,
-      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M9 2v2M2 15h2M2 9h2M15 22v-2M9 22v-2M22 15h-2M22 9h-2"/></svg>',
-    },
-    {
-      id: 3, title: '3D-Printed Medical-Grade Guide', date: 'Step 03',
-      content: '3D printing is used to craft a patient-specific, medical-grade guide for clinical use.',
-      relatedIds: [2, 4], status: 'in-progress', energy: 72,
-      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>',
-    },
-    {
-      id: 4, title: 'Fitting', date: 'Step 04',
-      content: 'Patient-specific custom-fit aligner fitted by the clinical team. Optical clarity allows clinicians to monitor tissue progress without needing guide removal. Removal and replacement are simple enough for families to perform at home when instructed.',
-      relatedIds: [3, 5], status: 'in-progress', energy: 55,
-      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>',
-    },
-    {
-      id: 5, title: 'Monitoring', date: 'Step 05',
-      content: 'Sequential guide is delivered as correction progresses. Each device is adapted to the child\'s evolving anatomy.',
-      relatedIds: [4, 1], status: 'pending', energy: 38,
-      icon: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>',
-    },
-  ];
-
-  var container  = document.getElementById('orbital-container');
-  var stage      = document.getElementById('orbital-stage');
-  var detailWrap = document.getElementById('orbital-detail');
-  var detailEl   = document.getElementById('orbital-detail-inner');
-  if (!container || !stage) return;
-
-  var angle = 0, autoRotate = true, activeId = null, timer = null;
-  var nodes = {};
-
-  DATA.forEach(function (item) {
-    var wrap = document.createElement('div');
-    wrap.className = 'orbital-node';
-
-    var glowSize = item.energy * 0.38 + 28;
-    var glow = document.createElement('div');
-    glow.className = 'node-glow';
-    glow.style.cssText = 'width:' + glowSize + 'px;height:' + glowSize + 'px;' +
-      'top:' + (20 - glowSize / 2) + 'px;left:' + (20 - glowSize / 2) + 'px;' +
-      'background:radial-gradient(circle,rgba(255,255,255,0.13) 0%,transparent 70%);';
-
-    var icon = document.createElement('div');
-    icon.className = 'node-icon';
-    icon.innerHTML = item.icon;
-
-    var lbl = document.createElement('div');
-    lbl.className = 'node-label';
-    lbl.textContent = item.title;
-
-    var card = document.createElement('div');
-    card.className = 'node-card';
-    card.style.display = 'none';
-    card.innerHTML = buildCard(item);
-
-    wrap.appendChild(glow);
-    wrap.appendChild(icon);
-    wrap.appendChild(lbl);
-    wrap.appendChild(card);
-    stage.appendChild(wrap);
-
-    nodes[item.id] = { el: wrap, icon: icon, lbl: lbl, card: card };
-
-    wrap.addEventListener('click', function (e) { e.stopPropagation(); toggle(item.id); });
-  });
-
-  stage.addEventListener('click', function (e) {
-    var btn = e.target.closest('.node-card-link');
-    if (btn) { e.stopPropagation(); toggle(parseInt(btn.dataset.target, 10)); }
-  });
-  container.addEventListener('click', collapseAll);
-
-  function buildCard(item) {
-    var labels  = { completed: 'COMPLETE', 'in-progress': 'IN PROGRESS', pending: 'PENDING' };
-    var classes = { completed: 'badge-complete', 'in-progress': 'badge-progress', pending: 'badge-pending' };
-    var related = item.relatedIds.map(function (rid) {
-      return '<button class="node-card-link" data-target="' + rid + '">' +
-        DATA.find(function (d) { return d.id === rid; }).title + ' →</button>';
-    }).join('');
-    return '<div class="node-card-header">' +
-        '<span class="status-badge ' + classes[item.status] + '">' + labels[item.status] + '</span>' +
-        '<span class="node-card-date">' + item.date + '</span>' +
-      '</div>' +
-      '<div class="node-card-title">' + item.title + '</div>' +
-      '<div class="node-card-content">' + item.content + '</div>' +
-      '<div class="energy-label"><span>Progress</span><span>' + item.energy + '%</span></div>' +
-      '<div class="energy-track"><div class="energy-fill" style="width:' + item.energy + '%"></div></div>' +
-      (related ? '<div class="node-card-related"><div class="node-card-related-label">Connected stages</div>' +
-        '<div class="node-card-links">' + related + '</div></div>' : '');
-  }
-
-  function toggle(id) {
-    if (activeId === id) { collapseAll(); return; }
-    collapseAll();
-    activeId = id; autoRotate = false; clearInterval(timer);
-    var active = DATA.find(function (d) { return d.id === id; });
-    DATA.forEach(function (d) {
-      var n = nodes[d.id];
-      if (d.id === id) {
-        n.icon.classList.add('active'); n.lbl.classList.add('active');
-      } else if (active.relatedIds.indexOf(d.id) !== -1) {
-        n.icon.classList.add('related');
-      }
-    });
-    // Show card in center panel
-    detailEl.innerHTML = buildCard(active);
-    detailWrap.classList.add('has-card');
-    // Wire related-stage clicks inside center panel
-    detailEl.querySelectorAll('.node-card-link').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggle(parseInt(btn.dataset.target, 10));
-      });
-    });
-  }
-
-  function collapseAll() {
-    activeId = null; autoRotate = true;
-    DATA.forEach(function (d) {
-      var n = nodes[d.id];
-      n.icon.classList.remove('active', 'related');
-      n.lbl.classList.remove('active');
-    });
-    detailWrap.classList.remove('has-card');
-    detailEl.innerHTML = '';
-    startTimer();
-  }
-
-  function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(function () { angle = (angle + 0.3) % 360; render(); }, 50);
-  }
-
-  function render() {
-    var R = 260, total = DATA.length;
-    if (container.offsetWidth < 500) R = 150;
-    DATA.forEach(function (item, i) {
-      var a   = ((i / total) * 360 + angle) % 360;
-      var rad = a * Math.PI / 180;
-      var x   = R * Math.cos(rad);
-      var y   = R * Math.sin(rad);
-      var zi  = Math.round(100 + 50 * Math.cos(rad));
-      var op  = activeId === item.id ? 1 : Math.max(0.35, 0.35 + 0.65 * ((1 + Math.sin(rad)) / 2));
-      var n   = nodes[item.id];
-      n.el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
-      n.el.style.zIndex    = activeId === item.id ? 200 : zi;
-      n.el.style.opacity   = op.toFixed(3);
-    });
-  }
-
-  render();
-  startTimer();
 }());
 
 // ---- Hero tagline word flipper ----------------------------------------
@@ -1617,40 +1563,25 @@
   observer.observe(section);
 }());
 
-/* ---- Pulse Beams animation -------------------------------------------- */
+/* ---- Scroll-reveal timeline ------------------------------------------- */
 (function () {
-  var pulses = document.querySelectorAll('.pb-pulse');
-  if (!pulses.length) return;
-
-  pulses.forEach(function (path) {
-    var delay = parseFloat(path.getAttribute('data-pb-delay') || '0') * 1000;
-    var L = path.getTotalLength();
-    var dashLen = Math.min(L * 0.28, 70);
-    var travelDuration = 2000;
-    var pauseDuration  = 2000;
-    var totalCycle     = travelDuration + pauseDuration;
-    var startTime      = performance.now() + delay;
-
-    path.style.strokeDasharray  = dashLen + ' ' + L;
-    path.style.strokeDashoffset = L + dashLen;
-
-    function tick(now) {
-      var elapsed = now - startTime;
-      if (elapsed < 0) { requestAnimationFrame(tick); return; }
-
-      var inCycle  = elapsed % totalCycle;
-      var progress = Math.min(inCycle / travelDuration, 1);
-      /* ease in-out */
-      var t = progress < 0.5
-        ? 2 * progress * progress
-        : -1 + (4 - 2 * progress) * progress;
-
-      path.style.strokeDashoffset = (L + dashLen) - t * (L + 2 * dashLen);
-      requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
-  });
+  var steps = document.querySelectorAll('.timeline-step');
+  if (!steps.length) return;
+  var timeline = document.querySelector('.workflow-timeline');
+  timeline.classList.add('is-enhanced');
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    steps.forEach(function (step) { step.classList.add('is-visible'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  steps.forEach(function (step) { observer.observe(step); });
 }());
 
 // ---- How it works carousel --------------------------------------------

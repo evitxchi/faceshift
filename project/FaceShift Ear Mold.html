@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FaceShift, 3D Ear-Mold Display</title>
+<title>FaceShift · Personalized Craniofacial Molding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -96,9 +96,13 @@
 
   /* ---------- hero ---------------------------------------------------- */
   .hero {
-    max-width: 1240px; margin: 0 auto;
-    padding: 120px 32px 80px;
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    max-width: none; min-height: 100vh; margin: 0;
+    padding: 100px 32px 80px;
+    overflow: hidden;
     text-align: center;
+    background: linear-gradient(180deg, #09606d 0%, #075057 48%, #d2ecf2 100%);
   }
   .hero-lockup {
     display: inline-flex; align-items: center; justify-content: center; gap: 18px;
@@ -116,7 +120,7 @@
     font-size: clamp(56px, 8vw, 108px);
     line-height: 0.92; letter-spacing: -0.04em;
     font-weight: 600; margin: 0;
-    color: var(--navy-900);
+    color: #fff;
   }
   .backed-tag {
     display: inline-flex; align-items: center; gap: 8px;
@@ -142,18 +146,18 @@
   .backed-tag .muted { color: rgba(255,255,255,.86); }
   .hero .tagline {
     font-size: clamp(20px, 2.2vw, 28px);
-    line-height: 1.3; letter-spacing: -0.015em;
-    color: var(--navy-900);
+    line-height: 1.3; letter-spacing: 0;
+    color: #fff;
     max-width: 760px; margin: 0 auto 18px;
     font-weight: 500;
     text-wrap: balance;
   }
   .hero .tagline em {
-    font-style: normal; color: var(--teal-500);
+    font-style: normal; color: #b6eee8;
   }
   .hero .sub {
     font-size: 17px; line-height: 1.55;
-    color: var(--ink-muted);
+    color: rgba(255,255,255,.9);
     max-width: 580px; margin: 0 auto;
     text-wrap: pretty;
   }
@@ -396,6 +400,12 @@
     display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px;
     align-items: start;
   }
+  .ind-content { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .ind-content p {
+    margin: 0; padding: 28px; border: 1px solid var(--rule); border-radius: 12px;
+    background: linear-gradient(145deg, #fff 0%, #e7f4f4 100%);
+    color: var(--ink-muted); font-size: 16px; line-height: 1.65;
+  }
   .ind-stats { display: flex; flex-direction: column; gap: 28px; }
   .ind-stat {
     background: var(--bg-card);
@@ -521,8 +531,13 @@
     background: var(--bg-card);
     border: 1px solid var(--rule);
     border-radius: 18px;
-    padding: 44px;
+    padding: 20px;
     position: relative;
+  }
+  .sci-feature-image {
+    display: block; width: 100%; height: 350px; object-fit: contain;
+    padding: 16px; border-radius: 10px;
+    background: linear-gradient(145deg, #09606d, #0b6977 55%, #d2ecf2);
   }
   .sci-quote .qmark {
     font-family: 'Inter Tight', serif;
@@ -657,11 +672,18 @@
   }
 
   @media (max-width: 900px) {
+    .nav-inner { padding: 12px 16px 8px; flex-wrap: wrap; row-gap: 8px; }
+    .nav-links {
+      order: 3; width: 100%; gap: 20px; overflow-x: auto;
+      padding: 4px 0 6px; white-space: nowrap; scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-cta { order: 2; margin-left: auto; padding: 8px 12px; }
     .hero { padding: 80px 24px 40px; }
     .rotate-grid { grid-template-columns: 1fr; padding: 0 20px; }
     .panel { display: none; }
     .readouts, .scroll-hint { display: none; }
-    .module-head, .ind-wrap, .clin-wrap, .about-head { grid-template-columns: 1fr; gap: 24px; }
+    .module-head, .ind-wrap, .ind-content, .clin-wrap, .about-head { grid-template-columns: 1fr; gap: 24px; }
     .process-fan:not(.is-ready) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .process-fan.is-ready { height: 430px; }
     .process-fan.is-ready .process-card { width: min(320px, 48vw); height: 390px; }
@@ -702,7 +724,7 @@
       <a href="#science">Science</a>
       <a href="#about">About</a>
     </div>
-    <a href="#" class="nav-cta">Request a fitting</a>
+    <a href="contact.html" class="nav-cta">Work With Us</a>
   </div>
 </nav>
 
@@ -713,7 +735,7 @@
     <h1>FaceShift</h1>
   </div>
   <p class="tagline">Reshape, not <em>reconstruct</em>.</p>
-  <p class="sub">A 30-second scan becomes a series of biocompatible silicone aligners, printed, magnetically retained, and gently corrective. Scroll to inspect the mold.</p>
+  <p class="sub">A 30-second scan becomes a series of biocompatible aligners: 3D-printed, custom-fit and worn, and gently corrective.</p>
   <div class="backed-tag-wrap">
     <a class="backed-tag" href="https://innovation.ucsf.edu/" target="_blank" rel="noopener">
       <span class="muted">Backed by</span> <strong>UCSF Innovation Ventures</strong>
@@ -728,18 +750,18 @@
     <div class="rotate-grid">
       <div class="panel left">
         <div class="tag">Material · Specimen 04-A</div>
-        <h2>Medical-grade silicone, printed in a single pass.</h2>
-        <p>Each shell is a soft, biocompatible elastomer. Optical clarity lets clinicians track tissue progress through the device without removal.</p>
+        <h2>Medical-grade biocompatibility, printed in a single pass.</h2>
+        <p>Each guide is biocompatible. Optical clarity lets clinicians track tissue progress through the device without removal.</p>
       </div>
 
       <div class="rotate-canvas-wrap">
-        <canvas id="ear-canvas" aria-label="Rotating 3D model of FaceShift silicone ear mold"></canvas>
+        <canvas id="ear-canvas" aria-label="Rotating 3D model of a FaceShift custom-fit guide"></canvas>
       </div>
 
       <div class="panel right">
         <div class="tag">Geometry · Patient-specific</div>
         <h2>Tailored to each patient, by clinicians who know them.</h2>
-        <p>A neural model plans a personalized sequence of aligners, each one gently repositioning cartilage before the next is delivered.</p>
+        <p>Each guide is custom-fit from a 3D print, sometimes in one piece and sometimes in two, to fit a wide range of ages and anatomy sizes. FaceShift primarily acts on cartilage and may also influence bone remodeling.</p>
       </div>
     </div>
   </div>
@@ -800,7 +822,7 @@
       <div class="stat-num">1 / 600</div>
       <div class="stat-label">U.S. births · cleft lip &amp; palate</div>
     </div>
-    <p>Customizable molding is an emerging market, EarWell, EarBuddies, InfantEar. <strong>FaceShift is the first 3D-printed predicate</strong>, replacing manually shaped devices with patient-specific aligners designed for each infant. Higher precision, lower cost, broader access.</p>
+    <p>FaceShift brings 3D scanning, patient-specific planning, and clinical follow-up together. Each guide is made for the patient's anatomy and treatment goals, with a design that supports practical fitting and care.</p>
   </div>
 </section>
 
@@ -808,47 +830,14 @@
 <section class="module" id="indications" data-screen-label="04 Indications">
   <div class="module-head">
     <div>
-      <h2 class="title">Where early molding works.</h2>
+      <h2 class="title">For a wider range of craniofacial differences.</h2>
     </div>
-    <p class="lede">Initially developed for ear deformities like lop and prominent ear, FaceShift extends to nasoalveolar molding for cleft lip and palate, jaw alignment, and other craniofacial differences, all in the soft-tissue window of the first weeks of life.</p>
+    <p class="lede">Initially developed for ear differences like lop and prominent ear, FaceShift extends to the nose, septum, jaws, and other craniofacial differences.</p>
   </div>
 
-  <div class="ind-wrap">
-    <div class="ind-stats">
-      <div class="ind-stat">
-        <div class="num">1<em>/600</em></div>
-        <div class="copy">
-          <h4>Cleft lip &amp; palate births</h4>
-          <p>The most common surgical difference in the United States. Children with cleft often face feeding, speech, and chronic ear-infection challenges, plus an average of 8–11 surgeries over childhood.</p>
-        </div>
-      </div>
-      <div class="ind-stat">
-        <div class="num">600<em>K</em></div>
-        <div class="copy">
-          <h4>U.S. infants with craniofacial differences</h4>
-          <p>These conditions impact self-esteem, social development, and mental health, primarily driven by stigmatization. Early correction during the cartilage-pliable window changes the trajectory.</p>
-        </div>
-      </div>
-      <div class="ind-stat">
-        <div class="num">≤6<em>wks</em></div>
-        <div class="copy">
-          <h4>The intervention window</h4>
-          <p>Soft tissue and cartilage remain pliable during the first weeks of life. Initiating molding inside this window often eliminates the need for later corrective surgery.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="ind-conditions">
-      <h3>Indication coverage</h3>
-      <ul class="ind-list">
-        <li><span class="dot"></span><span class="name">Lop ear<span>Helix folds forward over the concha</span></span><span class="stage">CLEARED</span></li>
-        <li><span class="dot"></span><span class="name">Prominent ear<span>Auricle sits more than 20° off the skull</span></span><span class="stage">CLEARED</span></li>
-        <li><span class="dot"></span><span class="name">Stahl's ear<span>Third crus deformation across the helix</span></span><span class="stage">PILOT</span></li>
-        <li><span class="dot" style="background:#3756a8; box-shadow: 0 0 0 4px rgba(55,86,168,0.12)"></span><span class="name">Cleft lip &amp; palate (NAM)<span>Nasoalveolar molding before primary repair</span></span><span class="stage">PILOT</span></li>
-        <li><span class="dot" style="background:#7c8db4; box-shadow: 0 0 0 4px rgba(124,141,180,0.12)"></span><span class="name">Mandibular alignment<span>Early-onset jaw asymmetry</span></span><span class="stage">RESEARCH</span></li>
-        <li><span class="dot" style="background:#7c8db4; box-shadow: 0 0 0 4px rgba(124,141,180,0.12)"></span><span class="name">Craniosynostosis adjunct<span>Post-operative shape retention</span></span><span class="stage">RESEARCH</span></li>
-      </ul>
-    </div>
+  <div class="ind-content">
+    <p>FaceShift primarily acts on cartilage and may also influence bone remodeling over time. Treatment planning is clinician-guided and tailored to the patient's anatomy and goals.</p>
+    <p>Each device is custom-fit from a 3D scan and printed in one or two pieces depending on the anatomy, allowing treatment across a wide range of ages and anatomy sizes.</p>
   </div>
 </section>
 
@@ -913,25 +902,25 @@
     <div>
       <h2 class="title">Why now is the right moment.</h2>
     </div>
-    <p class="lede">Recent advances in non-surgical molding, plus accessible 3D printing of biocompatible elastomers, have unlocked a corrective approach that was infeasible a decade ago.</p>
+    <p class="lede">Recent advances in non-surgical molding, combined with accessible 3D printing of biocompatible materials, have made a custom-guided approach more practical.</p>
   </div>
 
   <div class="sci-grid">
     <div class="sci-quote">
-      <div class="qmark">“</div>
-      <p>While infant tissues are still malleable, custom 3D-printed molds can maintain nasal structure, lower the pain of septoplasty healing, and correct cleft lip–palate, limiting the invasiveness of later surgery, or removing the need for it altogether.</p>
+      <img class="sci-feature-image" src="uploads/Right-Ear-Counterpart.png" alt="Right-ear example of the FaceShift custom alignment shell" loading="lazy">
+      <p>A single right-ear example is shown. The guide is custom-fit and worn day and night, applying gentle directional pressure to reshape cartilage within the pliability window.</p>
     </div>
 
     <div class="sci-side">
       <div class="sci-pill">
-        <div class="label">Engagement</div>
-        <h4>Market analysis &amp; business model</h4>
-        <p>The MTM team's work covers commercial viability alongside the science, mapping reimbursement, payer logic, and access pathways.</p>
+        <div class="label">Patient-specific design</div>
+        <h4>One-piece or two-piece fit</h4>
+        <p>The guide is 3D-printed from a patient scan, with its shape and configuration planned around anatomy, age, and treatment goals.</p>
       </div>
       <div class="sci-pill">
-        <div class="label">Engagement</div>
-        <h4>Research &amp; MVP development</h4>
-        <p>Iterating on print parameters, magnet retention, and aligner sequencing alongside Dr.&nbsp;Lin's clinic.</p>
+        <div class="label">In development</div>
+        <h4>Clinician-guided evaluation</h4>
+        <p>Care teams fit and review each guide, with follow-up informing how treatment adapts over time.</p>
       </div>
     </div>
 
@@ -941,22 +930,22 @@
         <div class="sci-step done">
           <div class="when">2024</div>
           <h5>Bench prototypes</h5>
-          <p>First printed silicone aligner sequences for lop and prominent ear.</p>
+          <p>Early patient-specific, 3D-printed guide prototypes.</p>
         </div>
         <div class="sci-step done">
           <div class="when">2025</div>
           <h5>Pilot fittings</h5>
-          <p>Initial patient cohorts at UCSF Benioff Children's Hospitals.</p>
+          <p>Development and clinical feedback at UCSF Benioff Children's Hospitals.</p>
         </div>
         <div class="sci-step now">
           <div class="when">2026 · NOW</div>
           <h5>Clinical pilot · NAM</h5>
-          <p>Extending the platform to nasoalveolar molding for cleft lip &amp; palate.</p>
+          <p>Exploring applications across additional craniofacial differences.</p>
         </div>
         <div class="sci-step">
           <div class="when">2027</div>
-          <h5>Multi-site rollout</h5>
-          <p>Expanding to four hospital partners with full FDA pre-submission feedback.</p>
+          <h5>Further evaluation</h5>
+          <p>Future clinical and regulatory milestones will guide next steps.</p>
         </div>
       </div>
     </div>
@@ -970,12 +959,12 @@
       <div>
         <h2 class="title">Beyond surgery.</h2>
       </div>
-      <p class="lede">Traditional surgeries for craniofacial deformities have been costly, invasive, and often delayed, placing unnecessary burden on children and their families. FaceShift reduces that burden by making correction available earlier in life, with the potential to impact thousands of families and let children grow up without the stigma of craniofacial differences.</p>
+      <p class="lede">Traditional surgeries for craniofacial differences have been costly, invasive, and often delayed until anatomy reaches near-adult size, placing unnecessary burden on children and their families. FaceShift brings clinical insight, 3D scanning, and patient-specific printing together to support more personalized care.</p>
     </div>
 
     <div class="about-pull">
-      <p>I'm passionate about this project because it brings together technology and medicine to create real change. I truly believe FaceShift can redefine early intervention and make a lasting impact.</p>
-      <cite><span>- Dr. Alexander Lin</span> · UCSF Plastic Surgery, capstone sponsor</cite>
+      <p>FaceShift's mission is to make custom craniofacial care more adaptable to the patient, bringing clinicians, digital modeling, and 3D printing together around each person's anatomy.</p>
+      <cite><span>FaceShift</span> · Clinician-guided, patient-specific care</cite>
     </div>
   </div>
 </section>
