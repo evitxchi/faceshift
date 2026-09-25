@@ -158,7 +158,7 @@ section.module {
   font-family: 'YDGothic 100 Pro', sans-serif;
   font-size: 10.5px;
   letter-spacing: 0.2em;
-  color: var(--teal-500);
+  color: #00575f;
   text-transform: uppercase;
   margin: 0 0 16px;
 }
